@@ -1,0 +1,54 @@
+.font-1-xxl {
+  font:
+    600 64px/72px "Poppins",
+    sans-serif;
+}
+
+.font-1-xl {
+  font:
+    600 32px/40px "Poppins",
+    sans-serif;
+}
+
+.font-1-l {
+  font:
+    400 24px/36px "Poppins",
+    sans-serif;
+}
+
+.font-1-m {
+  font:
+    400,
+    18px/24px "Poppins",
+    sans-serif;
+}
+
+.font-1-m-b {
+  font:
+    600 18px/24px "Poppins",
+    sans-serif;
+}
+
+.font-1-s {
+  font:
+    400 16px/24px "Poppins",
+    sans-serif;
+}
+
+.font-2-s {
+  font:
+    400 14px/22px "Roboto",
+    sans-serif;
+}
+
+.font-1-xs {
+  font:
+    600 12px/16px "Poppins",
+    sans-serif;
+}
+
+.font-2-xs {
+  font:
+    400 12px/16px "Roboto",
+    sans-serif;
+}
