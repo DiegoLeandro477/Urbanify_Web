@@ -3,15 +3,18 @@ import "./styles.css";
 
 const Header = () => {
   return (
-    <div className="container-bg">
-      <nav className="container">
+    <div className="container-bg header-bg">
+      <nav className="container header-container">
         <img
           src="/src/assets/images/LogoProvisoriaBranca.png"
           alt="image simples"
         />
-        <div className="perfil">
-          <img className="perfil-img" src="/src/assets/images/imgPerfil.png" />
-          <span className="perfil-name">Secretário</span>
+        <div className="header-perfil">
+          <img
+            className="header-perfil-img"
+            src="/src/assets/images/imgPerfil.png"
+          />
+          <span className="header-perfil-name">Secretário</span>
         </div>
       </nav>
     </div>

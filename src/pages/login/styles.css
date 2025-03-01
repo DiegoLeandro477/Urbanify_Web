@@ -1,4 +1,4 @@
-.container-bg {
+.container-login {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -6,10 +6,10 @@
   background-size: cover;
   height: 100vh;
 }
-header {
+.login-header {
   width: 100%;
 }
-main {
+.login-main {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -17,13 +17,7 @@ main {
   width: 100%;
 }
 
-footer {
-  width: 100%;
-  text-align: center;
-  margin-top: auto;
-  padding: 27px;
-}
-.container-logo {
+.login-container-logo {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -31,7 +25,7 @@ footer {
   margin-top: 125px;
 }
 
-.container-login {
+.login-container-form {
   display: flex;
   flex-direction: column;
   margin-top: 83.5px;
@@ -45,24 +39,24 @@ footer {
   border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 }
 
-.form {
+.login-form {
   display: flex;
   flex-direction: column;
   gap: 28px;
   margin: 24px 0;
 }
 
-.input-view {
+.login-input-view {
   display: flex;
   justify-content: center;
   background-color: #fff;
   padding: 8px 10px;
 }
 
-.icon {
+.login-icon {
   align-items: flex-start;
 }
-.input-text {
+.login-input-text {
   flex: 1;
   text-align: center;
   border: none;
@@ -71,7 +65,7 @@ footer {
   transition: border-color 0.3s ease;
 }
 
-.buttonSubmit {
+.login-buttonSubmit {
   background-color: var(--p1);
   color: var(--c12);
   width: 160px;
@@ -83,6 +77,13 @@ footer {
   transition: 0.4s;
 }
 
-.buttonSubmit:hover {
+.login-buttonSubmit:hover {
   background-color: var(--p2);
+}
+
+.login-footer {
+  width: 100%;
+  text-align: center;
+  margin-top: auto;
+  padding: 27px;
 }
