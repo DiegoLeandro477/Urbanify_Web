@@ -2,9 +2,10 @@
   display: flex;
   flex-direction: column;
   background-color: var(--c12);
-  width: 208px;
+  width: 280px;
   min-width: 208px;
   padding: 8px 0;
+  height: calc(100vh - 48px);
 }
 
 .nav ul {

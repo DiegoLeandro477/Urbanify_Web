@@ -1,42 +1,30 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
-import { AiOutlineDashboard } from "react-icons/ai";
-import { FaRankingStar } from "react-icons/fa6";
-import { SiGoogleanalytics } from "react-icons/si";
-import { MdDisplaySettings } from "react-icons/md";
+import MapReports from "../../components/mapReports/MapReports";
 import "./styles.css";
 
 const Dashboard = () => {
   return (
     <div className="dashboard">
       <ul>
-        <li>
-          <div className="dash-box-info">
-            <span className="font-1-s c4">Total de ocorrência</span>
-            <span className="font-1-xl c2 value">43.891</span>
-            <span className="font-1-xs c4">Acrêscimo de 20%</span>
-          </div>
+        <li className="dash-box-info">
+          <span className="font-1-s c4">Total de ocorrência</span>
+          <span className="font-1-xl c2 value">43.891</span>
+          <span className="font-1-xs c4">Acrêscimo de 20%</span>
         </li>
-        <li>
-          <div className="dash-box-info">
-            <span className="font-1-s c4">Bairros catalogados</span>
-            <span className="font-1-xl c2 value">94</span>
-            <span className="font-1-xs c4">Acrêscimo de 20%</span>
-          </div>
+        <li className="dash-box-info">
+          <span className="font-1-s c4">Bairros catalogados</span>
+          <span className="font-1-xl c2 value">94</span>
+          <span className="font-1-xs c4">Acrêscimo de 20%</span>
         </li>
-        <li>
-          <div className="dash-box-info">
-            <span className="font-1-s c4">Usuários atendidos</span>
-            <span className="font-1-xl c2 value">193.391</span>
-            <span className="font-1-xs c4">Sem variação</span>
-          </div>
+        <li className="dash-box-info">
+          <span className="font-1-s c4">Usuários atendidos</span>
+          <span className="font-1-xl c2 value">193.391</span>
+          <span className="font-1-xs c4">Sem variação</span>
         </li>
-        <li>
-          <div className="dash-box-info">
-            <span className="font-1-s c4">Usuários não atendidos</span>
-            <span className="font-1-xl c2 value">148.293</span>
-            <span className="font-1-xs c4">Reddução de 25%</span>
-          </div>
+        <li className="dash-box-info">
+          <span className="font-1-s c4">Usuários não atendidos</span>
+          <span className="font-1-xl c2 value">148.293</span>
+          <span className="font-1-xs c4">Reddução de 25%</span>
         </li>
       </ul>
 
@@ -59,6 +47,7 @@ const Dashboard = () => {
             <input type="date" name="dateInitial" id="dateInitial" />
           </div>
         </div>
+        <MapReports />
       </main>
     </div>
   );

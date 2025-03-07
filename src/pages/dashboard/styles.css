@@ -3,10 +3,18 @@
   flex: 1;
 }
 
+/* Lista infomação*/
+.dashboard > ul {
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+  gap: 24px;
+}
+
 .dash-box-info {
   display: flex;
   flex-direction: column;
-  width: 278px;
+  flex: 1;
   background-color: var(--c12);
   border-radius: 2px;
   border: 1px solid var(--c-10, rgba(237, 237, 237, 1));
@@ -19,19 +27,11 @@
   border-bottom: 1px solid var(--c10);
 }
 
-/* Lista infomação*/
-.dashboard > ul {
-  display: flex;
-  justify-content: space-between;
-  list-style: none;
-  gap: 24px;
-}
-
 /* filter map */
 
 .dash-mapper {
   background-color: var(--c12);
-  height: 402px;
+  height: calc(100vh - 340px);
 }
 
 .dash-filter {
