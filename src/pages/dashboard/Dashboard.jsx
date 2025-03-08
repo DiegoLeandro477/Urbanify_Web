@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import MapReports from "../../components/mapReports/MapReports";
 import "./styles.css";
 
+const ReportStatus = Object.freeze({
+  PENDENTE: 0,
+  RESOLVIDO: 1
+});
+
 const Dashboard = () => {
+  const [selectPR, setSelectPR] = useState(ReportStatus.PENDENTE);
+
   return (
     <div className="dashboard">
       <ul>
@@ -31,8 +38,8 @@ const Dashboard = () => {
       <main className="dash-mapper">
         <div className="dash-filter">
           <div className="filter-PR">
-            <span>Pendentes</span>
-            <span>Resolvidos</span>
+            <span className="font_1_m">Pendentes</span>
+            <span className="font_1_m">Resolvidos</span>
           </div>
           <div className="filter-severity">
             <ul>
