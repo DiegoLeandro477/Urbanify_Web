@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import MapReports from "../../components/mapReports/MapReports";
 import "./styles.css";
 
 const ReportStatus = Object.freeze({
   PENDENTE: 0,
-  RESOLVIDO: 1
+  RESOLVIDO: 1,
 });
 
 const Dashboard = () => {
-  const [selectPR, setSelectPR] = useState(ReportStatus.PENDENTE);
+  // const [selectPR, setSelectPR] = useState(ReportStatus.PENDENTE);
 
   return (
     <div className="dashboard">
@@ -54,7 +54,17 @@ const Dashboard = () => {
             <input type="date" name="dateInitial" id="dateInitial" />
           </div>
         </div>
-        <MapReports />
+        <div className="map-bg">
+          <div className="map-container">
+            <h1 className="font-1-s c4">
+              Mapa De Ocorrências que não foram resolvidas
+            </h1>
+            <MapReports />
+          </div>
+          <div className="map-info">
+            <h1 className="font-1-s c4">Bairros mais reportados</h1>
+          </div>
+        </div>
       </main>
     </div>
   );

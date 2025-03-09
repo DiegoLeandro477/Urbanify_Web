@@ -4,7 +4,7 @@
 }
 
 /* Lista infomação*/
-.dashboard>ul {
+.dashboard > ul {
   display: flex;
   justify-content: space-between;
   list-style: none;
@@ -29,16 +29,10 @@
 
 /* filter map */
 
-.dash-mapper {
-  background-color: var(--c12);
-  height: calc(100vh - 340px);
-}
-
 .dash-filter {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 52px;
   background-color: var(--c12);
   width: 100%;
   height: 56px;
@@ -52,9 +46,32 @@
   gap: 32px;
 }
 
-.filter-severity>ul {
+.filter-severity > ul {
   display: flex;
   list-style: none;
   gap: 20px;
   background-color: yellow;
+}
+
+.dash-mapper {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--c12);
+  margin-top: 52px;
+  height: calc(100vh - 310px);
+}
+
+.map-bg {
+  display: flex;
+  padding: 24px;
+  height: 92%;
+  justify-content: space-between;
+  gap: 200px;
+}
+
+.map-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 100%;
 }

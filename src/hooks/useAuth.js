@@ -14,7 +14,7 @@ const useAuth = () => {
 
   const signIn = async () => {
     try {
-      console.log(`Enviando[ ${email} - ${password}]`);
+      console.log("Login: ", { email, password });
       const response = await axios.post(`${url_api}/user/login`, {
         email,
         password,
