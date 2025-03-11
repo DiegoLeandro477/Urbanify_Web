@@ -1,9 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  saveRefreshToken,
-  saveAccessToken as saveAccessToken,
-} from "../services/acessToken";
+import { saveAccessToken } from "../services/acessToken";
 import { login } from "../services/requestHTTP";
 
 const useAuth = () => {
@@ -16,14 +13,12 @@ const useAuth = () => {
 
   const signIn = async () => {
     try {
-      console.log("Login: ", { email, password });
-      const response = login({ email, password });
-      console.log("data: ", JSON.stringify(response.data, null, 2));
-      const { accessToken, refreshToken } = response.data;
-      if (!response.data) return;
-      saveAccessToken(accessToken);
-      saveRefreshToken(refreshToken);
+      const response = await login({ email, password });
 
+      if (response.status !== 200) return;
+
+      const { accessToken } = response.data;
+      saveAccessToken(accessToken);
       navigate("/Dashboard");
     } catch (err) {
       console.log(`[AXIOS]: ${err}`);
