@@ -16,7 +16,6 @@ const useAuth = () => {
 
   const signIn = async () => {
     try {
-<<<<<<< HEAD
       console.log("Login: ", { email, password });
       const response = login({ email, password });
       console.log("data: ", JSON.stringify(response.data, null, 2));
@@ -24,18 +23,7 @@ const useAuth = () => {
       if (!response.data) return;
       saveAccessToken(accessToken);
       saveRefreshToken(refreshToken);
-=======
-      const response = await axios.post(`${url_api}/user/login`, {
-        email,
-        password,
-      });
 
-      const { accessToken } = response.data;
-
-      if (response.status !== 200) return;
-
-      saveToken(accessToken);
->>>>>>> f54d2c9 (update in login)
       navigate("/Dashboard");
     } catch (err) {
       console.log(`[AXIOS]: ${err}`);
