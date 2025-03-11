@@ -18,28 +18,28 @@ const RootLayout = () => {
               <NavLink className="nav-link" to={"/Dashboard"}>
                 <li>
                   <AiOutlineDashboard className="link-icon" size={14} />
-                  <span className="font-1-xs">Dashboard</span>
+                  <span className="font-xs">Dashboard</span>
                 </li>
               </NavLink>
 
               <NavLink className="nav-link" to={"/GestaoReparos"}>
                 <li>
                   <MdDisplaySettings className="link-icon" size={14} />
-                  <span className="font-1-xs">Gestão De Reparos</span>
+                  <span className="font-xs">Gestão De Reparos</span>
                 </li>
               </NavLink>
 
               <NavLink className="nav-link" to={"/AnalitycLogs"}>
                 <li>
                   <SiGoogleanalytics className="link-icon" size={14} />
-                  <span className="font-1-xs">Análises De Ocorrência</span>
+                  <span className="font-xs">Análises De Ocorrência</span>
                 </li>
               </NavLink>
 
               <NavLink className="nav-link" to={"/Ranking"}>
                 <li>
                   <FaRankingStar className="link-icon" size={14} />
-                  <span className="font-1-xs">Ranking</span>
+                  <span className="font-xs">Ranking</span>
                 </li>
               </NavLink>
             </ul>

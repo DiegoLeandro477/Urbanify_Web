@@ -29,13 +29,14 @@
   display: flex;
   flex-direction: column;
   margin-top: 83.5px;
-  width: 300px;
+  width: auto;
 }
 
 .title-login {
   width: 100%;
   text-align: center;
   align-items: center;
+  padding-bottom: 8px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 }
 
@@ -49,20 +50,57 @@
 .login-input-view {
   display: flex;
   justify-content: center;
+  align-items: center;
   background-color: #fff;
   padding: 8px 10px;
+  border-radius: 2px;
+  border: 1px solid var(--c8);
 }
 
 .login-icon {
   align-items: flex-start;
 }
+
 .login-input-text {
   flex: 1;
   text-align: center;
   border: none;
-  border-radius: 5px;
   outline: none;
   transition: border-color 0.3s ease;
+}
+
+.login-input-text::placeholder {
+  color: var(--c8);
+}
+
+.login__input--error {
+  border: 1px solid var(--red);
+}
+
+.input__legend {
+  display: inline-block;
+  margin-top: 0.5rem;
+  color: var(--red);
+}
+
+.hidden {
+  display: none;
+}
+
+.input__icon {
+  width: 1.2rem;
+  height: 1rem;
+  outline: none;
+  border: none;
+  background: none;
+}
+
+.img {
+  display: block;
+  border-radius: 5px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .login-buttonSubmit {
@@ -70,7 +108,7 @@
   color: var(--c12);
   width: 160px;
   height: 40px;
-  border-radius: 1px;
+  border-radius: 2px;
   border: 1px;
   align-self: center;
   cursor: pointer;

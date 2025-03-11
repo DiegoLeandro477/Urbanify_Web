@@ -14,24 +14,24 @@ const Dashboard = () => {
     <div className="dashboard">
       <ul>
         <li className="dash-box-info">
-          <span className="font-1-s c4">Total de ocorrência</span>
-          <span className="font-1-xl c2 value">43.891</span>
-          <span className="font-1-xs c4">Acrêscimo de 20%</span>
+          <span className="font-s c4">Total de ocorrência</span>
+          <span className="font-xl c2 value">43.891</span>
+          <span className="font-xs c4">Acrêscimo de 20%</span>
         </li>
         <li className="dash-box-info">
-          <span className="font-1-s c4">Bairros catalogados</span>
-          <span className="font-1-xl c2 value">94</span>
-          <span className="font-1-xs c4">Acrêscimo de 20%</span>
+          <span className="font-s c4">Bairros catalogados</span>
+          <span className="font-xl c2 value">94</span>
+          <span className="font-xs c4">Acrêscimo de 20%</span>
         </li>
         <li className="dash-box-info">
-          <span className="font-1-s c4">Usuários atendidos</span>
-          <span className="font-1-xl c2 value">193.391</span>
-          <span className="font-1-xs c4">Sem variação</span>
+          <span className="font-s c4">Usuários atendidos</span>
+          <span className="font-xl c2 value">193.391</span>
+          <span className="font-xs c4">Sem variação</span>
         </li>
         <li className="dash-box-info">
-          <span className="font-1-s c4">Usuários não atendidos</span>
-          <span className="font-1-xl c2 value">148.293</span>
-          <span className="font-1-xs c4">Reddução de 25%</span>
+          <span className="font-s c4">Usuários não atendidos</span>
+          <span className="font-xl c2 value">148.293</span>
+          <span className="font-xs c4">Reddução de 25%</span>
         </li>
       </ul>
 
@@ -56,13 +56,13 @@ const Dashboard = () => {
         </div>
         <div className="map-bg">
           <div className="map-container">
-            <h1 className="font-1-s c4">
+            <h1 className="font-s c4">
               Mapa De Ocorrências que não foram resolvidas
             </h1>
             <MapReports />
           </div>
           <div className="map-info">
-            <h1 className="font-1-s c4">Bairros mais reportados</h1>
+            <h1 className="font-s c4">Bairros mais reportados</h1>
           </div>
         </div>
       </main>
