@@ -44,7 +44,12 @@ const ClusterCircles = ({ points }) => {
       const zoom = map.getZoom();
       const bounds = map.getBounds();
       const clusters = supercluster.getClusters(
-        [bounds.getWest(), bounds.getSouth(), bounds.getEast(), bounds.getNorth()],
+        [
+          bounds.getWest(),
+          bounds.getSouth(),
+          bounds.getEast(),
+          bounds.getNorth(),
+        ],
         zoom
       );
       setClusters(clusters);
@@ -83,7 +88,6 @@ const ClusterCircles = ({ points }) => {
 };
 
 const MapReports = () => {
-
   return (
     <MapContainer
       center={position}

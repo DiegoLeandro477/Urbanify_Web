@@ -22,7 +22,7 @@ const RootLayout = () => {
                 </li>
               </NavLink>
 
-              <NavLink className="nav-link" to={"/SettingsRepair"}>
+              <NavLink className="nav-link" to={"/GestaoReparos"}>
                 <li>
                   <MdDisplaySettings className="link-icon" size={14} />
                   <span className="font-1-xs">Gestão De Reparos</span>
