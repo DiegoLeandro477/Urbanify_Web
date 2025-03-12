@@ -1,45 +1,90 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import MapReports from "../../components/mapReports/MapReports";
 import "./styles.css";
-
-const ReportStatus = Object.freeze({
-  PENDENTE: 0,
-  RESOLVIDO: 1,
-});
+import useReports from "../../hooks/useReports";
+import CardInfo from "../../components/cardInfo/CardInfo";
+import { totalOcorrencias } from "../../services/statistics";
+import { ReportStatus } from "../../utils/StatusEnum";
 
 const Dashboard = () => {
-  // const [selectPR, setSelectPR] = useState(ReportStatus.PENDENTE);
+  const [filter, setFilter] = useState([ReportStatus.PENDENTE]);
+  const { reports } = useReports();
+
+  const handleFilterChange = (status) => {
+    console.log("Mudando para: ", status);
+    status === ReportStatus.PENDENTE
+      ? setFilter([ReportStatus.PENDENTE, ReportStatus.AVALIADO])
+      : setFilter([ReportStatus.CONCLUIDO]); // Apenas CONCLUIDO
+  };
+  useEffect(() => {
+    console.log(
+      "asfd",
+      [ReportStatus.CONCLUIDO].some((status) => filter.includes(status))
+        ? "selected"
+        : ""
+    );
+  }, [filter]);
 
   return (
     <div className="dashboard">
       <ul>
         <li className="dash-box-info">
-          <span className="font-s c4">Total de ocorrência</span>
-          <span className="font-xl c2 value">43.891</span>
-          <span className="font-xs c4">Acrêscimo de 20%</span>
+          <CardInfo
+            title={"Total de Ocorrências"}
+            value={totalOcorrencias(reports)}
+            incrementValue={`Acressimo de 20%`}
+          />
         </li>
         <li className="dash-box-info">
-          <span className="font-s c4">Bairros catalogados</span>
-          <span className="font-xl c2 value">94</span>
-          <span className="font-xs c4">Acrêscimo de 20%</span>
+          <CardInfo
+            title={"Bairros Catalogados"}
+            value={24.15}
+            incrementValue={`Acressimo de 20%`}
+          />
         </li>
         <li className="dash-box-info">
-          <span className="font-s c4">Usuários atendidos</span>
-          <span className="font-xl c2 value">193.391</span>
-          <span className="font-xs c4">Sem variação</span>
+          <CardInfo
+            title={"Usuários atendidos"}
+            value={24.15}
+            incrementValue={`Acressimo de 20%`}
+          />
         </li>
         <li className="dash-box-info">
-          <span className="font-s c4">Usuários não atendidos</span>
-          <span className="font-xl c2 value">148.293</span>
-          <span className="font-xs c4">Reddução de 25%</span>
+          <CardInfo
+            title={"Usuários não atendidos"}
+            value={24.15}
+            incrementValue={`Acressimo de 20%`}
+          />
         </li>
       </ul>
 
       <main className="dash-mapper">
         <div className="dash-filter">
-          <div className="filter-PR">
-            <span className="font_1_m">Pendentes</span>
-            <span className="font_1_m">Resolvidos</span>
+          <div className="filter-PR font-m c4">
+            <span
+              className={` ${
+                [ReportStatus.PENDENTE, ReportStatus.AVALIADO].some((status) =>
+                  filter.includes(status)
+                )
+                  ? "selected"
+                  : ""
+              }`}
+              onClick={() => handleFilterChange(ReportStatus.PENDENTE)}
+            >
+              Pendentes
+            </span>
+            <span
+              className={` ${
+                [ReportStatus.CONCLUIDO].some((status) =>
+                  filter.includes(status)
+                )
+                  ? "selected"
+                  : ""
+              }`}
+              onClick={() => handleFilterChange(ReportStatus.CONCLUIDO)}
+            >
+              Resolvidos
+            </span>
           </div>
           <div className="filter-severity">
             <ul>
@@ -59,7 +104,7 @@ const Dashboard = () => {
             <h1 className="font-s c4">
               Mapa De Ocorrências que não foram resolvidas
             </h1>
-            <MapReports />
+            <MapReports reports={reports} filter={filter} />
           </div>
           <div className="map-info">
             <h1 className="font-s c4">Bairros mais reportados</h1>

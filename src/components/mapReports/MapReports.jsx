@@ -3,14 +3,12 @@ import { MapContainer, Circle, TileLayer, useMap } from "react-leaflet";
 import Supercluster from "supercluster"; // Biblioteca para agrupamento
 import "leaflet/dist/leaflet.css";
 import "./styles.css";
-import { markers } from "../../../data"; // Importando os dados dos marcadores
 
 const position = [-2.5387, -44.2825];
 const bounds = [
   [-2.6, -44.35], // Sudoeste
   [-2.45, -44.15], // Nordeste
 ];
-
 // 📌 Função que agrupa os círculos usando Supercluster
 const ClusterCircles = ({ points }) => {
   const map = useMap();
@@ -19,27 +17,30 @@ const ClusterCircles = ({ points }) => {
   // Criando o Supercluster
   const supercluster = new Supercluster({
     radius: 80, // Quanto maior, mais cedo os pontos se agrupam
-    maxZoom: 18, // Zoom máximo antes de desagrupar
+    maxZoom: 15, // Zoom máximo antes de desagrupar
   });
 
-  // Convertendo os pontos para GeoJSON
-  const geojsonData = {
-    type: "FeatureCollection",
-    features: points.map((point) => ({
-      type: "Feature",
-      properties: { id: point.id },
-      geometry: {
-        type: "Point",
-        coordinates: [point.coordinates.longitude, point.coordinates.latitude],
-      },
-    })),
-  };
-
-  // Carregando os dados no Supercluster
-  supercluster.load(geojsonData.features);
-
-  // Atualiza os clusters ao mudar o zoom
   useEffect(() => {
+    // Convertendo os pontos para GeoJSON sempre que os pontos mudarem
+    const geojsonData = {
+      type: "FeatureCollection",
+      features: points.map((point) => ({
+        type: "Feature",
+        properties: { id: point.id },
+        geometry: {
+          type: "Point",
+          coordinates: [
+            point.coordinates.longitude,
+            point.coordinates.latitude,
+          ],
+        },
+      })),
+    };
+
+    // Carregando os dados no Supercluster
+    supercluster.load(geojsonData.features);
+
+    // Atualiza os clusters ao mudar o zoom
     const updateClusters = () => {
       const zoom = map.getZoom();
       const bounds = map.getBounds();
@@ -60,7 +61,7 @@ const ClusterCircles = ({ points }) => {
     return () => {
       map.off("zoomend", updateClusters);
     };
-  }, [map]);
+  }, [points, map]); // Dependência dos pontos e do mapa
 
   return (
     <>
@@ -86,8 +87,18 @@ const ClusterCircles = ({ points }) => {
     </>
   );
 };
+const MapReports = ({ reports, filter }) => {
+  const [filteredReports, setFilteredReports] = useState(reports);
 
-const MapReports = () => {
+  useEffect(() => {
+    // Aplica o filtro e atualiza os relatórios
+    const updatedReports = reports.filter((report) =>
+      filter.includes(report.status)
+    );
+    setFilteredReports(updatedReports);
+    console.log("Reports filtrados:", updatedReports);
+  }, [filter, reports]); // Atualiza quando o filtro ou os reports mudam
+
   return (
     <MapContainer
       center={position}
@@ -100,7 +111,7 @@ const MapReports = () => {
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
       {/* Chamando o componente que agrupa os círculos */}
-      <ClusterCircles points={markers} />
+      <ClusterCircles points={filteredReports} />
     </MapContainer>
   );
 };
