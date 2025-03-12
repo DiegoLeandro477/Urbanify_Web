@@ -1,127 +1,53 @@
-.container-login {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-image: url("/public/bg.png");
-  background-size: cover;
+.login {
   height: 100vh;
-}
-.login-header {
-  width: 100%;
-}
-.login-main {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  height: 100%;
-  width: 100%;
+  justify-content: center;
 }
 
-.login-container-logo {
+.login__header {
+  margin-bottom: 4rem;
+}
+
+.header__content {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 16px;
-  margin-top: 125px;
 }
 
-.login-container-form {
+.login__main {
   display: flex;
   flex-direction: column;
-  margin-top: 83.5px;
-  width: auto;
+  align-items: center;
 }
 
-.title-login {
-  width: 100%;
+.main__content {
+  display: flex;
+  gap: 2rem;
+  flex-direction: column;
+}
+
+.login__title {
   text-align: center;
   align-items: center;
   padding-bottom: 8px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 }
 
-.login-form {
+.login__form {
   display: flex;
   flex-direction: column;
-  gap: 28px;
-  margin: 24px 0;
+  gap: 2.5rem;
+  width: 22.5rem;
 }
 
-.login-input-view {
+.login__footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  box-sizing: border-box;
   display: flex;
   justify-content: center;
-  align-items: center;
-  background-color: #fff;
-  padding: 8px 10px;
-  border-radius: 2px;
-  border: 1px solid var(--c8);
-}
-
-.login-icon {
-  align-items: flex-start;
-}
-
-.login-input-text {
-  flex: 1;
-  text-align: center;
-  border: none;
-  outline: none;
-  transition: border-color 0.3s ease;
-}
-
-.login-input-text::placeholder {
-  color: var(--c8);
-}
-
-.login__input--error {
-  border: 1px solid var(--red);
-}
-
-.input__legend {
-  display: inline-block;
-  margin-top: 0.5rem;
-  color: var(--red);
-}
-
-.hidden {
-  display: none;
-}
-
-.input__icon {
-  width: 1.2rem;
-  height: 1rem;
-  outline: none;
-  border: none;
-  background: none;
-}
-
-.img {
-  display: block;
-  border-radius: 5px;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.login-buttonSubmit {
-  background-color: var(--p1);
-  color: var(--c12);
-  width: 160px;
-  height: 40px;
-  border-radius: 2px;
-  border: 1px;
-  align-self: center;
-  cursor: pointer;
-  transition: 0.4s;
-}
-
-.login-buttonSubmit:hover {
-  background-color: var(--p2);
-}
-
-.login-footer {
-  width: 100%;
-  text-align: center;
-  margin-top: auto;
-  padding: 27px;
+  padding: 2rem;
 }
