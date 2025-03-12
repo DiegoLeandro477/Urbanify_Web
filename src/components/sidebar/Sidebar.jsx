@@ -4,7 +4,6 @@ import "./style.css";
 import { NavLink } from "react-router-dom";
 import { AiOutlineDashboard } from "react-icons/ai";
 import { AiOutlineControl } from "react-icons/ai";
-
 import { VscGraph } from "react-icons/vsc";
 import { GoTrophy } from "react-icons/go";
 
@@ -13,7 +12,7 @@ const Header = () => {
     <nav className="nav">
       <ul className="nav__list">
         <NavLink className="nav-link" to={"/Dashboard"}>
-          <li className="nav__item nav__item--active">
+          <li className="nav__item active">
             <AiOutlineDashboard className="item__icon p1" size={14} />
             <span className="font-xs nav__text p1">Dashboard</span>
           </li>

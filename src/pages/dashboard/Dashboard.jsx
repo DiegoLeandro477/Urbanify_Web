@@ -32,28 +32,28 @@ const Dashboard = () => {
           <CardInfo
             title={"Total de Ocorrências"}
             value={totalOcorrencias(reports)}
-            incrementValue={`Acressimo de 20%`}
+            incrementValue={20}
           />
         </li>
         <li className="dash-box-info">
           <CardInfo
             title={"Bairros Catalogados"}
             value={24.15}
-            incrementValue={`Acressimo de 20%`}
+            incrementValue={20}
           />
         </li>
         <li className="dash-box-info">
           <CardInfo
             title={"Usuários atendidos"}
             value={24.15}
-            incrementValue={`Acressimo de 20%`}
+            incrementValue={-20}
           />
         </li>
         <li className="dash-box-info">
           <CardInfo
             title={"Usuários não atendidos"}
             value={24.15}
-            incrementValue={`Acressimo de 20%`}
+            incrementValue={-20}
           />
         </li>
       </ul>

@@ -21,7 +21,7 @@
   padding-right: 1rem;
 }
 
-.nav__item--active {
+.active {
   background-color: rgba(0, 123, 255, 0.15);
   border-right: 4px solid var(--p1);
 }
