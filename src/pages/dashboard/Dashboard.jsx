@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
+import "./styles.css";
 
-import MapReports from "../../components/mapReports/MapReports";
+import CardInfo from "../../components/dashboard/cardInfo/CardInfo";
+import MapReports from "../../components/dashboard/mapReports/MapReports";
 import FilterServerity from "../../components/dashboard/filterServerity/FilterSeverity";
 import DateRanger from "../../components/dashboard/dateRanger/DateRanger";
 
-import "./styles.css";
 import useReports from "../../hooks/useReports";
-import CardInfo from "../../components/cardInfo/CardInfo";
+
 import { totalOcorrencias } from "../../services/statistics";
 import { ReportStatus } from "../../utils/StatusEnum";
 

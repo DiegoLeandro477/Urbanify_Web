@@ -3,7 +3,7 @@ import { MapContainer, Circle, TileLayer, useMap } from "react-leaflet";
 import Supercluster from "supercluster"; // Biblioteca para agrupamento
 import "leaflet/dist/leaflet.css";
 import "./styles.css";
-import { markers } from "../../../data"; // Importando os dados dos marcadores
+import { markers } from "../../../../data"; // Importando os dados dos marcadores
 
 const position = [-2.5387, -44.2825];
 const bounds = [
