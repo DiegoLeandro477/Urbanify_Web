@@ -43,13 +43,6 @@
   color: var(--p1);
 }
 
-.filter-severity > ul {
-  display: flex;
-  list-style: none;
-  gap: 20px;
-  background-color: yellow;
-}
-
 .dash-mapper {
   display: flex;
   flex-direction: column;

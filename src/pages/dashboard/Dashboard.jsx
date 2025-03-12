@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import MapReports from "../../components/mapReports/MapReports";
+import FilterServerity from "../../components/dashboard/filterServerity/FilterSeverity";
 import "./styles.css";
 import useReports from "../../hooks/useReports";
 import CardInfo from "../../components/cardInfo/CardInfo";
@@ -60,7 +61,7 @@ const Dashboard = () => {
 
       <main className="dash-mapper">
         <div className="dash-filter">
-          <div className="filter-PR font-m c4">
+          <div className="font-m filter-PR c4">
             <span
               className={` ${
                 [ReportStatus.PENDENTE, ReportStatus.AVALIADO].some((status) =>
@@ -86,13 +87,9 @@ const Dashboard = () => {
               Resolvidos
             </span>
           </div>
-          <div className="filter-severity">
-            <ul>
-              <li>Todas ocorrências</li>
-              <li>Somente graves</li>
-              <li>Somente moderados</li>
-            </ul>
-          </div>
+
+          <FilterServerity />
+
           <div className="filter-data">
             <input type="date" name="dateInitial" id="dateInitial" />
             <span> --) </span>
