@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "../components/header/Header";
+import Header from "../components/navbar/Navbar";
 import { NavLink, Outlet } from "react-router-dom";
 import { AiOutlineDashboard } from "react-icons/ai";
 import { MdDisplaySettings } from "react-icons/md";

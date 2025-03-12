@@ -26,7 +26,7 @@ function Login() {
       <div className="login__content">
         <header className="login__header">
           <div className="header__content">
-            <img src="./src/assets/images/LOGO.svg" />
+            <img src="./src/assets/images/logo-black.svg" />
             <label className="font-s c6">
               Uma rua reparada não é apenas um conserto, mas o caminho para o
               progresso.
