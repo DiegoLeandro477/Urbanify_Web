@@ -37,7 +37,7 @@ function Login() {
           <div className="main__content">
             <h1 className="font-xl p1 login__title">Login</h1>
             <div className="login__form">
-              <div className="input__box">
+              <div className="form__box">
                 <img src="/src/assets/icons/login/user.svg" />
                 <input
                   className={`font-s c4 form__input `}
@@ -50,7 +50,7 @@ function Login() {
               </div>
 
               <div>
-                <div className="input__box">
+                <div className="form__box">
                   <img
                     className="icon"
                     src="/src/assets/icons/login/lock.svg"

@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
+
 import MapReports from "../../components/mapReports/MapReports";
 import FilterServerity from "../../components/dashboard/filterServerity/FilterSeverity";
+import DateRanger from "../../components/dashboard/dateRanger/DateRanger";
+
 import "./styles.css";
 import useReports from "../../hooks/useReports";
 import CardInfo from "../../components/cardInfo/CardInfo";
@@ -90,11 +93,7 @@ const Dashboard = () => {
 
           <FilterServerity />
 
-          <div className="filter-data">
-            <input type="date" name="dateInitial" id="dateInitial" />
-            <span> --) </span>
-            <input type="date" name="dateInitial" id="dateInitial" />
-          </div>
+          <DateRanger />
         </div>
         <div className="map-bg">
           <div className="map-container">
