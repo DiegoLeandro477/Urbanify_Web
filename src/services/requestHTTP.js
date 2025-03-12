@@ -4,7 +4,11 @@ const url_api = import.meta.env.VITE_URBANIFY_API;
 
 export const login = async (obj) => {
   try {
-    return await axios.post(`${url_api}/user/login`, obj);
+    const response = await axios.post(`${url_api}/user/login`, obj, {
+      headers: { "Content-Type": "application/json" },
+    });
+
+    return response;
   } catch (err) {
     console.error("[LOGIN]: ", err);
     return null;

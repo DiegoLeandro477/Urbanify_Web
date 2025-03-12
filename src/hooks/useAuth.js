@@ -19,7 +19,7 @@ const useAuth = () => {
 
       const { accessToken } = response.data;
       saveAccessToken(accessToken);
-      navigate("/Dashboard");
+      navigate("/dashboard");
     } catch (err) {
       console.log(`[AXIOS]: ${err}`);
 
