@@ -1,16 +1,59 @@
-import React from "react";
-import { MapContainer, Circle, TileLayer } from "react-leaflet";
-// import Supercluster from "supercluster"; // Biblioteca para agrupamento
+import React, { useEffect } from "react";
+import { MapContainer, TileLayer, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import "./styles.css";
-// import { reports } from "../../../../data"; // Importando os dados dos marcadoresg
-import { reports } from "../../../../reports"; // Importa os reports
+import "leaflet.markercluster/dist/MarkerCluster.css";
+import "leaflet.markercluster/dist/MarkerCluster.Default.css";
+import "leaflet.markercluster";
+import L from "leaflet";
+import { reports } from "../../../../reports";
+import mediaOfChildrensForReports from "../../../utils/mediaOfChildrensForReports";
 
 const position = [-2.5387, -44.2825];
 const bounds = [
-  [-2.6, -44.35], // Sudoeste
-  [-2.45, -44.15], // Nordeste
+  [0, -42], // Sudoeste
+  [-4, -46], // Nordeste
 ];
+
+const childrenMedia = mediaOfChildrensForReports(reports);
+
+const ClusterMarkers = ({ reports }) => {
+  const map = useMap();
+
+  useEffect(() => {
+    const markers = L.markerClusterGroup();
+
+    reports.forEach((report) => {
+      const latitude = parseFloat(
+        report.coordinates.latitude.replace(/['"]/g, "")
+      );
+      const longitude = parseFloat(
+        report.coordinates.longitude.replace(/['"]/g, "")
+      );
+
+      const childrenLength = report.childrens.length;
+      let colorMarker = "blue";
+      if (childrenLength > childrenMedia / 2) colorMarker = "yellow";
+      if (childrenLength > childrenMedia / 1.5) colorMarker = "orange";
+      if (childrenLength > childrenMedia / 0.6) colorMarker = "red";
+
+      const marker = L.circleMarker([latitude, longitude], {
+        color: colorMarker,
+        fillOpacity: 0.7,
+      });
+
+      markers.addLayer(marker);
+    });
+
+    map.addLayer(markers);
+
+    return () => {
+      map.removeLayer(markers);
+    };
+  }, [map, reports]);
+
+  return null;
+};
+
 const MapReports = () => {
   return (
     <MapContainer
@@ -22,29 +65,7 @@ const MapReports = () => {
       maxBoundsViscosity={1.0}
     >
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-
-      {/* Adicionando círculos para cada report */}
-      {reports.map((report, index) => {
-        const lat = parseFloat(
-          report.coordinates.latitude.replace(/['"]/g, "")
-        );
-        const lng = parseFloat(
-          report.coordinates.longitude.replace(/['"]/g, "")
-        );
-
-        return (
-          <Circle
-            key={index}
-            center={[lat, lng]}
-            radius={50} // Ajuste o raio conforme necessário
-            pathOptions={{
-              color: "none",
-              fillColor: "red",
-              fillOpacity: 0.6,
-            }}
-          />
-        );
-      })}
+      <ClusterMarkers reports={reports} />
     </MapContainer>
   );
 };

@@ -4,7 +4,7 @@ import "./style.css";
 const Ranking = () => {
   return (
     <section>
-      <h3 className="font-s mb-2 c2">Bairros mais reportados</h3>
+      <h3 className="font-s mb-1-5 c2">Bairros mais reportados</h3>
 
       <div className="ranking">
         <div className="rankink__item">
