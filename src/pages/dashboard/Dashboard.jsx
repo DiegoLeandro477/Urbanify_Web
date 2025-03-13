@@ -5,6 +5,7 @@ import CardInfo from "../../components/dashboard/cardInfo/CardInfo";
 import MapReports from "../../components/dashboard/mapReports/MapReports";
 import FilterServerity from "../../components/dashboard/filterServerity/FilterSeverity";
 import DateRanger from "../../components/dashboard/dateRanger/DateRanger";
+import Ranking from "../../components/dashboard/ranking/Ranking";
 
 import useReports from "../../hooks/useReports";
 
@@ -103,9 +104,8 @@ const Dashboard = () => {
             </h1>
             <MapReports reports={reports} filter={filter} />
           </div>
-          <div className="map-info">
-            <h1 className="font-s c4">Bairros mais reportados</h1>
-          </div>
+
+          <Ranking />
         </div>
       </main>
     </div>

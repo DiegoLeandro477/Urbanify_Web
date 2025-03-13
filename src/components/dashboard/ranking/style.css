@@ -1,0 +1,35 @@
+.ranking {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.rankink__item {
+  display: flex;
+  justify-content: space-between;
+}
+
+.rankin__left {
+  display: flex;
+  gap: 1rem;
+  margin-right: 1rem;
+}
+
+.ranking__position {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--red);
+  color: var(--c12);
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0.5rem;
+  border-radius: 50%;
+}
+
+.ranking__text {
+  max-width: 20ch;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

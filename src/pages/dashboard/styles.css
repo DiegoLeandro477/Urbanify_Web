@@ -52,11 +52,12 @@
 }
 
 .map-bg {
-  display: flex;
-  padding: 24px;
-  height: 92%;
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  padding: 1.5rem;
+  height: 100%;
   justify-content: space-between;
-  gap: 200px;
+  gap: 5rem;
 }
 
 .map-container {
