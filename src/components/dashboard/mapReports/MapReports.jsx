@@ -3,7 +3,7 @@ import { MapContainer, Circle, TileLayer, useMap } from "react-leaflet";
 import Supercluster from "supercluster"; // Biblioteca para agrupamento
 import "leaflet/dist/leaflet.css";
 import "./styles.css";
-import { markers } from "../../../../data"; // Importando os dados dos marcadores
+// import { markers } from "../../../../data"; // Importando os dados dos marcadores
 
 const position = [-2.5387, -44.2825];
 const bounds = [
@@ -18,8 +18,8 @@ const ClusterCircles = ({ points }) => {
 
   // Criando o Supercluster
   const supercluster = new Supercluster({
-    radius: 80, // Quanto maior, mais cedo os pontos se agrupam
-    maxZoom: 18, // Zoom máximo antes de desagrupar
+    radius: 20, // Quanto maior, mais cedo os pontos se agrupam
+    maxZoom: 15, // Zoom máximo antes de desagrupar
   });
 
   // Convertendo os pontos para GeoJSON
@@ -68,7 +68,7 @@ const ClusterCircles = ({ points }) => {
         const [lng, lat] = cluster.geometry.coordinates;
         const isCluster = cluster.properties.cluster;
         const count = cluster.properties.point_count || 1;
-        const radius = isCluster ? count * 500 : 50; // Se for um cluster, aumenta o círculo
+        const radius = isCluster ? count * 50 : 50; // Se for um cluster, aumenta o círculo
 
         return (
           <Circle
@@ -87,7 +87,7 @@ const ClusterCircles = ({ points }) => {
   );
 };
 
-const MapReports = () => {
+const MapReports = ({ reports }) => {
   return (
     <MapContainer
       center={position}
@@ -100,7 +100,7 @@ const MapReports = () => {
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
       {/* Chamando o componente que agrupa os círculos */}
-      <ClusterCircles points={markers} />
+      <ClusterCircles points={reports} />
     </MapContainer>
   );
 };

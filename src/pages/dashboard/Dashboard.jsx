@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./styles.css";
 
 import CardInfo from "../../components/dashboard/cardInfo/CardInfo";
@@ -22,14 +22,6 @@ const Dashboard = () => {
       ? setFilter([ReportStatus.PENDENTE, ReportStatus.AVALIADO])
       : setFilter([ReportStatus.CONCLUIDO]); // Apenas CONCLUIDO
   };
-  useEffect(() => {
-    console.log(
-      "asfd",
-      [ReportStatus.CONCLUIDO].some((status) => filter.includes(status))
-        ? "selected"
-        : ""
-    );
-  }, [filter]);
 
   return (
     <div className="dashboard">
