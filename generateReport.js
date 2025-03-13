@@ -45,7 +45,7 @@ const reportMonteCastelo = {
 };
 
 function randomDigit() {
-  return Math.floor(Math.random() * 10).toString();
+  return Math.floor(Math.random() * 100000000).toString();
 }
 
 function randomLetter() {
@@ -59,8 +59,8 @@ for (let i = 0; i <= 1000; i++) {
     ...reportLiberdade,
     geohash: `7p898${randomDigit()}${randomLetter()}`,
     coordinates: {
-      latitude: `-2.5325999611122${randomDigit()}${randomDigit()}${randomDigit()}"`,
-      longitude: `-44.284021668688${randomDigit()}${randomDigit()}${randomDigit()}"`,
+      latitude: `-2.5325${randomDigit()}"`,
+      longitude: `-44.284${randomDigit()}"`,
     },
   };
 
@@ -72,15 +72,15 @@ for (let i = 0; i < 1000; i++) {
     ...reportMonteCastelo,
     geohash: `7p898${randomDigit()}${randomLetter()}`,
     coordinates: {
-      latitude: `-2.5325999611122${randomDigit()}${randomDigit()}${randomDigit()}"`,
-      longitude: `-44.284021668688${randomDigit()}${randomDigit()}${randomDigit()}"`,
+      latitude: `-2.5325${randomDigit()}"`,
+      longitude: `-44.284${randomDigit()}"`,
     },
   };
 
   reports.push(report);
 }
 
-fs.writeFile("arquivo.js", JSON.stringify(reports), "utf8", (err) => {
+fs.writeFile("reports.js", JSON.stringify(reports), "utf8", (err) => {
   if (err) {
     console.error("Erro ao escrever o arquivo:", err);
     return;
