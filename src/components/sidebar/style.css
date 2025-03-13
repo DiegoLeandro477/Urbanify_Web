@@ -27,6 +27,12 @@
   border-right: 2px solid var(--p1);
 }
 
+.active li span,
+.active li svg {
+  color: var(--p1);
+  fill: var(--p1);
+}
+
 .layout {
   display: flex;
 }

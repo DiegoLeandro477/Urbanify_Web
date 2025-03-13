@@ -5,6 +5,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import Dashboard from "./pages/dashboard/Dashboard";
+import Management from "./pages/management/Management";
 import Login from "./pages/login/Login";
 import RootLayout from "./layout/RootLayout";
 
@@ -15,6 +16,7 @@ function App() {
         <Route index element={<Login />} />
         <Route path="/" element={<RootLayout />}>
           <Route path="dashboard" element={<Dashboard />} />
+          <Route path="management" element={<Management />} />
         </Route>
       </>
     )
