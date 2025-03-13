@@ -1,6 +1,6 @@
 import React from "react";
 import { MapContainer, Circle, TileLayer } from "react-leaflet";
-import Supercluster from "supercluster"; // Biblioteca para agrupamento
+// import Supercluster from "supercluster"; // Biblioteca para agrupamento
 import "leaflet/dist/leaflet.css";
 import "./styles.css";
 // import { reports } from "../../../../data"; // Importando os dados dos marcadoresg
