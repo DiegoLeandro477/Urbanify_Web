@@ -23,6 +23,7 @@
   padding: 0 24px;
   border: 1px solid var(--c-10, rgba(237, 237, 237, 1));
   gap: 20px;
+  border-radius: 2px;
 }
 
 .filter-PR {
@@ -49,6 +50,7 @@
   background-color: var(--c12);
   margin-top: 52px;
   height: calc(100vh - 310px);
+  border-radius: 2px;
 }
 
 .map-bg {
