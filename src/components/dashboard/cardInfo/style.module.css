@@ -1,4 +1,4 @@
-.card-container {
+.card__container {
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -11,7 +11,7 @@
   border-bottom: 1px solid var(--c10);
 }
 
-.dash-box-info {
+.dash__box__info {
   display: flex;
   flex-direction: column;
   flex: 1;

@@ -2,18 +2,21 @@ import React from "react";
 import Navbar from "../components/navbar/Navbar";
 import Sidebar from "../components/sidebar/Sidebar";
 import { Outlet } from "react-router-dom";
+import style from "./style.module.css";
 
 const RootLayout = () => {
   return (
-    <div>
+    <>
       <Navbar />
-      <div className="container-bg">
-        <div className="container layout">
-          <Sidebar />
+
+      <div className={`${style.layout}`}>
+        <Sidebar />
+
+        <div>
           <Outlet />
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -1,5 +1,5 @@
 import React from "react";
-import "./styles.css";
+import style from "./style.module.css";
 
 import { FaCaretUp } from "react-icons/fa";
 import { FaCaretDown } from "react-icons/fa";
@@ -18,10 +18,11 @@ const CardInfo = ({ title, value, incrementValue }) => {
     );
 
   return (
-    <div className="card-container">
+    <div className={`${style.card__container}`}>
       <span className="font-s c4">{title}</span>
-      <span className="font-xl c2 value">{value}</span>
-      <div className="card__increment">
+      <span className={`font-xl c2 ${style.value}`}>{value}</span>
+
+      <div className={`${style.card__increment}`}>
         <span className="font-xs c4">{incrementText}</span>
         {incrementIcon}
       </div>

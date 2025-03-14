@@ -4,7 +4,7 @@
   background-color: var(--c12);
   padding: 0.5rem 0;
   box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
-  height: calc(100vh - 4rem);
+  min-height: calc(100vh - 4rem);
 }
 
 .nav__list {
@@ -31,10 +31,6 @@
 .active li svg {
   color: var(--p1);
   fill: var(--p1);
-}
-
-.layout {
-  display: flex;
 }
 
 .item__icon {

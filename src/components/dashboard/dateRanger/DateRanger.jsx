@@ -1,5 +1,5 @@
 import React from "react";
-import "./style.css";
+import style from "./style.module.css";
 
 import { MdOutlineDateRange } from "react-icons/md";
 
@@ -20,12 +20,12 @@ const DateRanger = () => {
   }, []);
 
   return (
-    <div className="picker__box">
+    <div className={`${style.picker__box}`}>
       <input
         ref={inputRef}
         type="text"
         placeholder="Data inicial -> Data final"
-        className="font-xs c4 picker__input"
+        className={`font-xs c4 ${style.picker__input}`}
       />
 
       <MdOutlineDateRange className="c4" />

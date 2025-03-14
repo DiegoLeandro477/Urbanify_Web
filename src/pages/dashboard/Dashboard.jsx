@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./styles.css";
+import style from "./style.module.css";
 
 import CardInfo from "../../components/dashboard/cardInfo/CardInfo";
 import MapReports from "../../components/dashboard/mapReports/MapReports";
@@ -24,30 +24,30 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="dashboard">
+    <div className={`${style.dashboard}`}>
       <ul>
-        <li className="dash-box-info">
+        <li className={`${style.dash__box__info}`}>
           <CardInfo
             title={"Total de Ocorrências"}
             value={totalOcorrencias(reports)}
             incrementValue={20}
           />
         </li>
-        <li className="dash-box-info">
+        <li className={`${style.dash__box__info}`}>
           <CardInfo
             title={"Bairros Catalogados"}
             value={24.15}
             incrementValue={20}
           />
         </li>
-        <li className="dash-box-info">
+        <li className={`${style.dash__box__info}`}>
           <CardInfo
             title={"Usuários atendidos"}
             value={24.15}
             incrementValue={-20}
           />
         </li>
-        <li className="dash-box-info">
+        <li className={`${style.dash__box__info}`}>
           <CardInfo
             title={"Usuários não atendidos"}
             value={24.15}
@@ -56,15 +56,15 @@ const Dashboard = () => {
         </li>
       </ul>
 
-      <main className="dash-mapper">
-        <div className="dash-filter">
-          <div className="font-m filter-PR c4">
+      <main className={`${style.dash__mapper}`}>
+        <div className={`${style.dash__filter}`}>
+          <div className={`font-m c4 ${style.filter__PR}`}>
             <span
               className={` ${
                 [ReportStatus.PENDENTE, ReportStatus.AVALIADO].some((status) =>
                   filter.includes(status)
                 )
-                  ? "selected"
+                  ? style.selected
                   : ""
               }`}
               onClick={() => handleFilterChange(ReportStatus.PENDENTE)}
@@ -76,7 +76,7 @@ const Dashboard = () => {
                 [ReportStatus.CONCLUIDO].some((status) =>
                   filter.includes(status)
                 )
-                  ? "selected"
+                  ? style.selected
                   : ""
               }`}
               onClick={() => handleFilterChange(ReportStatus.CONCLUIDO)}
@@ -89,8 +89,8 @@ const Dashboard = () => {
 
           <DateRanger />
         </div>
-        <div className="map-bg">
-          <div className="map-container">
+        <div className={`${style.map__bg}`}>
+          <div className={`${style.map__container}`}>
             <h1 className="font-s c4">
               Mapa De Ocorrências que não foram resolvidas
             </h1>

@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { MapContainer, TileLayer, useMap } from "react-leaflet";
+import style from "./style.module.css";
 import "leaflet/dist/leaflet.css";
 import "leaflet.markercluster/dist/MarkerCluster.css";
 import "leaflet.markercluster/dist/MarkerCluster.Default.css";
@@ -60,7 +61,7 @@ const MapReports = () => {
       center={position}
       zoom={14}
       scrollWheelZoom={true}
-      className="map-container"
+      className={`${style.map__container}`}
       maxBounds={bounds}
       maxBoundsViscosity={1.0}
     >

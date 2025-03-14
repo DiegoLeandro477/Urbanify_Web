@@ -1,5 +1,5 @@
 import React from "react";
-import "./style.css";
+import style from "./style.module.css";
 
 import { NavLink } from "react-router-dom";
 import { AiOutlineDashboard } from "react-icons/ai";
@@ -7,35 +7,58 @@ import { AiOutlineControl } from "react-icons/ai";
 import { VscGraph } from "react-icons/vsc";
 import { GoTrophy } from "react-icons/go";
 
-const Header = () => {
+const Sidebar = () => {
   return (
-    <nav className="nav">
-      <ul className="nav__list">
-        <NavLink className="nav-link" to={"/dashboard"}>
-          <li className="nav__item">
-            <AiOutlineDashboard className="c2 item__icon " size={14} />
-            <span className="font-xs c2 nav__text">Dashboard</span>
+    <nav className={`${style.nav}`}>
+      <ul className={`${style.nav__list}`}>
+        <NavLink
+          className={({ isActive }) =>
+            `${style.nav__link} ${isActive ? style.active : ""}`
+          }
+          to="/dashboard"
+        >
+          <li className={`${style.nav__item}`}>
+            <AiOutlineDashboard
+              className={`c2 ${style.item__icon}`}
+              size={14}
+            />
+            <span className={`font-xs c2 ${style.nav__text}`}>Dashboard</span>
           </li>
         </NavLink>
 
-        <NavLink className="nav-link" to={"/management"}>
-          <li className="nav__item">
-            <AiOutlineControl className="c2 item__icon" size={14} />
-            <span className="font-xs c2 nav__text">Gestão De Reparos</span>
+        <NavLink
+          className={({ isActive }) =>
+            `${style.nav__link} ${isActive ? style.active : ""}`
+          }
+          to="/management"
+        >
+          <li className={`${style.nav__item}`}>
+            <AiOutlineControl className={`c2 ${style.item__icon}`} size={14} />
+            <span className={`font-xs c2 ${style.nav__text}`}>Dashboard</span>
           </li>
         </NavLink>
 
-        <NavLink className="nav-link" to={"/AnalitycLogs"}>
-          <li className="nav__item">
-            <VscGraph className="c2 item__icon" size={14} />
-            <span className="font-xs c2 nav__text">Análises De Ocorrência</span>
+        <NavLink
+          className={({ isActive }) =>
+            `${style.nav__link} ${isActive ? style.active : ""}`
+          }
+          to="/a1"
+        >
+          <li className={`${style.nav__item}`}>
+            <VscGraph className={`c2 ${style.item__icon}`} size={14} />
+            <span className={`font-xs c2 ${style.nav__text}`}>Dashboard</span>
           </li>
         </NavLink>
 
-        <NavLink className="nav-link" to={"/Ranking"}>
-          <li className="nav__item">
-            <GoTrophy className="c2 item__icon" size={14} />
-            <span className="font-xs c2 nav__text">Ranking</span>
+        <NavLink
+          className={({ isActive }) =>
+            `${style.nav__link} ${isActive ? style.active : ""}`
+          }
+          to="/a2"
+        >
+          <li className={`${style.nav__item}`}>
+            <GoTrophy className={`c2 ${style.item__icon}`} size={14} />
+            <span className={`font-xs c2 ${style.nav__text}`}>Dashboard</span>
           </li>
         </NavLink>
       </ul>
@@ -43,4 +66,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default Sidebar;

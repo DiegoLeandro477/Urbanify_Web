@@ -2,6 +2,8 @@
   display: flex;
   flex-direction: column;
   margin: 1.5rem;
+  flex: 1;
+  height: calc(100vh - (4rem + 3rem));
 }
 
 .dashboard > ul {
@@ -11,26 +13,36 @@
   gap: 24px;
 }
 
-.dash-filter {
+.dash__filter {
   display: flex;
   align-items: center;
   justify-content: space-between;
   background-color: var(--c12);
   width: 100%;
   height: 56px;
-  padding: 0 24px;
+  padding: 1rem 1.5rem;
   border: 1px solid var(--c-10, rgba(237, 237, 237, 1));
   gap: 20px;
   border-radius: 2px;
 }
 
-.filter-PR {
+.dash__box__info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  background-color: var(--c12);
+  border-radius: 2px;
+  border: 1px solid var(--c-10, rgba(237, 237, 237, 1));
+  padding: 24px;
+}
+
+.filter__PR {
   display: flex;
   height: 100%;
   gap: 32px;
 }
 
-.filter-PR > span {
+.filter__PR > span {
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -42,7 +54,7 @@
   color: var(--p1);
 }
 
-.dash-mapper {
+.dash__mapper {
   display: flex;
   flex-direction: column;
   background-color: var(--c12);
@@ -51,7 +63,7 @@
   flex: 1;
 }
 
-.map-bg {
+.map__bg {
   display: grid;
   grid-template-columns: 4fr 1fr;
   padding: 1.5rem;
@@ -60,7 +72,7 @@
   gap: 5rem;
 }
 
-.map-container {
+.map__container {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;

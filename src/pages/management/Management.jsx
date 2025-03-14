@@ -1,11 +1,15 @@
 import React from "react";
-import "./style.css";
+
+import Header from "../../components/header/Header";
 
 function Management() {
   return (
-    <div className="login">
-      <h1>Hello</h1>
-    </div>
+    <>
+      <Header
+        title="Gestão de reparos"
+        text="Gerenciamento e monitoramento de reparos. Acompanhe as ocorrências reportadas pelos cidadãos desde a abertura até a conclusão."
+      />
+    </>
   );
 }
 
