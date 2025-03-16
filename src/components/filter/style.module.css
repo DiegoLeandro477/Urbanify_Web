@@ -1,0 +1,30 @@
+.filter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--c12);
+  width: 100%;
+  height: 56px;
+  padding: 1rem 1.5rem;
+  border: 1px solid var(--c-10, rgba(237, 237, 237, 1));
+  gap: 20px;
+  border-radius: 2px;
+}
+
+.filter__PR {
+  display: flex;
+  height: 100%;
+  gap: 32px;
+}
+
+.filter__PR > span {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  height: 100%;
+}
+
+.selected {
+  border-bottom: 2px solid var(--p1);
+  color: var(--p1);
+}
