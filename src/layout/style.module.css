@@ -2,3 +2,9 @@
   display: grid;
   grid-template-columns: 20ch 1fr;
 }
+
+.content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}

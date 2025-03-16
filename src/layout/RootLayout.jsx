@@ -12,7 +12,7 @@ const RootLayout = () => {
       <div className={`${style.layout}`}>
         <Sidebar />
 
-        <div>
+        <div className={style.content}>
           <Outlet />
         </div>
       </div>

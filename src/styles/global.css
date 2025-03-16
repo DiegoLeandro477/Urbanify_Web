@@ -81,12 +81,24 @@
 .btn-primary {
   background-color: var(--p1);
   color: var(--c12);
-  width: 160px;
-  height: 40px;
+  padding: 0.5rem 1rem;
   border-radius: 2px;
-  border: 1px;
+  border: 1px solid var(--p1);
   align-self: center;
   cursor: pointer;
+  text-transform: uppercase;
+  transition: 0.3s;
+}
+
+.btn-outline {
+  background-color: var(--c12);
+  color: var(--c4);
+  padding: 0.5rem 1rem;
+  border-radius: 2px;
+  border: 1px solid var(--c4);
+  align-self: center;
+  cursor: pointer;
+  text-transform: uppercase;
   transition: 0.3s;
 }
 

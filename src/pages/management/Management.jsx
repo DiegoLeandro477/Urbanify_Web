@@ -1,7 +1,9 @@
 import React from "react";
-// import style from "./style.module.css";
+import style from "./style.module.css";
 import Header from "../../components/header/Header";
 import Filter from "../../components/filter/Filter";
+import Table from "../../components/management/table/Table";
+import Card from "../../components/management/card/Card";
 
 function Management() {
   return (
@@ -11,8 +13,14 @@ function Management() {
         text="Gerenciamento e monitoramento de reparos. Acompanhe as ocorrências reportadas pelos cidadãos desde a abertura até a conclusão."
       />
 
-      <main className={`m-1-5`}>
+      <main className={`bg-12 m-1-5 ${style.main}`}>
         <Filter />
+
+        <div className={style.content}>
+          <Table />
+
+          <Card />
+        </div>
       </main>
     </>
   );
