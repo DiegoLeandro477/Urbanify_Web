@@ -12,11 +12,27 @@ import {
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
 const data = {
-  labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun"],
+  labels: [
+    "Jan",
+    "Fev",
+    "Mar",
+    "Abr",
+    "Mai",
+    "Jun",
+    "Jul",
+    "Ago",
+    "Set",
+    "Out",
+    "Nov",
+    "Dez",
+  ],
   datasets: [
     {
       label: "Relatos",
-      data: [25000, 22000, 18000, 30000, 12000, 24000],
+      data: [
+        25000, 22000, 18000, 30000, 12000, 24000, 9274, 2948, 24917, 4922, 8276,
+        9212,
+      ],
       backgroundColor: [
         "rgba(142, 150, 255, 0.6)",
         "rgba(120, 200, 255, 0.6)",
@@ -24,9 +40,15 @@ const data = {
         "rgba(120, 180, 255, 0.6)",
         "rgba(180, 220, 255, 0.6)",
         "rgba(120, 220, 180, 0.6)",
+        "rgba(200, 150, 255, 0.6)",
+        "rgba(255, 180, 120, 0.6)",
+        "rgba(255, 120, 200, 0.6)",
+        "rgba(180, 255, 150, 0.6)",
+        "rgba(100, 100, 255, 0.6)",
+        "rgba(255, 220, 120, 0.6)",
       ],
-      borderRadius: 8, // Deixa as barras arredondadas
-      barThickness: 40, // Define a largura das barras
+      borderRadius: 2, // Deixa as barras arredondadas
+      barThickness: 20, // Define a largura das barras
     },
   ],
 };
@@ -76,7 +98,11 @@ const options = {
 };
 
 const MinimalistBarChart = () => {
-  return <Bar data={data} options={options} style={{ height: "300px" }} />;
+  return (
+    <div style={{ height: "300px", width: "100%" }}>
+      <Bar data={data} options={options} />
+    </div>
+  );
 };
 
 export default MinimalistBarChart;
