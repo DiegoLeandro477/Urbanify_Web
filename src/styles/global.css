@@ -90,6 +90,18 @@
   transition: 0.3s;
 }
 
+.btn-primary-red {
+  background: var(--red);
+  border: 1px solid var(--red);
+  color: var(--c12);
+  padding: 0.5rem 1rem;
+  border-radius: 2px;
+  align-self: center;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: 0.3s;
+}
+
 .btn-outline {
   background-color: var(--c12);
   color: var(--c4);

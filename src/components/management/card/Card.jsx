@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import style from "./style.module.css";
 import { GrFormPrevious } from "react-icons/gr";
 import { GrFormNext } from "react-icons/gr";
+import Modal from "../modal/Modal";
 
 const Card = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = React.useState(0);
+  const [modalOpen, setModalOpen] = React.useState(false);
 
   const slides = [
     {
@@ -50,9 +52,16 @@ const Card = () => {
         <div className={style.card__buttons}>
           <button className="font-s btn-outline">Não agora</button>
 
-          <button className="font-s btn-primary">Sim, eu quero</button>
+          <button
+            onClick={() => setModalOpen(true)}
+            className="font-s btn-primary"
+          >
+            Sim, eu quero
+          </button>
         </div>
       </div>
+
+      {modalOpen && <Modal modalOpen={modalOpen} setModalOpen={setModalOpen} />}
     </div>
   );
 };
