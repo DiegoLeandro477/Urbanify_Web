@@ -9,7 +9,7 @@ import ChartReportsYear from "../chartReportsYear/ChartReportsYear";
 const Card = ({ data: { title, subtitle, type, chartType, filterType } }) => {
   return (
     <div className={`container ${style.card}`}>
-      <div className={`${style.card__header}`}>
+      <div className={`mb-2 ${style.card__header}`}>
         <div>
           <h2 className={`font-m c2 mb-0-5`}>{title}</h2>
           <p className={`font-s c4`}>{subtitle}</p>
