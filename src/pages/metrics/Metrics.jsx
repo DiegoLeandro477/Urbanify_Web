@@ -13,9 +13,21 @@ function Metrics() {
       />
 
       <main className={`m-1-5 ${style.main}`}>
-        <Card data={ChartEnum.REPORTS_YEAR} />
+        <div className={`mb-1 ${style.grid2x1}`}>
+          <Card data={ChartEnum.REPORTS__YEAR} />
+          <Card data={ChartEnum.REPORTS__MONTH} />
+        </div>
 
-        <Card data={ChartEnum.REPORTS_YEAR} />
+        <div className={`mb-1 ${style.grid3x1}`}>
+          <Card data={ChartEnum.ATTENDED__NOT_ATTENDED} />
+          <Card data={ChartEnum.FIX__FIXED} />
+          <Card data={ChartEnum.SEVERE__MODERATE} />
+        </div>
+
+        <div className={`${style.grid2x1}`}>
+          <Card data={ChartEnum.ATTENDEDS__MONTH} />
+          <Card data={ChartEnum.USERS__YEAR} />
+        </div>
       </main>
     </>
   );
