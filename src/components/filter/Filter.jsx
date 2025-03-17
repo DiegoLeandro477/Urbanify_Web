@@ -2,16 +2,16 @@ import React from "react";
 import style from "./style.module.css";
 import FilterSeverity from "./filterServerity/FilterSeverity";
 import DateRanger from "./dateRanger/DateRanger";
-import { ReportStatus } from "../../utils/StatusEnum";
+import { ReportStatusEnum } from "../../utils/environment";
 
 const Filter = () => {
-  const [filter, setFilter] = React.useState([ReportStatus.PENDENTE]);
+  const [filter, setFilter] = React.useState([ReportStatusEnum.PENDENTE]);
 
   const handleFilterChange = (status) => {
     console.log("Mudando para: ", status);
-    status === ReportStatus.PENDENTE
-      ? setFilter([ReportStatus.PENDENTE, ReportStatus.AVALIADO])
-      : setFilter([ReportStatus.CONCLUIDO]); // Apenas CONCLUIDO
+    status === ReportStatusEnum.PENDENTE
+      ? setFilter([ReportStatusEnum.PENDENTE, ReportStatusEnum.AVALIADO])
+      : setFilter([ReportStatusEnum.CONCLUIDO]); // Apenas CONCLUIDO
   };
 
   return (
@@ -19,23 +19,25 @@ const Filter = () => {
       <div className={`font-m c4 ${style.filter__PR}`}>
         <span
           className={` ${
-            [ReportStatus.PENDENTE, ReportStatus.AVALIADO].some((status) =>
-              filter.includes(status)
+            [ReportStatusEnum.PENDENTE, ReportStatusEnum.AVALIADO].some(
+              (status) => filter.includes(status)
             )
               ? style.selected
               : ""
           }`}
-          onClick={() => handleFilterChange(ReportStatus.PENDENTE)}
+          onClick={() => handleFilterChange(ReportStatusEnum.PENDENTE)}
         >
           Pendentes
         </span>
         <span
           className={` ${
-            [ReportStatus.CONCLUIDO].some((status) => filter.includes(status))
+            [ReportStatusEnum.CONCLUIDO].some((status) =>
+              filter.includes(status)
+            )
               ? style.selected
               : ""
           }`}
-          onClick={() => handleFilterChange(ReportStatus.CONCLUIDO)}
+          onClick={() => handleFilterChange(ReportStatusEnum.CONCLUIDO)}
         >
           Resolvidos
         </span>
