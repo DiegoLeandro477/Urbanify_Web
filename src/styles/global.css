@@ -44,6 +44,16 @@
   transition: 0.3s;
 }
 
+.form__select {
+  border: none;
+  outline: none;
+  transition: 0.3s;
+  background: var(--c12);
+  border: 1px solid var(--c8);
+  border-radius: 2px;
+  padding: 0.25rem 0.85rem;
+}
+
 .input__icon {
   width: 2.5rem;
   height: 1rem;

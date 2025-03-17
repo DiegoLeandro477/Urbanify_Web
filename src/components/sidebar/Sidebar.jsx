@@ -42,11 +42,13 @@ const Sidebar = () => {
           className={({ isActive }) =>
             `${style.nav__link} ${isActive ? style.active : ""}`
           }
-          to="/a1"
+          to="/metrics"
         >
           <li className={`${style.nav__item}`}>
             <VscGraph className={`c2 ${style.item__icon}`} size={14} />
-            <span className={`font-xs c2 ${style.nav__text}`}>Dashboard</span>
+            <span className={`font-xs c2 ${style.nav__text}`}>
+              Análises De Ocorrência
+            </span>
           </li>
         </NavLink>
 
