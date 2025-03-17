@@ -63,7 +63,10 @@ const MapReports = ({ reports }) => {
       maxBounds={bounds}
       maxBoundsViscosity={1.0}
     >
-      <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+      <TileLayer
+        url="https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png"
+        attribution='&copy; <a href="https://carto.com/">Carto</a>'
+      />
       <ClusterMarkers reports={reports} />
     </MapContainer>
   );
