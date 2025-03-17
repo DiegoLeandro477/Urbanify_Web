@@ -7,13 +7,11 @@ import Filter from "../../components/filter/Filter";
 
 import Ranking from "../../components/dashboard/ranking/Ranking";
 
-// import useReports from "../../hooks/useReports";
-import { reports } from "../../../reports"; // PARA TESTE DEIXAR HABILITADO, PARA PRODUÇÃO TROCAR PELO useReports()
-
-import { totalOcorrencias } from "../../services/statistics";
+import useReports from "../../hooks/useReports";
+import { quantBairros, totalOcorrencias } from "../../services/statistics";
 
 const Dashboard = () => {
-  // const { reports } = useReports();
+  const { reports } = useReports();
 
   return (
     <div className={`${style.dashboard}`}>
@@ -28,7 +26,7 @@ const Dashboard = () => {
         <li className={`${style.dash__box__info}`}>
           <CardInfo
             title={"Bairros Catalogados"}
-            value={24.15}
+            value={quantBairros(reports)}
             incrementValue={20}
           />
         </li>
