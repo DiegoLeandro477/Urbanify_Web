@@ -7,12 +7,13 @@ import Filter from "../../components/filter/Filter";
 
 import Ranking from "../../components/dashboard/ranking/Ranking";
 
-import useReports from "../../hooks/useReports";
+// import useReports from "../../hooks/useReports";
+import { reports } from "../../../reports"; // PARA TESTE DEIXAR HABILITADO, PARA PRODUÇÃO TROCAR PELO useReports()
 
 import { totalOcorrencias } from "../../services/statistics";
 
 const Dashboard = () => {
-  const { reports } = useReports();
+  // const { reports } = useReports();
 
   return (
     <div className={`${style.dashboard}`}>

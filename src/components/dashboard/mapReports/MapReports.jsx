@@ -6,7 +6,6 @@ import "leaflet.markercluster/dist/MarkerCluster.css";
 import "leaflet.markercluster/dist/MarkerCluster.Default.css";
 import "leaflet.markercluster";
 import L from "leaflet";
-import { reports } from "../../../../reports";
 import mediaOfChildrensForReports from "../../../utils/mediaOfChildrensForReports";
 
 const position = [-2.5387, -44.2825];
@@ -14,8 +13,6 @@ const bounds = [
   [0, -42], // Sudoeste
   [-4, -46], // Nordeste
 ];
-
-const childrenMedia = mediaOfChildrensForReports(reports);
 
 const ClusterMarkers = ({ reports }) => {
   const map = useMap();
@@ -32,7 +29,8 @@ const ClusterMarkers = ({ reports }) => {
       );
 
       const childrenLength = report.childrens.length;
-      let colorMarker = "blue";
+      const childrenMedia = mediaOfChildrensForReports(reports);
+      let colorMarker = "green";
       if (childrenLength > childrenMedia / 2) colorMarker = "yellow";
       if (childrenLength > childrenMedia / 1.5) colorMarker = "orange";
       if (childrenLength > childrenMedia / 0.6) colorMarker = "red";
@@ -55,7 +53,7 @@ const ClusterMarkers = ({ reports }) => {
   return null;
 };
 
-const MapReports = () => {
+const MapReports = ({ reports }) => {
   return (
     <MapContainer
       center={position}
