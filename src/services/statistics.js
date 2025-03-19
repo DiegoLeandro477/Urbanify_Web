@@ -11,12 +11,12 @@ export const getBairros = (reports) => {
   let bairros = Array.from(bairrosSet);
 
   // Convertendo cont_bairros para um array de objetos
-  let bairrosContagem = Object.entries(cont_bairros).map(([bairro, quant]) => ({
+  const rank = Object.entries(cont_bairros).map(([bairro, quant]) => ({
     nome_bairro: bairro,
     quanti_registrada: quant,
   }));
 
-  return { bairros, bairrosContagem };
+  return { bairros, rank };
 };
 
 export const getUsersServed = (reports) => {

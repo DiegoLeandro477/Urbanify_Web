@@ -62,7 +62,7 @@ const Dashboard = () => {
             <MapReports reports={reports} filter={"filter"} />
           </div>
 
-          <Ranking bairrosContagem={getBairros(reports).bairrosContagem} />
+          <Ranking rank={getBairros(reports).rank} />
         </div>
       </main>
     </div>

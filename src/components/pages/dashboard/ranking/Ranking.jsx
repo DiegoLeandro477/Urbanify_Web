@@ -1,9 +1,9 @@
 import React from "react";
 // import style from "./style.module.css";
 
-const Ranking = (bairrosContagem) => {
+const Ranking = ({ rank }) => {
   // ORDENA E MOSTA OS 10 PRIMEIROS DO RANK
-  const topBairros = bairrosContagem.bairrosContagem
+  const topBairros = rank
     .sort((a, b) => b.quanti_registrada - a.quanti_registrada)
     .slice(0, 10);
 
