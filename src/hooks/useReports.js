@@ -1,21 +1,21 @@
-// import { useEffect, useState } from "react";
-// import { GET } from "../services/requestHTTP";
-import { reports } from "../../reports";
+import { useEffect, useState } from "react";
+import { GET } from "../services/requestHTTP";
+import { data_reports } from "../../reports";
 
 const useReports = () => {
-  // const [reports, setReports] = useState([]);
+  const [reports, setReports] = useState([]);
 
-  // const findAllReports = async () => {
-  //   console.log("[REPORT] >>> loading..");
+  const findAllReports = async () => {
+    console.log("[REPORT] >>> loading..");
 
-  //   const res = await GET("/report");
+    const res = await GET("/report");
+    console.log("response: ", res.data.reports);
+    setReports(data_reports);
+  };
 
-  //   setReports(res.data.reports);
-  // };
-
-  // useEffect(() => {
-  //   findAllReports();
-  // }, []);
+  useEffect(() => {
+    findAllReports();
+  }, []);
 
   return { reports };
 };
