@@ -26,7 +26,7 @@ body {
   --p2: #2a6fb9;
   --p3: #2f6aaa;
   --p4: #335c89;
-  --p5: #283e55;
+  --p5: rgb(0, 21, 41);
 
   /* Cores de alerta */
   --red: #ff3e4d;

@@ -20,6 +20,7 @@
   list-style: none;
   color: var(--c1);
   padding-right: 1rem;
+  text-transform: capitalize;
 }
 
 .active {

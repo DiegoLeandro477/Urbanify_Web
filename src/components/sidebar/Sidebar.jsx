@@ -34,7 +34,9 @@ const Sidebar = () => {
         >
           <li className={`${style.nav__item}`}>
             <AiOutlineControl className={`c2 ${style.item__icon}`} size={14} />
-            <span className={`font-xs c2 ${style.nav__text}`}>Dashboard</span>
+            <span className={`font-xs c2 ${style.nav__text}`}>
+              Gestão de reparos
+            </span>
           </li>
         </NavLink>
 
@@ -47,7 +49,7 @@ const Sidebar = () => {
           <li className={`${style.nav__item}`}>
             <VscGraph className={`c2 ${style.item__icon}`} size={14} />
             <span className={`font-xs c2 ${style.nav__text}`}>
-              Análises De Ocorrência
+              Análises de ocorrência
             </span>
           </li>
         </NavLink>
