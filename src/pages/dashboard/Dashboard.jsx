@@ -8,7 +8,12 @@ import Filter from "../../components/filter/Filter";
 import Ranking from "../../components/pages/dashboard/ranking/Ranking";
 
 import useReports from "../../hooks/useReports";
-import { quantBairros, totalOcorrencias } from "../../services/statistics";
+import {
+  getBairros,
+  getUsersNotServed,
+  getUsersServed,
+} from "../../services/statistics";
+import { GiConsoleController } from "react-icons/gi";
 
 const Dashboard = () => {
   const { reports } = useReports();
@@ -19,28 +24,28 @@ const Dashboard = () => {
         <li className={`${style.dash__box__info}`}>
           <CardInfo
             title={"Total de Ocorrências"}
-            value={totalOcorrencias(reports)}
+            value={reports.length}
             incrementValue={20}
           />
         </li>
         <li className={`${style.dash__box__info}`}>
           <CardInfo
             title={"Bairros Catalogados"}
-            value={quantBairros(reports)}
+            value={getBairros(reports).bairros.length}
             incrementValue={20}
           />
         </li>
         <li className={`${style.dash__box__info}`}>
           <CardInfo
             title={"Usuários atendidos"}
-            value={24.15}
+            value={getUsersServed(reports).length}
             incrementValue={-20}
           />
         </li>
         <li className={`${style.dash__box__info}`}>
           <CardInfo
             title={"Usuários não atendidos"}
-            value={24.15}
+            value={getUsersNotServed(reports).length}
             incrementValue={-20}
           />
         </li>
@@ -57,7 +62,7 @@ const Dashboard = () => {
             <MapReports reports={reports} filter={"filter"} />
           </div>
 
-          <Ranking />
+          <Ranking bairrosContagem={getBairros(reports).bairrosContagem} />
         </div>
       </main>
     </div>

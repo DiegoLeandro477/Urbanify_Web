@@ -31,7 +31,7 @@ const ClusterMarkers = ({ reports }) => {
       const childrenLength = report.childrens.length;
       const childrenMedia = mediaOfChildrensForReports(reports);
       let colorMarker = "green";
-      if (childrenLength > childrenMedia / 2) colorMarker = "yellow";
+      if (childrenLength > childrenMedia / 2) colorMarker = "green";
       if (childrenLength > childrenMedia / 1.5) colorMarker = "orange";
       if (childrenLength > childrenMedia / 0.6) colorMarker = "red";
 

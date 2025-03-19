@@ -1,82 +1,47 @@
 import React from "react";
-import style from "./style.module.css";
+// import style from "./style.module.css";
 
-const Ranking = () => {
+const Ranking = (bairrosContagem) => {
+  // ORDENA E MOSTA OS 10 PRIMEIROS DO RANK
+  const topBairros = bairrosContagem.bairrosContagem
+    .sort((a, b) => b.quanti_registrada - a.quanti_registrada)
+    .slice(0, 10);
+
   return (
     <section>
       <h3 className={`font-s mb-1-5 c2`}>Bairros mais reportados</h3>
 
-      <div className={`${style.ranking}`}>
-        <div className={`${style.rankink__item}`}>
-          <div className={`${style.rankin__left}`}>
-            <span className={`font-xs ${style.ranking__position}`}>1</span>
-            <p className={`font-s c4 ${style.ranking__text}`}>
-              Bairro de fátima
-            </p>
-          </div>
-          <span className={`font-s c4`}>726</span>
-        </div>
-
-        <div className={`${style.rankink__item}`}>
-          <div className={`${style.rankin__left}`}>
-            <span className={`font-xs ${style.ranking__position}`}>2</span>
-            <p className={`font-s c4 ${style.ranking__text}`}>
-              Bairro de fátima
-            </p>
-          </div>
-          <span className={`font-s c4`}>726</span>
-        </div>
-
-        <div className={`${style.rankink__item}`}>
-          <div className={`${style.rankin__left}`}>
-            <span className={`font-xs ${style.ranking__position}`}>3</span>
-            <p className={`font-s c4 ${style.ranking__text}`}>
-              Bairro de fátima
-            </p>
-          </div>
-          <span className={`font-s c4`}>726</span>
-        </div>
-
-        <div className={`${style.rankink__item}`}>
-          <div className={`${style.rankin__left}`}>
-            <span className={`font-xs ${style.ranking__position}`}>4</span>
-            <p className={`font-s c4 ${style.ranking__text}`}>
-              Bairro de fátima
-            </p>
-          </div>
-          <span className={`font-s c4`}>726</span>
-        </div>
-
-        <div className={`${style.rankink__item}`}>
-          <div className={`${style.rankin__left}`}>
-            <span className={`font-xs ${style.ranking__position}`}>5</span>
-            <p className={`font-s c4 ${style.ranking__text}`}>
-              Bairro de fátima
-            </p>
-          </div>
-          <span className={`font-s c4`}>726</span>
-        </div>
-
-        <div className={`${style.rankink__item}`}>
-          <div className={`${style.rankin__left}`}>
-            <span className={`font-xs ${style.ranking__position}`}>6</span>
-            <p className={`font-s c4 ${style.ranking__text}`}>
-              Bairro de fátima
-            </p>
-          </div>
-          <span className={`font-s c4`}>726</span>
-        </div>
-
-        <div className={`${style.rankink__item}`}>
-          <div className={`${style.rankin__left}`}>
-            <span className={`font-xs ${style.ranking__position}`}>7</span>
-            <p className={`font-s c4 ${style.ranking__text}`}>
-              Bairro de fátima
-            </p>
-          </div>
-          <span className={`font-s c4`}>726</span>
-        </div>
-      </div>
+      <ul style={{ listStyle: "none", padding: 0 }}>
+        {topBairros.map((bairro, index) => (
+          <li
+            key={index}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "10px",
+              marginBottom: "10px",
+            }}
+          >
+            <span
+              style={{
+                backgroundColor: "red",
+                color: "white",
+                borderRadius: "50%",
+                width: "30px",
+                height: "30px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontWeight: "bold",
+              }}
+            >
+              {index + 1}
+            </span>
+            <span style={{ flexGrow: 1 }}>{bairro.nome_bairro}</span>
+            <span>{bairro.quanti_registrada}</span>
+          </li>
+        ))}
+      </ul>
     </section>
   );
 };
