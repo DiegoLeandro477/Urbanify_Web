@@ -6,7 +6,7 @@ import "leaflet.markercluster/dist/MarkerCluster.css";
 import "leaflet.markercluster/dist/MarkerCluster.Default.css";
 import "leaflet.markercluster";
 import L from "leaflet";
-import mediaOfChildrensForReports from "../../../utils/mediaOfChildrensForReports";
+import mediaOfChildrensForReports from "../../../../utils/mediaOfChildrensForReports";
 
 const position = [-2.5387, -44.2825];
 const bounds = [

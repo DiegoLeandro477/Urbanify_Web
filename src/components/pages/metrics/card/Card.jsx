@@ -1,6 +1,6 @@
 import React from "react";
 import style from "./style.module.css";
-import { FilterTypeEnum, ChartCardEnum } from "../../../utils/environment";
+import { FilterTypeEnum, ChartCardEnum } from "../../../../utils/environment";
 
 import ChartReportsXYear from "../reportsXyear/ChartReportsXYear";
 import ChartReportsXMonth from "../reportsXmonth/ChartReportsXMonth";

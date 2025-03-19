@@ -1,7 +1,7 @@
 import React from "react";
 import style from "./style.module.css";
 import Header from "../../components/header/Header";
-import Card from "../../components/metrics/card/Card";
+import Card from "../../components/pages/metrics/card/Card";
 import { ChartEnum } from "../../utils/environment";
 
 function Metrics() {

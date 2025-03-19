@@ -7,6 +7,7 @@ import {
 import Dashboard from "./pages/dashboard/Dashboard";
 import Management from "./pages/management/Management";
 import Metrics from "./pages/metrics/Metrics";
+import Ranking from "./pages/ranking/Ranking";
 
 import Login from "./pages/login/Login";
 import RootLayout from "./layout/RootLayout";
@@ -20,6 +21,7 @@ function App() {
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="management" element={<Management />} />
           <Route path="metrics" element={<Metrics />} />
+          <Route path="ranking" element={<Ranking />} />
         </Route>
       </>
     )

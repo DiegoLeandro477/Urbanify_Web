@@ -1,11 +1,11 @@
 import React from "react";
 import style from "./style.module.css";
 
-import CardInfo from "../../components/dashboard/cardInfo/CardInfo";
-import MapReports from "../../components/dashboard/mapReports/MapReports";
+import CardInfo from "../../components/pages/dashboard/cardInfo/CardInfo";
+import MapReports from "../../components/pages/dashboard/mapReports/MapReports";
 import Filter from "../../components/filter/Filter";
 
-import Ranking from "../../components/dashboard/ranking/Ranking";
+import Ranking from "../../components/pages/dashboard/ranking/Ranking";
 
 import useReports from "../../hooks/useReports";
 import { quantBairros, totalOcorrencias } from "../../services/statistics";

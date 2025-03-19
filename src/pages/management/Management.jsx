@@ -2,8 +2,8 @@ import React from "react";
 import style from "./style.module.css";
 import Header from "../../components/header/Header";
 import Filter from "../../components/filter/Filter";
-import Table from "../../components/management/table/Table";
-import Card from "../../components/management/card/Card";
+import Table from "../../components/pages/management/table/Table";
+import Card from "../../components/pages/management/card/Card";
 
 function Management() {
   return (

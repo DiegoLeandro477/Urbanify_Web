@@ -56,11 +56,11 @@ const Sidebar = () => {
           className={({ isActive }) =>
             `${style.nav__link} ${isActive ? style.active : ""}`
           }
-          to="/a2"
+          to="/ranking"
         >
           <li className={`${style.nav__item}`}>
             <GoTrophy className={`c2 ${style.item__icon}`} size={14} />
-            <span className={`font-xs c2 ${style.nav__text}`}>Dashboard</span>
+            <span className={`font-xs c2 ${style.nav__text}`}>Ranking</span>
           </li>
         </NavLink>
       </ul>
