@@ -52,7 +52,7 @@ const TabelaOrdenavel = () => {
     botoes.push(
       <GrFormPrevious
         key="prev"
-        className={` ${style.prev} ${paginaAtual === 1 ? style.disabled : ""}`}
+        className={`font-m ${style.prev} ${paginaAtual === 1 ? style.disabled : ""}`}
         onClick={() => mudarPagina(paginaAtual - 1)}
       />
     );
@@ -70,7 +70,7 @@ const TabelaOrdenavel = () => {
           <button
             key={i}
             onClick={() => mudarPagina(i)}
-            className={`${style.box} ${paginaAtual === i ? style.select : ""}`}
+            className={`font-s ${style.box} ${paginaAtual === i ? style.select : ""}`}
           >
             {i}
           </button>
@@ -80,7 +80,7 @@ const TabelaOrdenavel = () => {
         (i === totalPaginas - 1 && paginaAtual < totalPaginas - range - 1)
       ) {
         botoes.push(
-          <span key={`ellipsis-${i}`} className={style.ellipsis}>
+          <span key={`ellipsis-${i}`} className={`font-m ${style.ellipsis}`}>
             ...
           </span>
         );
@@ -91,7 +91,7 @@ const TabelaOrdenavel = () => {
     botoes.push(
       <GrFormNext
         key="next"
-        className={` ${style.next} ${
+        className={`font-m ${style.next} ${
           paginaAtual === totalPaginas ? style.disabled : ""
         }`}
         onClick={() => mudarPagina(paginaAtual + 1)}
