@@ -17,28 +17,41 @@ const Ranking = ({ rank }) => {
             key={index}
             style={{
               display: "flex",
+              justifyContent: "space-between",
               alignItems: "center",
-              gap: "10px",
-              marginBottom: "10px",
+              gap: "1rem",
+              marginBottom: "1rem",
             }}
           >
-            <span
-              style={{
-                backgroundColor: "red",
-                color: "white",
-                borderRadius: "50%",
-                width: "30px",
-                height: "30px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontWeight: "bold",
-              }}
-            >
-              {index + 1}
-            </span>
-            <span style={{ flexGrow: 1 }}>{bairro.nome_bairro}</span>
-            <span>{bairro.quanti_registrada}</span>
+            <div style={{ display: "flex", gap: "0.5rem" }}>
+              <span
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  background: "var(--red)",
+                  color: "var(--c12)",
+                  width: "1.5rem",
+                  height: "1.5rem",
+                  padding: "0.5rem",
+                  borderRadius: "50%",
+                }}
+              >
+                {index + 1}
+              </span>
+              <span
+                className="c2"
+                style={{
+                  maxWidth: "20ch",
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                }}
+              >
+                {bairro.nome_bairro}
+              </span>
+            </div>
+            <span className="c2">{bairro.quanti_registrada}</span>
           </li>
         ))}
       </ul>
