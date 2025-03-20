@@ -10,7 +10,8 @@ const useReports = () => {
 
     const res = await GET("/report");
     console.log("response: ", res.data.reports);
-    setReports(data_reports);
+    // setReports(res.data.reports); // UTILIZA O REPORT VINDO DO BANCO DE DADOS
+    setReports(data_reports); // UTILIZA O REPORT VINDO DO ARQUIVO.JS
   };
 
   useEffect(() => {

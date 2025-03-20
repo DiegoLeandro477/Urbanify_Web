@@ -11,15 +11,10 @@ function Management() {
   const { reports } = useReports();
   const [statusFilter, setStatusFilter] = useState([ReportStatusEnum.PENDENTE]);
   // testando se as novas configs funcionaram
-  const handleFilter = () => {
-    const handleFilterChange = (status) => {
-      status === ReportStatusEnum.PENDENTE
-        ? setStatusFilter([
-            ReportStatusEnum.PENDENTE,
-            ReportStatusEnum.AVALIADO,
-          ])
-        : setStatusFilter([ReportStatusEnum.CONCLUIDO]); // Apenas CONCLUIDO
-    };
+  const handleFilterChange = (status) => {
+    status === ReportStatusEnum.PENDENTE
+      ? setStatusFilter([ReportStatusEnum.PENDENTE, ReportStatusEnum.AVALIADO])
+      : setStatusFilter([ReportStatusEnum.CONCLUIDO]); // Apenas CONCLUIDO
   };
 
   // Filtra os reports com base no filtro
@@ -35,10 +30,10 @@ function Management() {
       />
 
       <main className={`bg-12 m-1-5 ${style.main}`}>
-        <Filter filter={statusFilter} onFilterChange={handleFilter} />
+        <Filter filter={statusFilter} onFilterChange={handleFilterChange} />
 
         <div className={style.content}>
-          <Table reports={reports} />
+          <Table reports={filteredReports} />
 
           <Card />
         </div>
