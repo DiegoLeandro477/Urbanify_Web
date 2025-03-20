@@ -3,8 +3,12 @@ import style from "./style.module.css";
 
 import { GrFormPrevious } from "react-icons/gr";
 import { GrFormNext } from "react-icons/gr";
+import {
+  getReportStatusName,
+  ReportStatusEnum,
+} from "../../../../utils/environment";
 
-const Table = () => {
+const Table = ({ reports }) => {
   return (
     <div>
       <table className={`${style.table}`}>
@@ -18,48 +22,20 @@ const Table = () => {
           </tr>
         </thead>
         <tbody className={style.table__body}>
-          <tr className={style.body__list}>
-            <td className={`font-s c4`}>Liberdade</td>
-            <td className={`font-s c4`}>Rua Machado De Assis</td>
-            <td className={`font-s c4`}>Avaliado</td>
-            <td className={`font-s c4`}>4981</td>
-            <td className={`font-s c4`}>17/03/2025</td>
-          </tr>
-          <tr className={style.body__list}>
-            <td className={`font-s c4`}>Liberdade</td>
-            <td className={`font-s c4`}>Rua Machado De Assis</td>
-            <td className={`font-s c4`}>Avaliado</td>
-            <td className={`font-s c4`}>4981</td>
-            <td className={`font-s c4`}>17/03/2025</td>
-          </tr>
-          <tr className={style.body__list}>
-            <td className={`font-s c4`}>Liberdade</td>
-            <td className={`font-s c4`}>Rua Machado De Assis</td>
-            <td className={`font-s c4`}>Avaliado</td>
-            <td className={`font-s c4`}>4981</td>
-            <td className={`font-s c4`}>17/03/2025</td>
-          </tr>
-          <tr className={style.body__list}>
-            <td className={`font-s c4`}>Liberdade</td>
-            <td className={`font-s c4`}>Rua Machado De Assis</td>
-            <td className={`font-s c4`}>Avaliado</td>
-            <td className={`font-s c4`}>4981</td>
-            <td className={`font-s c4`}>17/03/2025</td>
-          </tr>
-          <tr className={style.body__list}>
-            <td className={`font-s c4`}>Liberdade</td>
-            <td className={`font-s c4`}>Rua Machado De Assis</td>
-            <td className={`font-s c4`}>Avaliado</td>
-            <td className={`font-s c4`}>4981</td>
-            <td className={`font-s c4`}>17/03/2025</td>
-          </tr>
-          <tr className={style.body__list}>
-            <td className={`font-s c4`}>Liberdade</td>
-            <td className={`font-s c4`}>Rua Machado De Assis</td>
-            <td className={`font-s c4`}>Avaliado</td>
-            <td className={`font-s c4`}>4981</td>
-            <td className={`font-s c4`}>17/03/2025</td>
-          </tr>
+          {reports.map((report, index) => (
+            <tr className={style.body__list} key={index}>
+              <td className={`font-s c4`}>{report.district}</td>
+              <td className={`font-s c4`}>{report.street}</td>
+              <td className={`font-s c4`}>
+                {getReportStatusName(report.status)}
+              </td>
+              <td className={`font-s c4`}>
+                {reports.filter((r) => r.district === report.district).length}
+              </td>
+              {console.log(report)}
+              <td className={`font-s c4`}>17/03/2025</td>
+            </tr>
+          ))}
         </tbody>
       </table>
       <div className={style.pagination}>

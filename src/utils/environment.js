@@ -4,6 +4,15 @@ export const ReportStatusEnum = Object.freeze({
   CONCLUIDO: 2,
 });
 
+// Função para buscar a chave correspondente ao valor
+export function getReportStatusName(value) {
+  return (
+    Object.keys(ReportStatusEnum).find(
+      (key) => ReportStatusEnum[key] === value
+    ) || "DESCONHECIDO"
+  );
+}
+
 export const FilterTypeEnum = Object.freeze({
   MONTH: 0,
   YEAR: 1,

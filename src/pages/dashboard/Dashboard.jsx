@@ -19,16 +19,16 @@ const Dashboard = () => {
   const { reports } = useReports();
   const [statusFilter, setStatusFilter] = useState([ReportStatusEnum.PENDENTE]);
 
-  // Filtra os reports com base no filtro
-  let filteredReports = statusFilter
-    ? reports.filter((report) => statusFilter.includes(report.status))
-      : reports;
-    
   const handleFilterChange = (status) => {
     status === ReportStatusEnum.PENDENTE
       ? setStatusFilter([ReportStatusEnum.PENDENTE, ReportStatusEnum.AVALIADO])
       : setStatusFilter([ReportStatusEnum.CONCLUIDO]); // Apenas CONCLUIDO
   };
+
+  // Filtra os reports com base no filtro
+  let filteredReports = statusFilter
+    ? reports.filter((report) => statusFilter.includes(report.status))
+    : reports;
 
   return (
     <div className={`${style.dashboard}`}>
@@ -64,7 +64,7 @@ const Dashboard = () => {
       </ul>
 
       <main className={`${style.dash__mapper}`}>
-        <Filter onFilterChange={handleFilterChange} filter={statusFilter}/>
+        <Filter onFilterChange={handleFilterChange} filter={statusFilter} />
 
         <div className={`${style.map__bg}`}>
           <div className={`${style.map__container}`}>
