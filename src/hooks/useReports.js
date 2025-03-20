@@ -17,7 +17,7 @@ const useReports = () => {
     findAllReports();
   }, []);
 
-  return { reports };
+  return { reports, setReports };
 };
 
 export default useReports;

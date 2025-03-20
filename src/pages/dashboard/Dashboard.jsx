@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import style from "./style.module.css";
 
 import CardInfo from "../../components/pages/dashboard/cardInfo/CardInfo";
@@ -13,10 +13,22 @@ import {
   getUsersNotServed,
   getUsersServed,
 } from "../../services/statistics";
-import { GiConsoleController } from "react-icons/gi";
+import { ReportStatusEnum } from "../../utils/environment";
 
 const Dashboard = () => {
   const { reports } = useReports();
+  const [statusFilter, setStatusFilter] = useState([ReportStatusEnum.PENDENTE]);
+
+  // Filtra os reports com base no filtro
+  let filteredReports = statusFilter
+    ? reports.filter((report) => statusFilter.includes(report.status))
+      : reports;
+    
+  const handleFilterChange = (status) => {
+    status === ReportStatusEnum.PENDENTE
+      ? setStatusFilter([ReportStatusEnum.PENDENTE, ReportStatusEnum.AVALIADO])
+      : setStatusFilter([ReportStatusEnum.CONCLUIDO]); // Apenas CONCLUIDO
+  };
 
   return (
     <div className={`${style.dashboard}`}>
@@ -52,14 +64,14 @@ const Dashboard = () => {
       </ul>
 
       <main className={`${style.dash__mapper}`}>
-        <Filter />
+        <Filter onFilterChange={handleFilterChange} filter={statusFilter}/>
 
         <div className={`${style.map__bg}`}>
           <div className={`${style.map__container}`}>
             <h1 className="font-s c4">
               Mapa De Ocorrências que não foram resolvidas
             </h1>
-            <MapReports reports={reports} filter={"filter"} />
+            <MapReports reports={filteredReports} />
           </div>
 
           <Ranking rank={getBairros(reports).rank} />

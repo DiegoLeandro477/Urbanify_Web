@@ -4,15 +4,7 @@ import FilterSeverity from "./filterServerity/FilterSeverity";
 import DateRanger from "./dateRanger/DateRanger";
 import { ReportStatusEnum } from "../../utils/environment";
 
-const Filter = () => {
-  const [filter, setFilter] = React.useState([ReportStatusEnum.PENDENTE]);
-
-  const handleFilterChange = (status) => {
-    console.log("Mudando para: ", status);
-    status === ReportStatusEnum.PENDENTE
-      ? setFilter([ReportStatusEnum.PENDENTE, ReportStatusEnum.AVALIADO])
-      : setFilter([ReportStatusEnum.CONCLUIDO]); // Apenas CONCLUIDO
-  };
+const Filter = ({filter, onFilterChange}) => {
 
   return (
     <div className={`${style.filter}`}>
@@ -25,7 +17,7 @@ const Filter = () => {
               ? style.selected
               : ""
           }`}
-          onClick={() => handleFilterChange(ReportStatusEnum.PENDENTE)}
+          onClick={() => onFilterChange(ReportStatusEnum.PENDENTE)}
         >
           Pendentes
         </span>
@@ -37,7 +29,7 @@ const Filter = () => {
               ? style.selected
               : ""
           }`}
-          onClick={() => handleFilterChange(ReportStatusEnum.CONCLUIDO)}
+          onClick={() => onFilterChange(ReportStatusEnum.CONCLUIDO)}
         >
           Resolvidos
         </span>
