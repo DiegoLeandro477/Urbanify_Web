@@ -13,22 +13,38 @@ import {
   getUsersNotServed,
   getUsersServed,
 } from "../../services/statistics";
-import { ReportStatusEnum } from "../../utils/environment";
+import { filterSeverityEnum, ReportStatusEnum } from "../../utils/environment";
+import mediaOfChildrensForReports from "../../utils/mediaOfChildrensForReports";
 
 const Dashboard = () => {
   const { reports } = useReports();
-  const [statusFilter, setStatusFilter] = useState([ReportStatusEnum.PENDENTE]);
+  const [filterStatus, setStatusFilter] = useState([ReportStatusEnum.PENDENTE]);
+  const [filterSeverity, setFilterSeverity] = useState(filterSeverityEnum.ALL);
 
   const handleFilterChange = (status) => {
-    status === ReportStatusEnum.PENDENTE
-      ? setStatusFilter([ReportStatusEnum.PENDENTE, ReportStatusEnum.AVALIADO])
-      : setStatusFilter([ReportStatusEnum.CONCLUIDO]); // Apenas CONCLUIDO
+    status.includes(ReportStatusEnum.CONCLUIDO)
+      ? setStatusFilter([ReportStatusEnum.CONCLUIDO]) // Apenas CONCLUIDO
+      : setStatusFilter([ReportStatusEnum.PENDENTE, ReportStatusEnum.AVALIADO]);
   };
 
-  // Filtra os reports com base no filtro
-  let filteredReports = statusFilter
-    ? reports.filter((report) => statusFilter.includes(report.status))
+  // Primeiro filtra os reports com base no status
+  let reports_filtered = filterStatus
+    ? reports.filter((report) => filterStatus.includes(report.status))
     : reports;
+
+  // Segundo filtro dos reports com base no severity
+  const filter_Severity_Reports =
+    filterSeverity != filterSeverityEnum.ALL
+      ? reports_filtered.filter((report) => {
+          let cont_severity = [0, 0];
+          report.childrens.forEach((element) => {
+            cont_severity[element.severity] += 1;
+          });
+          if (cont_severity[0] >= cont_severity[1])
+            return filterSeverity === filterSeverityEnum.GRAVE;
+          return filterSeverity === filterSeverityEnum.MODERADO;
+        })
+      : reports_filtered;
 
   return (
     <div className={`${style.dashboard}`}>
@@ -64,14 +80,19 @@ const Dashboard = () => {
       </ul>
 
       <main className={`${style.dash__mapper}`}>
-        <Filter onFilterChange={handleFilterChange} filter={statusFilter} />
+        <Filter
+          filter={filterStatus}
+          onFilterChange={handleFilterChange}
+          filterSeverity={filterSeverity}
+          onFilterSeverity={setFilterSeverity}
+        />
 
         <div className={`${style.map__bg}`}>
           <div className={`${style.map__container}`}>
             <h1 className="font-s c4">
               Mapa De Ocorrências que não foram resolvidas
             </h1>
-            <MapReports reports={filteredReports} />
+            <MapReports reports={filter_Severity_Reports} />
           </div>
 
           <Ranking rank={getBairros(reports).rank} />
