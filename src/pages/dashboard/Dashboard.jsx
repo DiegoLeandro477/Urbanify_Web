@@ -14,21 +14,14 @@ import {
   getUsersServed,
 } from "../../services/statistics";
 import { filterSeverityEnum, ReportStatusEnum } from "../../utils/environment";
-import mediaOfChildrensForReports from "../../utils/mediaOfChildrensForReports";
 
 const Dashboard = () => {
   const { reports } = useReports();
-  const [filterStatus, setStatusFilter] = useState([ReportStatusEnum.PENDENTE]);
+  const [filterStatus, setFilterStatus] = useState([ReportStatusEnum.PENDENTE]);
   const [filterSeverity, setFilterSeverity] = useState(filterSeverityEnum.ALL);
 
-  const handleFilterChange = (status) => {
-    status.includes(ReportStatusEnum.CONCLUIDO)
-      ? setStatusFilter([ReportStatusEnum.CONCLUIDO]) // Apenas CONCLUIDO
-      : setStatusFilter([ReportStatusEnum.PENDENTE, ReportStatusEnum.AVALIADO]);
-  };
-
   // Primeiro filtra os reports com base no status
-  let reports_filtered = filterStatus
+  const reports_filtered = filterStatus
     ? reports.filter((report) => filterStatus.includes(report.status))
     : reports;
 
@@ -81,8 +74,8 @@ const Dashboard = () => {
 
       <main className={`${style.dash__mapper}`}>
         <Filter
-          filter={filterStatus}
-          onFilterChange={handleFilterChange}
+          filterStatus={filterStatus}
+          onFilterStatus={setFilterStatus}
           filterSeverity={filterSeverity}
           onFilterSeverity={setFilterSeverity}
         />

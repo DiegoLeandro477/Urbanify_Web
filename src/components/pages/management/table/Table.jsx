@@ -83,7 +83,6 @@ const Table = ({ reports }) => {
                 {getReportStatusName(report.status)}
               </td>
               <td className={`font-s c4`}>{report.childrens.length}</td>
-              {console.log(report)}
               <td className={`font-s c4`}>{formatDate(report.created_at)}</td>
             </tr>
           ))}
