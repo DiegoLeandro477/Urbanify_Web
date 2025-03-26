@@ -18,6 +18,7 @@ const generateReport = (base) => ({
   id: rand(999999, 111111),
   address: "São Luís_" + base.district,
   geohash: `7p8986c`,
+  created_at: `${rand(30, 1)}/${rand(12, 1)}/2025`,
   coordinates: {
     latitude: `-2.${randStr(8, "0123456789")}`,
     longitude: `-44.${randStr(8, "0123456789")}`,

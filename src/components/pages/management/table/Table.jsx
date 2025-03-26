@@ -1,144 +1,165 @@
-import React from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import style from "./style.module.css";
-
-import { GrFormPrevious } from "react-icons/gr";
-import { GrFormNext } from "react-icons/gr";
+import { GrFormPrevious, GrFormNext } from "react-icons/gr";
 import { getReportStatusName } from "../../../../utils/environment";
-
 import { GET } from "../../../../services/requestHTTP";
 
-const Table = ({ reports, setUrls }) => {
-  const [reportKey, setReportKey] = React.useState(-1);
-  const [currentPage, setCurrentPage] = React.useState(1);
+// Componente de Tabela Principal
+const Table = ({ reports, urls, setUrls }) => {
+  const [reportKey, setReportKey] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
   const reportsPerPage = 7;
 
   const totalPages = Math.ceil(reports.length / reportsPerPage);
+  const currentReports = reports.slice(
+    (currentPage - 1) * reportsPerPage,
+    currentPage * reportsPerPage
+  );
 
-  const startIndex = (currentPage - 1) * reportsPerPage;
-  const currentReports = reports.slice(startIndex, startIndex + reportsPerPage);
+  // Formatação de data
+  const formatDate = (isoString) =>
+    new Date(isoString).toLocaleDateString("pt-BR", { timeZone: "UTC" });
 
-  const handleReportClick = async ({ index, address, geohash }) => {
-    setReportKey(index);
+  // Função para buscar dados de um relatório com tratamento de erro
+  const fetchReportData = useCallback(
+    async (address, geohash) => {
+      try {
+        const res = await GET(`/report/address/${address}/geohash/${geohash}`);
+        setUrls(res.data.data.urls);
+      } catch (error) {
+        console.error("Erro ao buscar os dados do relatório:", error);
+      }
+    },
+    [setUrls]
+  );
 
-    const res = await GET(`/report/address/${address}/geohash/${geohash}`);
+  // Lógica para selecionar um relatório
+  const handleReportClick = useCallback(
+    (index, address, geohash) => {
+      setReportKey(index);
+      fetchReportData(address, geohash);
+    },
+    [fetchReportData]
+  );
 
-    setUrls(res.data.data.urls);
-  };
+  // Carregamento automático do primeiro relatório ao montar a tabela
+  useEffect(() => {
+    if (urls.length === 0 && currentReports.length > 0) {
+      handleReportClick(
+        0,
+        currentReports[0].address,
+        currentReports[0].geohash
+      );
+    }
+  }, [currentReports, urls, handleReportClick]);
 
-  const handleNextPage = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage((prev) => prev + 1);
+  // Lógica de mudança de página
+  const changePage = (newPage) => {
+    setCurrentPage(newPage);
+    const firstReport = reports[(newPage - 1) * reportsPerPage];
+    if (firstReport) {
+      handleReportClick(0, firstReport.address, firstReport.geohash);
     }
   };
 
-  const handlePrevPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage((prev) => prev - 1);
-    }
-  };
-
-  const handlePageClick = (page) => {
-    setCurrentPage(page);
-  };
-
-  const formatDate = (isoString) => {
-    const date = new Date(isoString);
-    return date.toLocaleDateString("pt-BR", { timeZone: "UTC" });
-  };
-
+  // Geração dinâmica de páginas
   const getPages = () => {
-    const maxPagesToShow = 6; // Definir o número máximo de páginas visíveis
+    const maxPagesToShow = 6;
     if (totalPages <= maxPagesToShow) {
       return Array.from({ length: totalPages }, (_, i) => i + 1);
     }
 
-    const pages = [];
+    const pages = [1];
     const left = Math.max(2, currentPage - 2);
     const right = Math.min(totalPages - 1, currentPage + 2);
 
-    pages.push(1); // Sempre inclui a primeira página
+    if (left > 2) pages.push("...");
+    for (let i = left; i <= right; i++) pages.push(i);
+    if (right < totalPages - 1) pages.push("...");
+    pages.push(totalPages);
 
-    if (left > 2) pages.push("left-ellipsis"); // Usa uma chave única
-
-    for (let i = left; i <= right; i++) {
-      pages.push(i);
-    }
-
-    if (right < totalPages - 1) pages.push("right-ellipsis"); // Usa uma chave única
-
-    pages.push(totalPages); // Sempre inclui a última página
     return pages;
   };
 
+  // Renderização
   return (
     <div>
-      <table className={`${style.table}`}>
+      <table className={style.table}>
         <thead className={style.table__header}>
           <tr className={style.header__list}>
-            <th className={`font-s c2`}>Bairro</th>
-            <th className={`font-s c2`}>Rua</th>
-            <th className={`font-s c2`}>Status</th>
-            <th className={`font-s c2`}>Ocorrência</th>
-            <th className={`font-s c2`}>Data</th>
+            {["Bairro", "Rua", "Status", "Ocorrência", "Data"].map((header) => (
+              <th key={header} className="font-s c2">
+                {header}
+              </th>
+            ))}
           </tr>
         </thead>
         <tbody className={style.table__body}>
           {currentReports.map((report, index) => (
             <tr
-              onClick={() =>
-                handleReportClick({
-                  index,
-                  address: report.address,
-                  geohash: report.geohash,
-                })
-              }
-              className={`${style.body__list} ${reportKey == index && style.body__list_select}`}
               key={index}
+              className={`${style.body__list} ${
+                reportKey === index ? style.body__list_select : ""
+              }`}
+              onClick={() =>
+                handleReportClick(index, report.address, report.geohash)
+              }
             >
-              <td className={`font-s c4`}>{report.district}</td>
-              <td className={`font-s c4`}>{report.street}</td>
-              <td className={`font-s c4`}>
+              <td className="font-s c4">{report.district}</td>
+              <td className="font-s c4">{report.street}</td>
+              <td className="font-s c4">
                 {getReportStatusName(report.status)}
               </td>
-              <td className={`font-s c4`}>{report.childrens.length}</td>
-              <td className={`font-s c4`}>{formatDate(report.created_at)}</td>
+              <td className="font-s c4">{report.childrens.length}</td>
+              <td className="font-s c4">{formatDate(report.created_at)}</td>
             </tr>
           ))}
         </tbody>
       </table>
 
-      <div className={style.pagination}>
-        <GrFormPrevious
-          className={`${style.box} ${style.prev} ${currentPage === 1 ? style.disabled : ""}`}
-          onClick={handlePrevPage}
-        />
-
-        {getPages().map((page) =>
-          typeof page === "string" ? (
-            <span
-              key={page}
-              className={`font-s ${style.box} ${style.disabled}`}
-            >
-              ...
-            </span>
-          ) : (
-            <button
-              key={page}
-              className={`font-s ${style.box} ${page === currentPage ? style.select : ""}`}
-              onClick={() => handlePageClick(page)}
-            >
-              {page}
-            </button>
-          )
-        )}
-
-        <GrFormNext
-          className={`${style.box} ${style.next} ${currentPage === totalPages ? style.disabled : ""}`}
-          onClick={handleNextPage}
-        />
-      </div>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={changePage}
+        getPages={getPages}
+      />
     </div>
   );
 };
+
+// Componente de Paginação Separado
+const Pagination = ({ currentPage, totalPages, onPageChange, getPages }) => (
+  <div className={style.pagination}>
+    <GrFormPrevious
+      className={`${style.box} ${style.prev} ${
+        currentPage === 1 ? style.disabled : ""
+      }`}
+      onClick={() => currentPage > 1 && onPageChange(currentPage - 1)}
+    />
+    {getPages().map((page, index) =>
+      page === "..." ? (
+        <span key={index} className={`font-s ${style.box} ${style.disabled}`}>
+          ...
+        </span>
+      ) : (
+        <button
+          key={page}
+          className={`font-s ${style.box} ${
+            page === currentPage ? style.select : ""
+          }`}
+          onClick={() => onPageChange(page)}
+        >
+          {page}
+        </button>
+      )
+    )}
+    <GrFormNext
+      className={`${style.box} ${style.next} ${
+        currentPage === totalPages ? style.disabled : ""
+      }`}
+      onClick={() => currentPage < totalPages && onPageChange(currentPage + 1)}
+    />
+  </div>
+);
 
 export default Table;

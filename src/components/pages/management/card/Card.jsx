@@ -19,7 +19,7 @@ const Card = ({ urls }) => {
   };
 
   return (
-    <div className={`${urls.length != 0 ? style.card : style.card_inv} `}>
+    <div className={`${style.card}`}>
       <div className={style.card__frame}>
         <GrFormPrevious className={style.prev} onClick={handlePrev} />
         <GrFormNext className={style.next} onClick={handleNext} />

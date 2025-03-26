@@ -47,7 +47,11 @@ function Management() {
         />
 
         <div className={style.content}>
-          <Table reports={filter_Severity_Reports} setUrls={setUrls} />
+          <Table
+            reports={filter_Severity_Reports}
+            urls={urls}
+            setUrls={setUrls}
+          />
 
           <Card urls={urls} />
         </div>
