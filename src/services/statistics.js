@@ -1,3 +1,7 @@
+export const totalReports = (reports) => {
+  return reports.reduce((acc, item) => acc + item.childrens.length, 0);
+};
+
 export const getBairros = (reports) => {
   let bairrosSet = new Set();
   let cont_bairros = {};
@@ -22,7 +26,7 @@ export const getBairros = (reports) => {
 export const getUsersServed = (reports) => {
   let users = [];
   reports.forEach((report) => {
-    if (report.status > 0) users.push(report);
+    if (report.status == 2) users.push(report);
   });
   return users;
 };
