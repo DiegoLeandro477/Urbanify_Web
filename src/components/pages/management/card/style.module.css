@@ -3,6 +3,10 @@
   flex-direction: column;
 }
 
+.card_inv {
+  display: none;
+}
+
 .card__frame {
   position: relative;
   height: 12rem;

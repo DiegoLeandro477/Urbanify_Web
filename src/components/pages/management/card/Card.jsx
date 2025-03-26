@@ -4,42 +4,28 @@ import { GrFormPrevious } from "react-icons/gr";
 import { GrFormNext } from "react-icons/gr";
 import Modal from "../modal/Modal";
 
-const Card = () => {
+const Card = ({ urls }) => {
   const [currentIndex, setCurrentIndex] = React.useState(0);
   const [modalOpen, setModalOpen] = React.useState(false);
 
-  const slides = [
-    {
-      image:
-        "https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg",
-    },
-    {
-      image:
-        "https://img.freepik.com/fotos-gratis/midia-remixada-da-montanha-do-ceu-estrelado-da-natureza-da-galaxia_53876-126761.jpg?semt=ais_hybrid",
-    },
-    {
-      image: "https://pixlr.com/images/generator/text-to-image.webp",
-    },
-  ];
-
   const handleNext = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % slides.length);
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % urls.length);
   };
 
   const handlePrev = () => {
     setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? slides.length - 1 : prevIndex - 1
+      prevIndex === 0 ? urls.length - 1 : prevIndex - 1
     );
   };
 
   return (
-    <div className={style.card}>
+    <div className={`${urls.length != 0 ? style.card : style.card_inv} `}>
       <div className={style.card__frame}>
         <GrFormPrevious className={style.prev} onClick={handlePrev} />
         <GrFormNext className={style.next} onClick={handleNext} />
         <img
           className={`img ${style.card__image}`}
-          src={slides[currentIndex].image}
+          src={urls[currentIndex]}
           alt="Imagem"
         />
       </div>

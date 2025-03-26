@@ -1,22 +1,30 @@
-import React, { useState } from "react";
+import React from "react";
 import style from "./style.module.css";
 
 import { GrFormPrevious } from "react-icons/gr";
 import { GrFormNext } from "react-icons/gr";
 import { getReportStatusName } from "../../../../utils/environment";
 
-const Table = ({ reports }) => {
-  const [currentPage, setCurrentPage] = useState(1);
+import { GET } from "../../../../services/requestHTTP";
+
+const Table = ({ reports, setUrls }) => {
+  const [reportKey, setReportKey] = React.useState(-1);
+  const [currentPage, setCurrentPage] = React.useState(1);
   const reportsPerPage = 7;
 
-  // Cálculo do total de páginas
   const totalPages = Math.ceil(reports.length / reportsPerPage);
 
-  // Obtendo os reports da página atual
   const startIndex = (currentPage - 1) * reportsPerPage;
   const currentReports = reports.slice(startIndex, startIndex + reportsPerPage);
 
-  // Funções de navegação
+  const handleReportClick = async ({ index, address, geohash }) => {
+    setReportKey(index);
+
+    const res = await GET(`/report/address/${address}/geohash/${geohash}`);
+
+    setUrls(res.data.data.urls);
+  };
+
   const handleNextPage = () => {
     if (currentPage < totalPages) {
       setCurrentPage((prev) => prev + 1);
@@ -76,7 +84,17 @@ const Table = ({ reports }) => {
         </thead>
         <tbody className={style.table__body}>
           {currentReports.map((report, index) => (
-            <tr className={style.body__list} key={index}>
+            <tr
+              onClick={() =>
+                handleReportClick({
+                  index,
+                  address: report.address,
+                  geohash: report.geohash,
+                })
+              }
+              className={`${style.body__list} ${reportKey == index && style.body__list_select}`}
+              key={index}
+            >
               <td className={`font-s c4`}>{report.district}</td>
               <td className={`font-s c4`}>{report.street}</td>
               <td className={`font-s c4`}>
@@ -89,16 +107,13 @@ const Table = ({ reports }) => {
         </tbody>
       </table>
 
-      {/* PAGINAÇÃO DINÂMICA */}
       <div className={style.pagination}>
-        {/* Botão de página anterior */}
         <GrFormPrevious
           className={`${style.box} ${style.prev} ${currentPage === 1 ? style.disabled : ""}`}
           onClick={handlePrevPage}
         />
 
-        {/* Botões numéricos dinâmicos */}
-        {getPages().map((page, index) =>
+        {getPages().map((page) =>
           typeof page === "string" ? (
             <span
               key={page}
@@ -117,7 +132,6 @@ const Table = ({ reports }) => {
           )
         )}
 
-        {/* Botão de próxima página */}
         <GrFormNext
           className={`${style.box} ${style.next} ${currentPage === totalPages ? style.disabled : ""}`}
           onClick={handleNextPage}
