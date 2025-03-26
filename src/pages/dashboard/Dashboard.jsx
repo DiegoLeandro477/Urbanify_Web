@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import style from "./style.module.css";
 
 import CardInfo from "../../components/pages/dashboard/cardInfo/CardInfo";
@@ -8,12 +8,7 @@ import Filter from "../../components/filter/Filter";
 import Ranking from "../../components/pages/dashboard/ranking/Ranking";
 
 import useReports from "../../hooks/useReports";
-import {
-  totalReports,
-  getBairros,
-  getUsersNotServed,
-  getUsersServed,
-} from "../../services/statistics";
+import { totalReports, getBairros } from "../../services/statistics";
 import { filterSeverityEnum, ReportStatusEnum } from "../../utils/environment";
 
 const Dashboard = () => {
@@ -60,14 +55,14 @@ const Dashboard = () => {
         <li className={`${style.dash__box__info}`}>
           <CardInfo
             title={"Usuários atendidos"}
-            value={getUsersServed(reports).length}
+            value={1}
             incrementValue={-20}
           />
         </li>
         <li className={`${style.dash__box__info}`}>
           <CardInfo
             title={"Usuários não atendidos"}
-            value={reports.length}
+            value={2}
             incrementValue={-20}
           />
         </li>

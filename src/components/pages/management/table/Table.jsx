@@ -17,8 +17,20 @@ const Table = ({ reports, urls, setUrls }) => {
   );
 
   // Formatação de data
-  const formatDate = (isoString) =>
-    new Date(isoString).toLocaleDateString("pt-BR", { timeZone: "UTC" });
+  const formatDate = (isoString) => {
+    // Garante que mês e dia tenham dois dígitos
+    const correctedIsoString = isoString.replace(
+      /^(\d{4})-(\d{1,2})-(\d{1,2})/,
+      (_, year, month, day) =>
+        `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`
+    );
+
+    const date = new Date(correctedIsoString);
+    return date.toLocaleDateString("pt-BR", { timeZone: "UTC" });
+  };
+
+  // Exemplo de uso:
+  console.log(formatDate("2025-3-14T19:41:09.622Z")); // Saída: 14/03/2025
 
   // Função para buscar dados de um relatório com tratamento de erro
   const fetchReportData = useCallback(
