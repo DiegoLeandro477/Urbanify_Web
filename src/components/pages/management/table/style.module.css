@@ -12,6 +12,10 @@
   padding: 1rem;
   border-bottom: 1px solid var(--c10);
   cursor: pointer;
+  max-width: 20ch;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .body__list_select {
