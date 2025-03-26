@@ -8,6 +8,8 @@ import { filterSeverityEnum, ReportStatusEnum } from "../../utils/environment";
 import useReports from "../../hooks/useReports";
 
 function Management() {
+  const [urls, setUrls] = React.useState([]);
+
   const { reports } = useReports();
   const [filterStatus, setFilterStatus] = useState([ReportStatusEnum.PENDENTE]);
   const [filterSeverity, setFilterSeverity] = useState(filterSeverityEnum.ALL);
@@ -45,9 +47,13 @@ function Management() {
         />
 
         <div className={style.content}>
-          <Table reports={filter_Severity_Reports} />
+          <Table
+            reports={filter_Severity_Reports}
+            urls={urls}
+            setUrls={setUrls}
+          />
 
-          <Card />
+          <Card urls={urls} />
         </div>
       </main>
     </>

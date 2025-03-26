@@ -9,6 +9,7 @@ import Ranking from "../../components/pages/dashboard/ranking/Ranking";
 
 import useReports from "../../hooks/useReports";
 import {
+  totalReports,
   getBairros,
   getUsersNotServed,
   getUsersServed,
@@ -45,7 +46,7 @@ const Dashboard = () => {
         <li className={`${style.dash__box__info}`}>
           <CardInfo
             title={"Total de Ocorrências"}
-            value={reports.length}
+            value={totalReports(reports)}
             incrementValue={20}
           />
         </li>
@@ -66,7 +67,7 @@ const Dashboard = () => {
         <li className={`${style.dash__box__info}`}>
           <CardInfo
             title={"Usuários não atendidos"}
-            value={getUsersNotServed(reports).length}
+            value={reports.length}
             incrementValue={-20}
           />
         </li>

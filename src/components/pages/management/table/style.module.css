@@ -11,9 +11,10 @@
 .body__list td {
   padding: 1rem;
   border-bottom: 1px solid var(--c10);
+  cursor: pointer;
 }
 
-.body__list:first-child {
+.body__list_select {
   background: rgba(0, 123, 255, 0.1);
 }
 

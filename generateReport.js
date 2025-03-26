@@ -1,159 +1,43 @@
 import fs from "fs";
 
-const reportLiberdade = {
-  district: "Liberdade",
-  status: 0,
+const rand = (max, min) => Math.floor(Math.random() * (max - min + 1)) + min;
+const randStr = (length, chars = "abcdefghijklmnopqrstuvwxyz0123456789") =>
+  Array.from({ length }, () => chars[rand(0, chars.length - 1)]).join("");
+
+const baseReports = [
+  { district: "Liberdade", street: "Rua Machado De Assis" },
+  { district: "Monte Castelo", street: "Rua Paulo Fontin" },
+  { district: "Centro", street: "Rua Da Paz" },
+  { district: "Ribamar", street: "Estrada De Ribamar" },
+];
+
+const generateReport = (base) => ({
+  ...base,
+  status: rand(1, 0),
   subregion: "São Luís",
-  childrens: [
-    {
-      severity: 1,
-    },
-  ],
-  id: "laJ3UaUxUHtE5f8O",
+  id: rand(999999, 111111),
+  address: "São Luís_" + base.district,
+  geohash: `7p8986c`,
+  created_at: `${rand(30, 1)}/${rand(12, 1)}/2025`,
   coordinates: {
-    latitude: "-2.5325999611122065",
-    longitude: "-44.284021668688126",
+    latitude: `-2.${randStr(8, "0123456789")}`,
+    longitude: `-44.${randStr(8, "0123456789")}`,
   },
-  street: "Rua Machado De Assis",
-};
+  childrens: Array.from({ length: rand(10, 1) }, () => ({
+    severity: rand(1, 0),
+  })),
+});
 
-const reportMonteCastelo = {
-  district: "Monte Castelo",
-  status: 1,
-  subregion: "São Luís",
-  childrens: [
-    {
-      severity: 1,
-    },
-  ],
-  id: "laJ3UaUxUHtE5f8O",
-  coordinates: {
-    latitude: "-2.5325999611122065",
-    longitude: "-44.284021668688126",
-  },
-  street: "Rua Paulo Fontin",
-};
-
-const reportCentro = {
-  district: "Centro",
-  status: 0,
-  subregion: "São Luís",
-  childrens: [
-    {
-      severity: 1,
-    },
-  ],
-  id: "laJ3UaUxUHtE5f8O",
-  coordinates: {
-    latitude: "-2.5325999611122065",
-    longitude: "-44.284021668688126",
-  },
-  street: "Rua Da Paz",
-};
-
-const reportRibamar = {
-  district: "Ribamar",
-  status: 0,
-  subregion: "São Luís",
-  childrens: [
-    {
-      severity: 1,
-    },
-  ],
-  id: "laJ3UaUxUHtE5f8O",
-  coordinates: {
-    latitude: "-2.5325999611122065",
-    longitude: "-44.284021668688126",
-  },
-  street: "Estrada De Ribamar",
-};
-
-function randomDigit() {
-  return Math.floor(Math.random() * 100000000).toString();
-}
-
-function randomLetter() {
-  return String.fromCharCode(97 + Math.floor(Math.random() * 26));
-}
-
-function randomChildrens() {
-  let childrens = [];
-  const lenght = Math.floor(Math.random() * 100);
-
-  for (let i = 0; i <= lenght; i++) {
-    childrens.push({ severity: Math.floor(Math.random() * 2) });
-  }
-
-  return childrens;
-}
-
-let reports = [];
-
-for (let i = 0; i <= 1000; i++) {
-  const report = {
-    ...reportLiberdade,
-    geohash: `7p8${randomDigit()}${randomLetter()}${randomDigit()}${randomLetter()}`,
-    coordinates: {
-      latitude: `-2.${randomDigit()}"`,
-      longitude: `-44.${randomDigit()}"`,
-    },
-    childrens: randomChildrens(),
-  };
-
-  reports.push(report);
-}
-
-for (let i = 0; i <= 1000; i++) {
-  const report = {
-    ...reportMonteCastelo,
-    geohash: `7p8${randomDigit()}${randomLetter()}${randomDigit()}${randomLetter()}`,
-    coordinates: {
-      latitude: `-2.${randomDigit()}"`,
-      longitude: `-44.${randomDigit()}"`,
-    },
-    childrens: randomChildrens(),
-  };
-
-  reports.push(report);
-}
-
-for (let i = 0; i <= 1000; i++) {
-  const report = {
-    ...reportCentro,
-    geohash: `7p8${randomDigit()}${randomLetter()}${randomDigit()}${randomLetter()}`,
-    coordinates: {
-      latitude: `-2.${randomDigit()}"`,
-      longitude: `-44.${randomDigit()}"`,
-    },
-    childrens: randomChildrens(),
-  };
-
-  reports.push(report);
-}
-
-for (let i = 0; i <= 1000; i++) {
-  const report = {
-    ...reportRibamar,
-    geohash: `7p8${randomDigit()}${randomLetter()}${randomDigit()}${randomLetter()}`,
-    coordinates: {
-      latitude: `-2.${randomDigit()}"`,
-      longitude: `-44.${randomDigit()}"`,
-    },
-    childrens: randomChildrens(),
-  };
-
-  reports.push(report);
-}
+const reports = baseReports.flatMap((r) =>
+  Array.from({ length: 5 }, () => generateReport(r))
+);
 
 fs.writeFile(
   "reports.js",
-  `export const reports = ${JSON.stringify(reports)}`,
+  `export const data = ${JSON.stringify(reports)}`,
   "utf8",
   (err) => {
-    if (err) {
-      console.error("Erro ao escrever o arquivo:", err);
-      return;
-    }
-    console.log("Arquivo criado com sucesso!");
+    if (err) console.error("Erro ao escrever o arquivo:", err);
+    else console.log("Arquivo criado com sucesso!");
   }
 );
