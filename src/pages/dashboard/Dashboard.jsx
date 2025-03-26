@@ -8,7 +8,12 @@ import Filter from "../../components/filter/Filter";
 import Ranking from "../../components/pages/dashboard/ranking/Ranking";
 
 import useReports from "../../hooks/useReports";
-import { totalReports, getBairros } from "../../services/statistics";
+import {
+  totalReports,
+  getBairros,
+  getUsersServed,
+  getUsersNotServed,
+} from "../../services/statistics";
 import { filterSeverityEnum, ReportStatusEnum } from "../../utils/environment";
 
 const Dashboard = () => {
@@ -55,14 +60,14 @@ const Dashboard = () => {
         <li className={`${style.dash__box__info}`}>
           <CardInfo
             title={"Usuários atendidos"}
-            value={1}
+            value={getUsersServed(reports).length}
             incrementValue={-20}
           />
         </li>
         <li className={`${style.dash__box__info}`}>
           <CardInfo
             title={"Usuários não atendidos"}
-            value={2}
+            value={getUsersNotServed(reports).length}
             incrementValue={-20}
           />
         </li>

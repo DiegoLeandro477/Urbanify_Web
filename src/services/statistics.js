@@ -26,7 +26,11 @@ export const getBairros = (reports) => {
 export const getUsersServed = (reports) => {
   let users = [];
   reports.forEach((report) => {
-    if (report.status == 2) users.push(report);
+    if (report.status == 2) {
+      report.childrens.forEach((user) => {
+        users.push(user);
+      });
+    }
   });
   return users;
 };
@@ -34,7 +38,11 @@ export const getUsersServed = (reports) => {
 export const getUsersNotServed = (reports) => {
   let users = [];
   reports.forEach((report) => {
-    if (report.status === 0) users.push(report);
+    if (report.status === 0) {
+      report.childrens.forEach((user) => {
+        users.push(user);
+      });
+    }
   });
   return users;
 };
