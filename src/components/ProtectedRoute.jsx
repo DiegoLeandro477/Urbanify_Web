@@ -1,24 +1,13 @@
 import { Navigate, Outlet } from "react-router-dom";
-import { jwtDecode } from "jwt-decode"; // Importação corrigida
-import { getAccessToken } from "../services/acessToken"; // Assumindo que getAccessToken retorna o token
+import { useAuth } from "../context/AuthContext";
 
 const ProtectedRoute = () => {
-  const token = getAccessToken(); // Chama a função para obter o token
+  const { user } = useAuth(); // Obtém o usuário do contexto
 
-  if (!token) {
-    return <Navigate to="/" replace />; // Se não houver token, redireciona para login
-  }
+  if (!user) return <Navigate to="/" replace />; // Se não estiver autenticado, redireciona para login
+  if (user.role !== "ADMIN") return <Navigate to="/" replace />; // Se não for ADMIN, também redireciona
 
-  try {
-    const user = jwtDecode(token); // Decodifica o token para pegar a role
-    if (user.role !== "ADMIN") {
-      return <Navigate to="/" replace />; // Se o role não for ADMIN, redireciona
-    }
-    return <Outlet />; // Se for ADMIN, renderiza as rotas filhas protegidas
-  } catch (error) {
-    console.log(error); // Caso o token seja inválido
-    return <Navigate to="/" replace />; // Redireciona para login se ocorrer erro ao decodificar
-  }
+  return <Outlet />; // Se estiver autenticado e for ADMIN, renderiza a rota protegida
 };
 
 export default ProtectedRoute;
