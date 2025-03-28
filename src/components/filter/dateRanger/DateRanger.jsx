@@ -12,7 +12,6 @@ const DateRanger = () => {
   const inputRef = useRef(null);
   const [data, setData] = useState("");
 
-  console.log("data: ", data);
   useEffect(() => {
     flatpickr(inputRef.current, {
       mode: "range",

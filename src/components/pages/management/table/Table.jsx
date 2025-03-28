@@ -2,50 +2,57 @@ import React, { useState, useEffect, useCallback } from "react";
 import style from "./style.module.css";
 import { GrFormPrevious, GrFormNext } from "react-icons/gr";
 import { getReportStatusName } from "../../../../utils/environment";
+import { formatDate } from "../../../../utils/formatDate";
+import { countSeveritiesReport } from "../../../../utils/countSeveritiesReport";
 import { GET } from "../../../../services/requestHTTP";
 
-// Componente de Tabela Principal
-const Table = ({ reports, urls, setUrls }) => {
+const Table = ({ reports, setReports, urls, setUrls }) => {
+  const [order, setOrder] = useState({ column: null, direction: "asc" });
   const [reportKey, setReportKey] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const reportsPerPage = 7;
-
   const totalPages = Math.ceil(reports.length / reportsPerPage);
   const currentReports = reports.slice(
     (currentPage - 1) * reportsPerPage,
     currentPage * reportsPerPage
   );
 
-  // Formatação de data
-  const formatDate = (isoString) => {
-    // Garante que mês e dia tenham dois dígitos
-    const correctedIsoString = isoString.replace(
-      /^(\d{4})-(\d{1,2})-(\d{1,2})/,
-      (_, year, month, day) =>
-        `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`
-    );
+  const sortData = (column) => {
+    setCurrentPage(1);
 
-    const date = new Date(correctedIsoString);
-    return date.toLocaleDateString("pt-BR", { timeZone: "UTC" });
+    const newDirection =
+      order.column === column && order.direction === "asc" ? "desc" : "asc";
+
+    const sortedData = [...reports].sort((a, b) => {
+      if (a[column] < b[column]) return newDirection === "asc" ? -1 : 1;
+      if (a[column] > b[column]) return newDirection === "asc" ? 1 : -1;
+      return 0;
+    });
+    setReports(sortedData);
+    setOrder({ column, direction: newDirection });
+
+    console.log(order);
   };
 
-  // Exemplo de uso:
-  console.log(formatDate("2025-3-14T19:41:09.622Z")); // Saída: 14/03/2025
+  const getSortingIcon = (column) => {
+    if (order.column === column) {
+      return order.direction === "asc" ? "▲" : "▼";
+    }
+    return "⇅";
+  };
 
-  // Função para buscar dados de um relatório com tratamento de erro
   const fetchReportData = useCallback(
     async (address, geohash) => {
       try {
         const res = await GET(`/report/address/${address}/geohash/${geohash}`);
         setUrls(res.data.data.urls);
       } catch (error) {
-        console.error("Erro ao buscar os dados do relatório:", error);
+        console.error("Error fetching report data:", error);
       }
     },
     [setUrls]
   );
 
-  // Lógica para selecionar um relatório
   const handleReportClick = useCallback(
     (index, address, geohash) => {
       setReportKey(index);
@@ -54,7 +61,6 @@ const Table = ({ reports, urls, setUrls }) => {
     [fetchReportData]
   );
 
-  // Carregamento automático do primeiro relatório ao montar a tabela
   useEffect(() => {
     if (urls.length === 0 && currentReports.length > 0) {
       handleReportClick(
@@ -65,7 +71,6 @@ const Table = ({ reports, urls, setUrls }) => {
     }
   }, [currentReports, urls, handleReportClick]);
 
-  // Lógica de mudança de página
   const changePage = (newPage) => {
     setCurrentPage(newPage);
     const firstReport = reports[(newPage - 1) * reportsPerPage];
@@ -74,7 +79,6 @@ const Table = ({ reports, urls, setUrls }) => {
     }
   };
 
-  // Geração dinâmica de páginas
   const getPages = () => {
     const maxPagesToShow = 6;
     if (totalPages <= maxPagesToShow) {
@@ -93,17 +97,39 @@ const Table = ({ reports, urls, setUrls }) => {
     return pages;
   };
 
-  // Renderização
   return (
     <div>
       <table className={style.table}>
         <thead className={style.table__header}>
           <tr className={style.header__list}>
-            {["Bairro", "Rua", "Status", "Ocorrência", "Data"].map((header) => (
-              <th key={header} className="font-s c2">
-                {header}
-              </th>
-            ))}
+            <th className="font-s c2" onClick={() => sortData("district")}>
+              <span>Bairro</span>
+              <div>{getSortingIcon("district")}</div>
+            </th>
+            <th className="font-s c2" onClick={() => sortData("street")}>
+              <span>Rua</span>
+              <div>{getSortingIcon("street")}</div>
+            </th>
+            <th className="font-s c2" onClick={() => sortData("status")}>
+              <span>Status</span>
+              <div>{getSortingIcon("status")}</div>
+            </th>
+            <th className="font-s c2" onClick={() => sortData("reports")}>
+              <span>Relatos</span>
+              <div>{getSortingIcon("reports")}</div>
+            </th>
+            <th className="font-s c2" onClick={() => sortData("severes")}>
+              <span>Relatos Graves</span>
+              <div>{getSortingIcon("district")}</div>
+            </th>
+            <th className="font-s c2" onClick={() => sortData("moderates")}>
+              <span>Relatos Moderados</span>
+              <div>{getSortingIcon("district")}</div>
+            </th>
+            <th className="font-s c2" onClick={() => sortData("date")}>
+              <span>Data</span>
+              <div>{getSortingIcon("district")}</div>
+            </th>
           </tr>
         </thead>
         <tbody className={style.table__body}>
@@ -123,6 +149,12 @@ const Table = ({ reports, urls, setUrls }) => {
                 {getReportStatusName(report.status)}
               </td>
               <td className="font-s c4">{report.childrens.length}</td>
+              <td className="font-s c4">
+                {countSeveritiesReport(report).severe}
+              </td>
+              <td className="font-s c4">
+                {countSeveritiesReport(report).moderate}
+              </td>
               <td className="font-s c4">{formatDate(report.created_at)}</td>
             </tr>
           ))}
@@ -139,13 +171,10 @@ const Table = ({ reports, urls, setUrls }) => {
   );
 };
 
-// Componente de Paginação Separado
 const Pagination = ({ currentPage, totalPages, onPageChange, getPages }) => (
   <div className={style.pagination}>
     <GrFormPrevious
-      className={`${style.box} ${style.prev} ${
-        currentPage === 1 ? style.disabled : ""
-      }`}
+      className={`${style.box} ${style.prev} ${currentPage === 1 ? style.disabled : ""}`}
       onClick={() => currentPage > 1 && onPageChange(currentPage - 1)}
     />
     {getPages().map((page, index) =>
@@ -156,9 +185,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange, getPages }) => (
       ) : (
         <button
           key={page}
-          className={`font-s ${style.box} ${
-            page === currentPage ? style.select : ""
-          }`}
+          className={`font-s ${style.box} ${page === currentPage ? style.select : ""}`}
           onClick={() => onPageChange(page)}
         >
           {page}
@@ -166,9 +193,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange, getPages }) => (
       )
     )}
     <GrFormNext
-      className={`${style.box} ${style.next} ${
-        currentPage === totalPages ? style.disabled : ""
-      }`}
+      className={`${style.box} ${style.next} ${currentPage === totalPages ? style.disabled : ""}`}
       onClick={() => currentPage < totalPages && onPageChange(currentPage + 1)}
     />
   </div>

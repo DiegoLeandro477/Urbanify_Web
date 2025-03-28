@@ -10,7 +10,7 @@ import useReports from "../../hooks/useReports";
 function Management() {
   const [urls, setUrls] = React.useState([]);
 
-  const { reports } = useReports();
+  const { reports, setReports } = useReports();
   const [filterStatus, setFilterStatus] = useState([ReportStatusEnum.PENDENTE]);
   const [filterSeverity, setFilterSeverity] = useState(filterSeverityEnum.ALL);
   // Primeiro filtra os reports com base no status
@@ -49,6 +49,7 @@ function Management() {
         <div className={style.content}>
           <Table
             reports={filter_Severity_Reports}
+            setReports={setReports}
             urls={urls}
             setUrls={setUrls}
           />

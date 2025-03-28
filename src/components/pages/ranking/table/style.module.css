@@ -38,12 +38,6 @@
   color: var(--c10);
 }
 
-.body__list td {
-}
-
-.body__list:nth-child(even) {
-}
-
 .header__list th span,
 .header__list th div {
   display: flex;
