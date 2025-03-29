@@ -1,10 +1,13 @@
 import React from "react";
 import style from "./style.module.css";
 
+import Pagination from "../../../pagination/Pagination";
+
 import { getReportStatusName } from "../../../../utils/environment";
 import { countSeveritiesReport } from "../../../../utils/countSeveritiesReport";
+import { sortData } from "../../../../utils/sortData";
 
-const Table = ({ reports, setReports, urls, setUrls }) => {
+const Table = ({ reports, urls, setUrls }) => {
   const [data, setData] = React.useState([]);
   const [order, setOrder] = React.useState({ column: null, direction: "asc" });
   const [headerColumns] = React.useState([
@@ -16,12 +19,16 @@ const Table = ({ reports, setReports, urls, setUrls }) => {
     { title: "Relatos Moderados", column: "moderateReports" },
     { title: "Data", column: "date" },
   ]);
+  const [currentPage, setCurrentPage] = React.useState(1);
+  const reportsPerPage = 7;
+  const totalPages = Math.ceil(data.length / reportsPerPage);
+  const start = (currentPage - 1) * reportsPerPage;
+  const end = start + reportsPerPage;
+  const paginatedReports = data.slice(start, end);
 
   React.useEffect(() => {
     setData(
       reports.map((report) => {
-        console.log(new Date(report.created_at), report.created_at);
-
         return {
           ...report,
           status: getReportStatusName(report.status),
@@ -32,23 +39,7 @@ const Table = ({ reports, setReports, urls, setUrls }) => {
         };
       })
     );
-
-    console.log(data);
   }, [reports]);
-
-  const sortData = (column) => {
-    const newDirection =
-      order.column === column && order.direction === "asc" ? "desc" : "asc";
-
-    const sortedData = [...data].sort((a, b) => {
-      if (a[column] < b[column]) return newDirection === "asc" ? -1 : 1;
-      if (a[column] > b[column]) return newDirection === "asc" ? 1 : -1;
-      return 0;
-    });
-
-    setData(sortedData);
-    setOrder({ column, direction: newDirection });
-  };
 
   const getIconeOrdenacao = (column) => {
     if (order.column === column) {
@@ -62,7 +53,9 @@ const Table = ({ reports, setReports, urls, setUrls }) => {
       <th
         key={index}
         className="font-s c2"
-        onClick={() => sortData(item.column)}
+        onClick={() =>
+          sortData({ column: item.column, order, setOrder, data, setData })
+        }
       >
         <span>{item.title}</span>
         <div>{getIconeOrdenacao(item.column)}</div>
@@ -70,7 +63,7 @@ const Table = ({ reports, setReports, urls, setUrls }) => {
     );
   });
 
-  const Bodies = data.map((item, index) => {
+  const Bodies = paginatedReports.map((item, index) => {
     const date = new Date(item.created_at);
 
     return (
@@ -94,6 +87,12 @@ const Table = ({ reports, setReports, urls, setUrls }) => {
         </thead>
         <tbody className={style.table__body}>{Bodies}</tbody>
       </table>
+
+      <Pagination
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        totalPages={totalPages}
+      />
     </div>
   );
 };

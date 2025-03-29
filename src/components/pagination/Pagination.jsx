@@ -2,7 +2,7 @@ import React from "react";
 import { GrFormPrevious, GrFormNext } from "react-icons/gr";
 import style from "./style.module.css";
 
-const Pagination = ({ currentPage, totalPages, onPageChange }) => {
+const Pagination = ({ currentPage, setCurrentPage, totalPages }) => {
   const getPages = () => {
     const maxPagesToShow = 6;
     if (totalPages <= maxPagesToShow) {
@@ -21,11 +21,15 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
     return pages;
   };
 
+  const changePage = (newPage) => {
+    if (newPage >= 1 && newPage <= totalPages) setCurrentPage(newPage);
+  };
+
   return (
     <div className={style.pagination}>
       <GrFormPrevious
         className={`${style.box} ${style.prev} ${currentPage === 1 ? style.disabled : ""}`}
-        onClick={() => currentPage > 1 && onPageChange(currentPage - 1)}
+        onClick={() => currentPage > 1 && changePage(currentPage - 1)}
       />
       {getPages().map((page, index) =>
         page === "..." ? (
@@ -36,7 +40,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
           <button
             key={page}
             className={`font-s ${style.box} ${page === currentPage ? style.select : ""}`}
-            onClick={() => onPageChange(page)}
+            onClick={() => changePage(page)}
           >
             {page}
           </button>
@@ -44,9 +48,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
       )}
       <GrFormNext
         className={`${style.box} ${style.next} ${currentPage === totalPages ? style.disabled : ""}`}
-        onClick={() =>
-          currentPage < totalPages && onPageChange(currentPage + 1)
-        }
+        onClick={() => currentPage < totalPages && changePage(currentPage + 1)}
       />
     </div>
   );
