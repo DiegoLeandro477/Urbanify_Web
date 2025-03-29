@@ -6,6 +6,7 @@ import Pagination from "../../../pagination/Pagination";
 import { getReportStatusName } from "../../../../utils/environment";
 import { countSeveritiesReport } from "../../../../utils/countSeveritiesReport";
 import { sortData } from "../../../../utils/sortData";
+import { getUrlsReport } from "../../../../services/getUrlsReport";
 
 const Table = ({ reports, urls, setUrls }) => {
   const [data, setData] = React.useState([]);
@@ -25,6 +26,7 @@ const Table = ({ reports, urls, setUrls }) => {
   const start = (currentPage - 1) * reportsPerPage;
   const end = start + reportsPerPage;
   const paginatedReports = data.slice(start, end);
+  const [reportIndex, setReportIndex] = React.useState(0);
 
   React.useEffect(() => {
     setData(
@@ -39,6 +41,15 @@ const Table = ({ reports, urls, setUrls }) => {
         };
       })
     );
+
+    async function firstReport() {
+      const data = await getUrlsReport(reports[0]);
+
+      setUrls(data);
+    }
+    if (reports.length != 0 && urls.length === 0) {
+      firstReport();
+    }
   }, [reports]);
 
   const getIconeOrdenacao = (column) => {
@@ -46,6 +57,12 @@ const Table = ({ reports, urls, setUrls }) => {
       return order.direction === "asc" ? "▲" : "▼"; // Setas Unicode
     }
     return "⇅"; // Ícone neutro
+  };
+
+  const changeReportIndex = async ({ report, index }) => {
+    setReportIndex(index);
+    const data = await getUrlsReport(report);
+    setUrls(data);
   };
 
   const Headers = headerColumns.map((item, index) => {
@@ -67,7 +84,11 @@ const Table = ({ reports, urls, setUrls }) => {
     const date = new Date(item.created_at);
 
     return (
-      <tr key={index} className={`${style.body__list}`}>
+      <tr
+        key={index}
+        className={`${style.body__list} ${index === reportIndex && style.body__list_select}`}
+        onClick={() => changeReportIndex({ report: item, index })}
+      >
         <td className="font-s c4">{item.district}</td>
         <td className="font-s c4">{item.street}</td>
         <td className="font-s c4">{item.status}</td>
