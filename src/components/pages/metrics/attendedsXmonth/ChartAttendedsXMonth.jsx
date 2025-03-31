@@ -36,7 +36,7 @@ const data = {
       backgroundColor: [
         "rgba(142, 150, 255, 0.6)",
         "rgba(120, 200, 255, 0.6)",
-        "rgba(0, 0, 0, 0.9)", // Preto destacado
+        "rgba(210, 125, 100, 0.9)", // Preto destacado
         "rgba(120, 180, 255, 0.6)",
         "rgba(180, 220, 255, 0.6)",
         "rgba(120, 220, 180, 0.6)",
