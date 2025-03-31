@@ -6,19 +6,19 @@ const FilterServerity = ({ filter, onFilter }) => {
   return (
     <ul className={`${style.filter__list}`}>
       <li
-        className={`font-xs c4 ${style.list__item}  ${filter === filterSeverityEnum.ALL && style.select}`}
+        className={`font-xs  ${style.list__item}  ${filter === filterSeverityEnum.ALL && style.select}`}
         onClick={() => onFilter(filterSeverityEnum.ALL)}
       >
         Todas ocorrências
       </li>
       <li
-        className={`font-xs c4 ${style.list__item} ${filter === filterSeverityEnum.GRAVE && style.select}`}
+        className={`font-xs  ${style.list__item} ${filter === filterSeverityEnum.GRAVE && style.select}`}
         onClick={() => onFilter(filterSeverityEnum.GRAVE)}
       >
         Somente graves
       </li>
       <li
-        className={`font-xs c4 ${style.list__item} ${filter === filterSeverityEnum.MODERADO && style.select}`}
+        className={`font-xs  ${style.list__item} ${filter === filterSeverityEnum.MODERADO && style.select}`}
         onClick={() => onFilter(filterSeverityEnum.MODERADO)}
       >
         Somente moderados

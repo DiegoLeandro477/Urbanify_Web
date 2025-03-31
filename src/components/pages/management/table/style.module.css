@@ -3,7 +3,7 @@
   flex-direction: column;
   width: 100%;
   border-collapse: collapse; /* Bordas unificadas */
-  overflow: scroll;
+  overflow-x: scroll;
 }
 
 .header__list,
@@ -23,7 +23,14 @@
   cursor: pointer;
 }
 
-.body__list_select {
+.body__list td {
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.body__list_select td {
   background: rgba(0, 123, 255, 0.1);
 }
 
@@ -49,13 +56,6 @@
   flex-direction: column;
   justify-content: center;
 }
-
-/* .body__list tr td {
-  max-width: 100%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-} */
 
 .pagination {
   display: flex;
