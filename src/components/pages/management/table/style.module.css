@@ -15,7 +15,7 @@
 .header__list th,
 .body__list td {
   flex: none; /* Remove o comportamento de flex-grow */
-  width: calc(100% / 5);
+  width: calc(100% / 7);
   text-align: center; /* Centraliza horizontalmente */
   vertical-align: middle; /* Centraliza verticalmente */
   padding: 0.5rem 1rem; /* Espaçamento interno */

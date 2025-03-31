@@ -3,22 +3,19 @@ import style from "./style.module.css";
 import Header from "../../components/header/Header";
 import Filter from "../../components/filter/Filter";
 import Table from "../../components/pages/management/table/Table";
-import Card from "../../components/pages/management/card/Card";
 import { filterSeverityEnum, ReportStatusEnum } from "../../utils/environment";
 import useReports from "../../hooks/useReports";
 
 function Management() {
   const [urls, setUrls] = React.useState([]);
-
   const { reports, setReports } = useReports();
   const [filterStatus, setFilterStatus] = useState([ReportStatusEnum.PENDENTE]);
   const [filterSeverity, setFilterSeverity] = useState(filterSeverityEnum.ALL);
-  // Primeiro filtra os reports com base no status
+
   const reports_filtered = filterStatus
     ? reports.filter((report) => filterStatus.includes(report.status))
     : reports;
 
-  // Segundo filtro dos reports com base no severity
   const filter_Severity_Reports =
     filterSeverity != filterSeverityEnum.ALL
       ? reports_filtered.filter((report) => {
@@ -53,8 +50,6 @@ function Management() {
             urls={urls}
             setUrls={setUrls}
           />
-
-          <Card urls={urls} />
         </div>
       </main>
     </>

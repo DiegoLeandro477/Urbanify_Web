@@ -1,6 +1,7 @@
 import React from "react";
 import style from "./style.module.css";
 
+import Card from "../card/Card";
 import Pagination from "../../../pagination/Pagination";
 import { getReportStatusName } from "../../../../utils/environment";
 import { countSeveritiesReport } from "../../../../utils/countSeveritiesReport";
@@ -12,6 +13,7 @@ const Table = ({ reports = [], urls, setUrls }) => {
   const [order, setOrder] = React.useState({ column: null, direction: "asc" });
   const [currentPage, setCurrentPage] = React.useState(1);
   const [reportIndex, setReportIndex] = React.useState(0);
+  const [modalOpen, setModalOpen] = React.useState(true);
 
   const headerColumns = [
     { title: "Bairro", column: "district" },
@@ -123,6 +125,8 @@ const Table = ({ reports = [], urls, setUrls }) => {
         setCurrentPage={setCurrentPage}
         totalPages={totalPages}
       />
+
+      {modalOpen && <Card urls={urls} />}
     </div>
   );
 };
