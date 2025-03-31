@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import style from "./style.module.css";
 
 import CardInfo from "../../components/pages/dashboard/cardInfo/CardInfo";
@@ -7,6 +8,7 @@ import Filter from "../../components/filter/Filter";
 
 import Ranking from "../../components/pages/dashboard/ranking/Ranking";
 
+import useUsers from "../../hooks/useUsers";
 import useReports from "../../hooks/useReports";
 import {
   totalReports,
@@ -17,6 +19,7 @@ import {
 import { filterSeverityEnum, ReportStatusEnum } from "../../utils/environment";
 
 const Dashboard = () => {
+  const { users } = useUsers();
   const { reports } = useReports();
   const [filterStatus, setFilterStatus] = useState([ReportStatusEnum.PENDENTE]);
   const [filterSeverity, setFilterSeverity] = useState(filterSeverityEnum.ALL);
@@ -44,32 +47,40 @@ const Dashboard = () => {
     <div className={`${style.dashboard}`}>
       <ul>
         <li className={`${style.dash__box__info}`}>
-          <CardInfo
-            title={"Total de Ocorrências"}
-            value={totalReports(reports)}
-            incrementValue={20}
-          />
+          <Link to="/management">
+            <CardInfo
+              title={"Total de Ocorrências"}
+              value={totalReports(reports)}
+              incrementValue={20}
+            />
+          </Link>
         </li>
         <li className={`${style.dash__box__info}`}>
-          <CardInfo
-            title={"Bairros Catalogados"}
-            value={getBairros(reports).bairros.length}
-            incrementValue={20}
-          />
+          <Link to="/ranking">
+            <CardInfo
+              title={"Bairros Catalogados"}
+              value={getBairros(reports).bairros.length}
+              incrementValue={20}
+            />
+          </Link>
         </li>
         <li className={`${style.dash__box__info}`}>
-          <CardInfo
-            title={"Usuários atendidos"}
-            value={getUsersServed(reports).length}
-            incrementValue={-20}
-          />
+          <Link to="/metrics">
+            <CardInfo
+              title={"Usuários atendidos"}
+              value={getUsersServed(users)}
+              incrementValue={-20}
+            />
+          </Link>
         </li>
         <li className={`${style.dash__box__info}`}>
-          <CardInfo
-            title={"Usuários não atendidos"}
-            value={getUsersNotServed(reports).length}
-            incrementValue={-20}
-          />
+          <Link to="/metrics">
+            <CardInfo
+              title={"Usuários nunca atendidos"}
+              value={getUsersNotServed(users)}
+              incrementValue={-20}
+            />
+          </Link>
         </li>
       </ul>
 

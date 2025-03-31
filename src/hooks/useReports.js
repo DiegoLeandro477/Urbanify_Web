@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { GET } from "../services/requestHTTP";
-import { data } from "../../reports";
 
 const useReports = () => {
   const [reports, setReports] = useState([]);
@@ -10,7 +9,6 @@ const useReports = () => {
     setReports(res.data.reports); // UTILIZA O REPORT VINDO DO BANCO DE DADOS
     // setReports(data_reports); // UTILIZA O REPORT VINDO DO ARQUIVO.JS
     // setReports(res.data.reports); // UTILIZA O REPORT VINDO DO BANCO DE DADOS
-    setReports(data); // UTILIZA O REPORT VINDO DO ARQUIVO.JS
   };
 
   useEffect(() => {

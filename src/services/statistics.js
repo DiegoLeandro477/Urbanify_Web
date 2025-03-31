@@ -23,26 +23,25 @@ export const getBairros = (reports) => {
   return { bairros, rank };
 };
 
-export const getUsersServed = (reports) => {
-  let users = [];
-  reports.forEach((report) => {
-    if (report.status == 2) {
-      report.childrens.forEach((user) => {
-        users.push(user);
-      });
-    }
-  });
-  return users;
+export const getUsersServed = (users) => {
+  if (users.length === 0) return 0; // Retorna 0 se a lista estiver vazia
+
+  const counter = users.reduce((acc, user) => {
+    if (user.service_counter !== 0) acc++;
+    return acc;
+  }, 0);
+
+  console.log(users);
+  return counter;
 };
 
-export const getUsersNotServed = (reports) => {
-  let users = [];
-  reports.forEach((report) => {
-    if (report.status === 0) {
-      report.childrens.forEach((user) => {
-        users.push(user);
-      });
-    }
-  });
-  return users;
+export const getUsersNotServed = (users) => {
+  if (users.length === 0) return 0; // Retorna 0 se a lista estiver vazia
+
+  const counter = users.reduce((acc, user) => {
+    if (user.service_counter == 0) acc++;
+    return acc;
+  }, 0);
+
+  return counter;
 };
