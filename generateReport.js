@@ -25,6 +25,7 @@ const generateReport = (base) => ({
   },
   childrens: Array.from({ length: rand(10, 1) }, () => ({
     severity: rand(1, 0),
+    created_at: `2025-${String(rand(12, 1)).padStart(2, "0")}-${String(rand(28, 1)).padStart(2, "0")}T19:41:09.622Z`,
   })),
 });
 

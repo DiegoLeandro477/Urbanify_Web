@@ -1,5 +1,5 @@
 import React from "react";
-import { reportByYear } from "../../../../services/Metrics";
+import { reportsByYear } from "../../../../services/metrics";
 import useReports from "../../../../hooks/useReports";
 
 import { Bar } from "react-chartjs-2";
@@ -19,7 +19,7 @@ const MinimalistBarChart = () => {
 
   React.useEffect(() => {
     const getData = async () => {
-      const response = await reportByYear(reports);
+      const response = await reportsByYear(reports);
 
       setDataReports(response);
     };
