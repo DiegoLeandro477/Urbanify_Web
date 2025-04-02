@@ -73,7 +73,7 @@ const MapReports = ({ reports }) => {
       const { lat, lon } = coordinates;
       console.log(lat, lon);
 
-      map.setView([lat, lon], 16);
+      map.setView([lat, lon], 16, { animate: true, duration: 1.5 });
     }, [coordinates]);
 
     return null;

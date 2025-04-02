@@ -20,7 +20,8 @@ function Search({ setCoordinates }) {
 
       // Mapeia os resultados para exibição no autocomplete
       const suggestionsData = results.map((item) => ({
-        label: `${item.address.road || ""} ${item.address.suburb} ${item.address.city || item.address.municipality}`,
+        label: `${item.address.road ? item.address.road + ", " : ""}${item.address.suburb ? item.address.suburb + " - " : ""}${item.address.city || item.address.municipality || ""}`,
+
         lat: item.lat,
         lon: item.lon,
       }));
