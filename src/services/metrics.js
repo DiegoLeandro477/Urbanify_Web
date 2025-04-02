@@ -88,3 +88,19 @@ export const attendedsUsersByYear = async (users) => {
 
   return months;
 };
+
+export const attendedsUsersByMonth = async (users) => {
+  let usersActivePerMonth = Array(12).fill(0);
+
+  users.forEach(({ created_at }) => {
+    const date = new Date(created_at);
+    const monthIndex = date.getMonth(); // Obtém o índice do mês (0 = Jan, 11 = Dez)
+    usersActivePerMonth[monthIndex]++;
+  });
+
+  for (let i = 1; i < usersActivePerMonth.length; i++) {
+    usersActivePerMonth[i] += usersActivePerMonth[i - 1];
+  }
+
+  return usersActivePerMonth;
+};
