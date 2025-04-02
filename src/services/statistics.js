@@ -31,7 +31,6 @@ export const getUsersServed = (users) => {
     return acc;
   }, 0);
 
-  console.log(users);
   return counter;
 };
 

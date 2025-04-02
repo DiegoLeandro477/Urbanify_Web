@@ -1,6 +1,42 @@
 .map__container {
   height: 100%;
   width: 100%;
-  z-index: 2;
   border-radius: 2px;
+  position: relative;
+}
+
+.map__display {
+  height: 100%;
+  width: 100%;
+  z-index: 0;
+}
+
+.search {
+  background: white;
+  border: 1px solid var(--c8);
+  border-radius: 2px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  width: 20rem;
+  position: absolute;
+  z-index: 50;
+  top: 1rem;
+  left: 1rem;
+}
+
+.search__input {
+  width: 100%;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 2px;
+}
+
+.search__icon {
+  padding: 0.5rem;
+}
+
+.search__input:focus {
+  outline: none;
+  box-shadow: none;
 }
