@@ -11,7 +11,7 @@ import Metrics from "./pages/metrics/Metrics";
 import Ranking from "./pages/ranking/Ranking";
 import Login from "./pages/login/Login";
 import RootLayout from "./layout/RootLayout";
-
+// isso é o aplicativo inicial
 function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
