@@ -1,14 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import style from "./style.module.css";
 import Header from "../../components/header/Header";
 import Filter from "../../components/filter/Filter";
 import Table from "../../components/pages/management/table/Table";
 import { filterSeverityEnum, ReportStatusEnum } from "../../utils/environment";
 import useReports from "../../hooks/useReports";
+import { useParams } from "react-router-dom";
+import Card from "../../components/pages/management/card/Card";
+import { getUrlsReport } from "../../services/getUrlsReport";
 
 function Management() {
-  const [urls, setUrls] = React.useState([]);
-  const { reports, setReports } = useReports();
+  const [urls, setUrls] = useState([]);
+  const { report } = useParams(); // Pega o parâmetro da URL
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const { reports } = useReports();
   const [filterStatus, setFilterStatus] = useState([ReportStatusEnum.PENDENTE]);
   const [filterSeverity, setFilterSeverity] = useState(filterSeverityEnum.ALL);
 
@@ -28,6 +34,18 @@ function Management() {
           return filterSeverity === filterSeverityEnum.MODERADO;
         })
       : reports_filtered;
+
+  useEffect(() => {
+    if (report != null) {
+      changeSeletectDistrict(JSON.parse(report));
+    }
+  }, [report]);
+
+  const changeSeletectDistrict = async (report) => {
+    const data = await getUrlsReport(report);
+    setUrls(data);
+    setModalOpen(true);
+  };
   return (
     <>
       <Header
@@ -46,11 +64,12 @@ function Management() {
         <div className={style.content}>
           <Table
             reports={filter_Severity_Reports}
-            setReports={setReports}
-            urls={urls}
+            onSelected={changeSeletectDistrict}
             setUrls={setUrls}
           />
         </div>
+
+        {modalOpen && <Card urls={urls} close={setModalOpen} on={() => null} />}
       </main>
     </>
   );

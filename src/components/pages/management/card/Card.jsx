@@ -3,7 +3,7 @@ import style from "./style.module.css";
 import { GrFormPrevious } from "react-icons/gr";
 import { GrFormNext } from "react-icons/gr";
 
-const Card = ({ urls }) => {
+const Card = ({ urls, close, on }) => {
   const [currentIndex, setCurrentIndex] = React.useState(0);
 
   const handleNext = () => {
@@ -34,8 +34,12 @@ const Card = ({ urls }) => {
         </h3>
 
         <div className={style.card__buttons}>
-          <button className="font-s btn-outline">Não agora</button>
-          <button className="font-s btn-primary">Sim, eu quero</button>
+          <button className="font-s btn-outline" onClick={() => close(false)}>
+            Não agora
+          </button>
+          <button className="font-s btn-primary" onClick={() => on()}>
+            Sim, eu quero
+          </button>
         </div>
       </div>
     </div>

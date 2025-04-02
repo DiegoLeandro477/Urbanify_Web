@@ -22,7 +22,7 @@ function App() {
           {/* Rotas protegidas com ProtectedRoute */}
           <Route element={<ProtectedRoute />}>
             <Route path="dashboard" element={<Dashboard />} />
-            <Route path="/management/:reportId?" element={<Management />} />
+            <Route path="/management/:report?" element={<Management />} />
             <Route path="metrics" element={<Metrics />} />
             <Route path="ranking" element={<Ranking />} />
           </Route>

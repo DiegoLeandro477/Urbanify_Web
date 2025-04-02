@@ -1,9 +1,18 @@
-.table {
-  display: flex;
-  flex-direction: column;
+.tableContainer {
   width: 100%;
-  border-collapse: collapse; /* Bordas unificadas */
-  overflow-x: scroll;
+  overflow: hidden; /* Impede que o scroll apareça na tela toda */
+}
+
+.tableWrapper {
+  max-width: 100%;
+  overflow-x: auto; /* Adiciona o scroll apenas na tabela */
+}
+
+.table {
+  width: 100%;
+  table-layout: auto;
+  border-collapse: collapse; /* Mantém as bordas organizadas */
+  min-width: 800px; /* Defina um valor mínimo para a tabela */
 }
 
 .header__list,
