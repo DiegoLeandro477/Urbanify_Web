@@ -55,12 +55,36 @@ export const fixedsXnotFixedes = async ({ reports, resolvedReports }) => {
   const { bairros: bairrosNotAttendeds } = getDistrictStats(reports);
   const { bairros: bairrosAttendeds } = getDistrictStats(resolvedReports);
 
-  console.log(bairrosAttendeds);
-  console.log(bairrosNotAttendeds);
-
   const difference = bairrosNotAttendeds.filter(
     (item) => !bairrosAttendeds.includes(item)
   ).length;
 
   return [difference, bairrosAttendeds.length];
+};
+
+export const severeXmoderate = async (reports) => {
+  let counterSevereReports = 0;
+  let counterModerateReports = 0;
+
+  reports.forEach((report) => {
+    report.childrens.forEach((children) => {
+      children.severity == 0
+        ? counterSevereReports++
+        : counterModerateReports++;
+    });
+  });
+
+  return [counterModerateReports, counterSevereReports];
+};
+
+export const attendedsUsersByYear = async (users) => {
+  let months = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+  users.forEach((user) => {
+    const monthIndex = new Date(user.created_at).getMonth();
+
+    months[monthIndex]++;
+  });
+
+  return months;
 };
