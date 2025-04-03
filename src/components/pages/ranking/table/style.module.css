@@ -1,9 +1,18 @@
-.table {
-  display: flex;
-  flex-direction: column;
+.tableContainer {
   width: 100%;
-  border-collapse: collapse; /* Bordas unificadas */
-  overflow: scroll;
+  overflow: hidden; /* Impede que o scroll apareça na tela toda */
+}
+
+.tableWrapper {
+  max-width: 100%;
+  overflow-x: auto; /* Adiciona o scroll apenas na tabela */
+}
+
+.table {
+  width: 100%;
+  table-layout: auto;
+  border-collapse: collapse; /* Mantém as bordas organizadas */
+  min-width: 800px; /* Defina um valor mínimo para a tabela */
 }
 
 .header__list,
@@ -15,11 +24,23 @@
 .header__list th,
 .body__list td {
   flex: none; /* Remove o comportamento de flex-grow */
-  width: 12.5%; /* Define largura fixa (8 colunas, totalizando 100%) */
+  width: calc(100% / 7);
   text-align: center; /* Centraliza horizontalmente */
   vertical-align: middle; /* Centraliza verticalmente */
   padding: 0.5rem 1rem; /* Espaçamento interno */
   border: 1px solid var(--c10); /* Bordas organizadas */
+  cursor: pointer;
+}
+
+.body__list td {
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.body__list_select td {
+  background: rgba(0, 123, 255, 0.1);
 }
 
 .header__list th {
@@ -33,7 +54,7 @@
   gap: 0.5rem; /* Espaço entre o texto e ícones */
   padding: 0.5rem; /* Ajusta o espaçamento */
   border-bottom: 2px solid var(--c8); /* Borda inferior destacada */
-  cursor: pointer;
+
   background: var(--p1);
   color: var(--c10);
 }

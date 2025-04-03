@@ -2,9 +2,11 @@ export const reportsByYear = async (reports) => {
   let months = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
   reports.forEach((report) => {
-    const index = new Date(report.created_at).getMonth();
+    report.childrens.forEach((children) => {
+      const index = new Date(children.created_at).getMonth();
 
-    months[index] += report.childrens.length;
+      months[index]++;
+    });
   });
 
   return months;
