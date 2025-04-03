@@ -11,7 +11,7 @@ import { getUrlsReport } from "../../services/getUrlsReport";
 
 function Management() {
   const [urls, setUrls] = useState([]);
-  const { report } = useParams(); // Pega o parâmetro da URL
+  const { rep } = useParams(); // Pega o parâmetro da URL
   const [modalOpen, setModalOpen] = useState(false);
 
   const { reports } = useReports();
@@ -36,16 +36,17 @@ function Management() {
       : reports_filtered;
 
   useEffect(() => {
-    if (report != null) {
-      changeSeletectDistrict(JSON.parse(report));
+    if (!!rep) {
+      changeSeletectDistrict(JSON.parse(rep));
     }
-  }, [report]);
+  }, [rep]);
 
-  const changeSeletectDistrict = async (report) => {
-    const data = await getUrlsReport(report);
+  const changeSeletectDistrict = async (rep) => {
+    const data = await getUrlsReport(rep);
     setUrls(data);
-    setModalOpen(true);
+    if (!!rep) setModalOpen(true);
   };
+
   return (
     <>
       <Header

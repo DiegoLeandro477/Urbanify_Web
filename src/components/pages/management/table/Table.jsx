@@ -7,7 +7,7 @@ import { countSeveritiesReport } from "../../../../utils/countSeveritiesReport";
 import { sortData } from "../../../../utils/sortData";
 import { getUrlsReport } from "../../../../services/getUrlsReport";
 
-const Table = ({ reports = [], onSelected, setUrls }) => {
+const Table = ({ reports = [], onSelected }) => {
   const [data, setData] = useState([]);
   const [order, setOrder] = useState({ column: null, direction: "asc" });
   const [currentPage, setCurrentPage] = useState(1);

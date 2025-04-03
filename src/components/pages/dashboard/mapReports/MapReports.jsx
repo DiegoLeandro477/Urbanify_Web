@@ -48,7 +48,9 @@ const MapReports = ({ reports }) => {
 
         // Adiciona um evento de clique para redirecionar ao report
         marker.on("click", () => {
-          navigate(`/management/${report.id}`);
+          navigate(
+            `/management/${JSON.stringify({ address: report.address, geohash: report.geohash })}`
+          );
         });
 
         markers.addLayer(marker);
