@@ -54,13 +54,13 @@ export const ChartEnum = Object.freeze({
   ATTENDED__NOT_ATTENDED: {
     type: ChartCardEnum.ATTENDED__NOT_ATTENDED,
     title: "Usuarios",
-    subtitle: "Atendidos x Não atendidos",
+    subtitle: "Atendidos x Pendentes",
     filterType: FilterTypeEnum.NULL,
   },
   FIX__FIXED: {
     type: ChartCardEnum.FIX__FIXED,
     title: "Bairros",
-    subtitle: "Reparados x Nunca reparados",
+    subtitle: "Reparados x Pendentes",
     filterType: FilterTypeEnum.NULL,
   },
   SEVERE__MODERATE: {

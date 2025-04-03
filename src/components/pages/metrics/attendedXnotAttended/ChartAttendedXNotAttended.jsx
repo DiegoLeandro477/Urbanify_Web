@@ -22,7 +22,7 @@ const StylishPieChart = () => {
   }, [users]);
 
   const data = {
-    labels: ["Atendidos", "Nunca atendidos"], // Legendas dos dados
+    labels: ["Atendidos", "Pendentes"], // Legendas dos dados
     datasets: [
       {
         label: "Proporção",

@@ -24,7 +24,7 @@ const StylishPieChart = () => {
   }, [reports, resolvedReports]);
 
   const data = {
-    labels: ["Reparados", "Nunca reparados"], // Legendas dos dados
+    labels: ["Reparados", "Pendentes"], // Legendas dos dados
     datasets: [
       {
         label: "Proporção",
