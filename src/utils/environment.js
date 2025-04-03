@@ -20,9 +20,10 @@ export function getReportStatusName(value) {
 }
 
 export const FilterTypeEnum = Object.freeze({
-  MONTH: 0,
-  YEAR: 1,
-  NULL: 2,
+  NULL: 0,
+  MONTH: 1,
+  YEAR: 2,
+  INTERVAL: 3,
 });
 
 export const ChartCardEnum = Object.freeze({
@@ -67,7 +68,7 @@ export const ChartEnum = Object.freeze({
     type: ChartCardEnum.SEVERE__MODERATE,
     title: "Relatos",
     subtitle: "Graves x Moderados",
-    filterType: FilterTypeEnum.MONTH,
+    filterType: FilterTypeEnum.INTERVAL,
   },
 
   ATTENDEDS__MONTH: {

@@ -1,50 +1,36 @@
-import React, { useState } from "react";
-import style from "./style.module.css";
-
-import { MdOutlineDateRange } from "react-icons/md";
-
-import { useEffect, useRef } from "react";
-import flatpickr from "flatpickr";
+import React, { useRef, useEffect, useState } from "react";
+import Flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
-import { Portuguese } from "flatpickr/dist/l10n/pt.js";
+import monthSelectPlugin from "flatpickr/dist/plugins/monthSelect/index";
+import "flatpickr/dist/plugins/monthSelect/style.css";
 
-const DateRanger = () => {
+const DatePicker = ({ onChange }) => {
   const inputRef = useRef(null);
-  const [data, setData] = useState("");
+  const [selectedDate, setSelectedDate] = useState(null);
 
   useEffect(() => {
-    flatpickr(inputRef.current, {
-      mode: "range",
-      dateFormat: "d/m/Y",
-      locale: Portuguese,
-
-      onChange: (selectedDatesArray) => {
-        if (selectedDatesArray.length === 2) {
-          // Formatando a data antes de salvar no estado
-          const formattedDates = selectedDatesArray
-            .map((date) => date.toLocaleDateString("pt-BR")) // Converte para "dd/mm/yyyy"
-            .join(" -> "); // Junta as duas datas com "->"
-
-          setData(formattedDates);
+    const fp = Flatpickr(inputRef.current, {
+      enableTime: true,
+      dateFormat: "Y-m-d H:i",
+      plugins: [
+        new monthSelectPlugin({
+          shorthand: true,
+          dateFormat: "Y-m",
+          altFormat: "F Y",
+        }),
+      ],
+      onChange: (selectedDates) => {
+        setSelectedDate(selectedDates[0]);
+        if (onChange) {
+          onChange(selectedDates[0]);
         }
       },
     });
-  }, []);
 
-  return (
-    <div className={`${style.picker__box}`}>
-      <input
-        ref={inputRef}
-        type="text"
-        placeholder="Data inicial -> Data final"
-        className={`font-xs c4 ${style.picker__input}`}
-        value={data} // Garante que o input reflete o estado
-        readOnly // Evita edição manual
-      />
+    return () => fp.destroy();
+  }, [onChange]);
 
-      <MdOutlineDateRange className="c4" />
-    </div>
-  );
+  return <input ref={inputRef} type="text" placeholder="Select date..." />;
 };
 
-export default DateRanger;
+export default DatePicker;
