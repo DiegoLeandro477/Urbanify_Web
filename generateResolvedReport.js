@@ -28,7 +28,7 @@ const generateReport = (base) => ({
 });
 
 const reports = baseReports.flatMap((r) =>
-  Array.from({ length: 2 }, () => generateReport(r))
+  Array.from({ length: 100 }, () => generateReport(r))
 );
 
 fs.writeFile(

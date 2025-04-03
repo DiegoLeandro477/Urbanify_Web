@@ -67,7 +67,7 @@ const Dashboard = () => {
         <li className={`${style.dash__box__info}`}>
           <Link to="/metrics">
             <CardInfo
-              title={"Usuários atendidos"}
+              title={"Moradores Atendidos"}
               value={getUsersServed(users)}
               incrementValue={-20}
             />
@@ -76,7 +76,7 @@ const Dashboard = () => {
         <li className={`${style.dash__box__info}`}>
           <Link to="/metrics">
             <CardInfo
-              title={"Usuarios a serem atendidos"}
+              title={"Moradores A Serem Atendidos"}
               value={getUsersNotServed(users)}
               incrementValue={-20}
             />
