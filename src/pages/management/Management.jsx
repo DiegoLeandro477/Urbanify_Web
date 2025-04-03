@@ -70,7 +70,13 @@ function Management() {
           />
         </div>
 
-        {modalOpen && <Card urls={urls} close={setModalOpen} on={() => null} />}
+        {modalOpen && (
+          <Card
+            urls={urls}
+            close={setModalOpen}
+            on={() => alert("reparando...")}
+          />
+        )}
       </main>
     </>
   );
