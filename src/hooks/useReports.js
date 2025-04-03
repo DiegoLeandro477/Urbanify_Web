@@ -6,8 +6,7 @@ const useReports = () => {
   const [reports, setReports] = useState([]);
 
   const findAllReports = async () => {
-    //const res = await GET("/report");
-    // setReports(res.data.reports); // UTILIZA O REPORT VINDO DO BANCO DE DADOS
+    // setReports((await GET("/report")).data.reports); // UTILIZA OS REPORTS DO BANCO DE DADOS
     setReports(data); // UTILIZA O REPORT VINDO DO ARQUIVO.JS
   };
 
