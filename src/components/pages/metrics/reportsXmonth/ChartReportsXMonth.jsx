@@ -22,19 +22,19 @@ ChartJS.register(
   Legend
 );
 
-const MinimalistLineChart = () => {
+const MinimalistLineChart = ({ monthTarget }) => {
   const { reports } = useReports();
   const [dataReports, setDataReports] = React.useState([]);
 
   React.useEffect(() => {
     const getData = async () => {
-      const response = await reportsByMonth({ reports, monthIndexSelected: 1 });
+      const response = await reportsByMonth({ reports, monthTarget });
 
       setDataReports(response);
     };
 
     if (reports.length != 0) getData();
-  }, [reports]);
+  }, [reports, monthTarget]);
 
   const data = {
     labels: Array.from({ length: 31 }, (_, i) => i + 1), // Dias de 1 a 31

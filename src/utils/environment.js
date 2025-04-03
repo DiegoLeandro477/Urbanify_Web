@@ -22,6 +22,7 @@ export function getReportStatusName(value) {
 export const FilterTypeEnum = Object.freeze({
   MONTH: 0,
   YEAR: 1,
+  NULL: 2,
 });
 
 export const ChartCardEnum = Object.freeze({
@@ -54,13 +55,13 @@ export const ChartEnum = Object.freeze({
     type: ChartCardEnum.ATTENDED__NOT_ATTENDED,
     title: "Usuarios",
     subtitle: "Atendidos x Não atendidos",
-    filterType: FilterTypeEnum.MONTH,
+    filterType: FilterTypeEnum.NULL,
   },
   FIX__FIXED: {
     type: ChartCardEnum.FIX__FIXED,
     title: "Bairros",
     subtitle: "Reparados x Nunca reparados",
-    filterType: FilterTypeEnum.MONTH,
+    filterType: FilterTypeEnum.NULL,
   },
   SEVERE__MODERATE: {
     type: ChartCardEnum.SEVERE__MODERATE,
@@ -73,7 +74,7 @@ export const ChartEnum = Object.freeze({
     type: ChartCardEnum.ATTENDEDS__MONTH,
     title: "Usuários",
     subtitle: "Atendidos por mês",
-    filterType: FilterTypeEnum.MONTH,
+    filterType: FilterTypeEnum.YEAR,
   },
   USERS__YEAR: {
     type: ChartCardEnum.USERS__YEAR,

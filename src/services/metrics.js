@@ -10,7 +10,7 @@ export const reportsByYear = async (reports) => {
   return months;
 };
 
-export const reportsByMonth = async ({ reports, monthIndexSelected }) => {
+export const reportsByMonth = async ({ reports, monthTarget }) => {
   let days = Array(31).fill(0);
 
   reports.forEach((report) => {
@@ -18,7 +18,7 @@ export const reportsByMonth = async ({ reports, monthIndexSelected }) => {
       const dayIndex = new Date(children.created_at).getDate() - 1;
       const monthIndex = new Date(children.created_at).getMonth();
 
-      monthIndex == monthIndexSelected && (days[dayIndex] += 1);
+      monthIndex == monthTarget && (days[dayIndex] += 1);
     });
   });
 
@@ -62,12 +62,16 @@ export const fixedsXnotFixedes = async ({ reports, resolvedReports }) => {
   return [difference, bairrosAttendeds.length];
 };
 
-export const severeXmoderate = async (reports) => {
+export const severeXmoderate = async ({ reports, monthTarget }) => {
   let counterSevereReports = 0;
   let counterModerateReports = 0;
 
   reports.forEach((report) => {
     report.childrens.forEach((children) => {
+      const monthIndex = new Date(children.created_at).getMonth();
+
+      if (monthIndex !== monthTarget) return;
+
       children.severity == 0
         ? counterSevereReports++
         : counterModerateReports++;

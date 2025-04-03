@@ -7,19 +7,19 @@ import { severeXmoderate } from "../../../../services/metrics";
 // Registrar componentes necessários
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const StylishPieChart = () => {
+const StylishPieChart = ({ monthTarget }) => {
   const { reports } = useReports();
   const [dataReports, setDataReports] = React.useState([]);
 
   React.useEffect(() => {
     const getData = async () => {
-      const response = await severeXmoderate(reports);
+      const response = await severeXmoderate({ reports, monthTarget });
 
       setDataReports(response);
     };
 
     if (reports.length != 0) getData();
-  }, [reports]);
+  }, [reports, monthTarget]);
 
   const data = {
     labels: ["Moderados", "Graves"], // Legendas dos dados
