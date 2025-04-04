@@ -8,7 +8,7 @@ const baseReports = [
   { district: "Liberdade", street: "Rua Machado De Assis" },
   { district: "Monte Castelo", street: "Rua Paulo Fontin" },
   { district: "Centro", street: "Rua Da Paz" },
-  { district: "Ribamar", street: "Estrada De Ribamar" },
+  { district: "Calhau", street: "Av. Litorânea" },
 ];
 
 const generateReport = (base) => ({
@@ -30,7 +30,7 @@ const generateReport = (base) => ({
 });
 
 const reports = baseReports.flatMap((r) =>
-  Array.from({ length: 1000 }, () => generateReport(r))
+  Array.from({ length: 1 }, () => generateReport(r))
 );
 
 fs.writeFile(
