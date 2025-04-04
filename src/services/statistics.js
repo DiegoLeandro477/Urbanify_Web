@@ -1,8 +1,47 @@
 export const totalReports = (reports) => {
+  if (reports.length === 0) return 0;
+
   return reports.reduce((acc, item) => acc + item.childrens.length, 0);
 };
 
-export const getBairros = (reports) => {
+export const incrementReports = (reports) => {
+  const now = new Date();
+  const currentMonth = now.getMonth();
+  const currentYear = now.getFullYear();
+
+  // Definir o mês e ano do mês passado considerando a virada de ano
+  const lastMonth = currentMonth === 0 ? 11 : currentMonth - 1; // Ajusta para dezembro se for janeiro
+  const lastMonthYear = currentMonth === 0 ? currentYear - 1 : currentYear;
+
+  let currentMonthCount = 0;
+  let lastMonthCount = 0;
+
+  reports.forEach((report) => {
+    report.childrens.forEach((children) => {
+      const createdAt = new Date(children.created_at);
+      const childMonth = createdAt.getMonth();
+      const childYear = createdAt.getFullYear();
+
+      if (childYear === currentYear && childMonth === currentMonth) {
+        currentMonthCount += 1; // Incrementa o contador do mês atual
+      } else if (childYear === lastMonthYear && childMonth === lastMonth) {
+        lastMonthCount += 1; // Incrementa o contador do mês passado
+      }
+    });
+  });
+
+  // Verifica se houve crescimento ou redução e calcula a porcentagem
+  const result =
+    lastMonthCount > 0
+      ? ((currentMonthCount - lastMonthCount) / lastMonthCount) * 100
+      : 0; // Evita divisão por zero
+
+  return Math.round(result); // Retorna positivo para crescimento, negativo para redução
+};
+
+export const getDistricts = (reports) => {
+  if (reports.length === 0) return { bairros: 0, rank: [] };
+
   let bairrosSet = new Set();
   let cont_bairros = {};
 
@@ -23,6 +62,17 @@ export const getBairros = (reports) => {
   return { bairros, rank };
 };
 
+export const incrementDistrict = (reports) => {
+  if (reports.length === 0) return 0;
+
+  const districtFixeds = getDistricts(reports).bairros.length;
+  const totalDistricts = 60; // Total de bairros possíveis (ajuste conforme necessário)
+
+  const indice = ((totalDistricts - districtFixeds) / totalDistricts) * 100;
+
+  return 100 - Math.round(indice);
+};
+
 export const getUsersServed = (users) => {
   if (users.length === 0) return 0; // Retorna 0 se a lista estiver vazia
 
@@ -34,6 +84,43 @@ export const getUsersServed = (users) => {
   return counter;
 };
 
+export const incrementUsersServed = (users) => {
+  if (users.length === 0) return 0;
+
+  const now = new Date();
+  const currentMonth = now.getMonth();
+  const currentYear = now.getFullYear();
+
+  // Definir o mês e ano do mês passado considerando a virada de ano
+  const lastMonth = currentMonth === 0 ? 11 : currentMonth - 1; // Ajusta para dezembro se for janeiro
+  const lastMonthYear = currentMonth === 0 ? currentYear - 1 : currentYear;
+
+  let currentMonthCount = 0;
+  let lastMonthCount = 0;
+
+  users.forEach((user) => {
+    if (user.service_counter === 0) return; // Ignora usuários não atendidos
+
+    const createdAt = new Date(user.created_at);
+    const childMonth = createdAt.getMonth();
+    const childYear = createdAt.getFullYear();
+
+    if (childYear === currentYear && childMonth === currentMonth) {
+      currentMonthCount += 1; // Incrementa o contador do mês atual
+    } else if (childYear === lastMonthYear && childMonth === lastMonth) {
+      lastMonthCount += 1; // Incrementa o contador do mês passado
+    }
+  });
+
+  // Verifica se houve crescimento ou redução e calcula a porcentagem
+  const result =
+    lastMonthCount > 0
+      ? ((currentMonthCount - lastMonthCount) / lastMonthCount) * 100
+      : 0; // Evita divisão por zero
+
+  return Math.round(result); // Retorna positivo para crescimento, negativo para redução
+};
+
 export const getUsersNotServed = (users) => {
   if (users.length === 0) return 0; // Retorna 0 se a lista estiver vazia
 
@@ -43,4 +130,41 @@ export const getUsersNotServed = (users) => {
   }, 0);
 
   return counter;
+};
+
+export const incrementUsersNotServed = (users) => {
+  if (users.length === 0) return 0;
+
+  const now = new Date();
+  const currentMonth = now.getMonth();
+  const currentYear = now.getFullYear();
+
+  // Definir o mês e ano do mês passado considerando a virada de ano
+  const lastMonth = currentMonth === 0 ? 11 : currentMonth - 1; // Ajusta para dezembro se for janeiro
+  const lastMonthYear = currentMonth === 0 ? currentYear - 1 : currentYear;
+
+  let currentMonthCount = 0;
+  let lastMonthCount = 0;
+
+  users.forEach((user) => {
+    if (user.service_counter !== 0) return; // Ignora usuários não atendidos
+
+    const createdAt = new Date(user.created_at);
+    const childMonth = createdAt.getMonth();
+    const childYear = createdAt.getFullYear();
+
+    if (childYear === currentYear && childMonth === currentMonth) {
+      currentMonthCount += 1; // Incrementa o contador do mês atual
+    } else if (childYear === lastMonthYear && childMonth === lastMonth) {
+      lastMonthCount += 1; // Incrementa o contador do mês passado
+    }
+  });
+
+  console.log({ currentMonthCount, lastMonthCount });
+
+  // Verifica se houve crescimento ou redução e calcula a porcentagem
+  const result =
+    lastMonthCount > 0 ? ((lastMonth - currentMonth) / lastMonth) * 100 : 0; // Evita divisão por zero
+
+  return Math.round(result); // Retorna positivo para crescimento, negativo para redução
 };

@@ -5,12 +5,26 @@ import { FaCaretUp } from "react-icons/fa";
 import { FaCaretDown } from "react-icons/fa";
 
 const CardInfo = ({ title, value, incrementValue }) => {
-  const incrementText =
-    incrementValue > 0
-      ? `Acréscimo de ${incrementValue}%`
-      : `Redução de ${incrementValue}%`;
+  let incrementText;
 
-  const incrementIcon =
+  if (title === "Moradores A Serem Atendidos") {
+    incrementValue = incrementValue * -1;
+
+    incrementText =
+      incrementValue < 0
+        ? `Acréscimo de ${incrementValue}%`
+        : `Redução de ${incrementValue}%`;
+  } else {
+    incrementText =
+      incrementValue > 0
+        ? `Acréscimo de ${incrementValue}%`
+        : `Redução de ${incrementValue}%`;
+  }
+
+  if (title === "Bairros Catalogados")
+    incrementText = `Corbertura de ${incrementValue}% dos bairros`;
+
+  let incrementIcon =
     incrementValue > 0 ? (
       <FaCaretUp className="green" />
     ) : (
