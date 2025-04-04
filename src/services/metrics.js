@@ -68,16 +68,21 @@ export const severeXmoderate = async ({ reports, intervalTarget }) => {
   let counterSevereReports = 0;
   let counterModerateReports = 0;
 
-  // Convertendo intervalTarget para objetos Date completos
-  const startTarget = new Date(intervalTarget.start);
-  const endTarget = new Date(intervalTarget.end);
+  const startTarget = intervalTarget.start
+    ? new Date(intervalTarget.start)
+    : undefined;
+  const endTarget = intervalTarget.start
+    ? new Date(intervalTarget.end)
+    : undefined;
 
   reports.forEach((report) => {
     report.childrens.forEach((children) => {
       const childrenDate = new Date(children.created_at); // Converte para Date
 
-      // Verifica se a data está dentro do intervalo
-      if (childrenDate >= startTarget && childrenDate <= endTarget) {
+      if (
+        (childrenDate >= startTarget && childrenDate <= endTarget) ||
+        (!startTarget && !endTarget)
+      ) {
         // Incrementa o contador com base na gravidade
         children.severity === 0
           ? counterSevereReports++

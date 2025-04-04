@@ -5,17 +5,24 @@ import style from "./style.module.css";
 import CardInfo from "../../components/pages/dashboard/cardInfo/CardInfo";
 import MapReports from "../../components/pages/dashboard/mapReports/MapReports";
 import Filter from "../../components/filter/Filter";
-
 import Ranking from "../../components/pages/dashboard/ranking/Ranking";
 
 import useUsers from "../../hooks/useUsers";
 import useReports from "../../hooks/useReports";
 import {
   totalReports,
-  getBairros,
+  incrementReports,
+  //
+  getDistricts,
+  incrementDistrict,
+  //
   getUsersServed,
+  incrementUsersServed,
+  //
   getUsersNotServed,
+  incrementUsersNotServed,
 } from "../../services/statistics";
+
 import { filterSeverityEnum, ReportStatusEnum } from "../../utils/environment";
 
 const Dashboard = () => {
@@ -51,7 +58,7 @@ const Dashboard = () => {
             <CardInfo
               title={"Total de Ocorrências"}
               value={totalReports(reports)}
-              incrementValue={20}
+              incrementValue={incrementReports(reports)}
             />
           </Link>
         </li>
@@ -59,8 +66,8 @@ const Dashboard = () => {
           <Link to="/ranking">
             <CardInfo
               title={"Bairros Catalogados"}
-              value={getBairros(reports).bairros.length}
-              incrementValue={20}
+              value={getDistricts(reports).bairros.length}
+              incrementValue={incrementDistrict(reports)}
             />
           </Link>
         </li>
@@ -69,7 +76,7 @@ const Dashboard = () => {
             <CardInfo
               title={"Moradores Atendidos"}
               value={getUsersServed(users)}
-              incrementValue={-20}
+              incrementValue={incrementUsersServed(users)}
             />
           </Link>
         </li>
@@ -78,7 +85,7 @@ const Dashboard = () => {
             <CardInfo
               title={"Moradores A Serem Atendidos"}
               value={getUsersNotServed(users)}
-              incrementValue={-20}
+              incrementValue={incrementUsersNotServed(users)}
             />
           </Link>
         </li>
@@ -100,7 +107,7 @@ const Dashboard = () => {
             <MapReports reports={filter_Severity_Reports} />
           </div>
 
-          <Ranking rank={getBairros(reports).rank} />
+          <Ranking rank={getDistricts(reports).rank} />
         </div>
       </main>
     </div>

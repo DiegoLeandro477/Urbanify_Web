@@ -8,7 +8,7 @@ const generateUsers = () => ({
   service_counter: rand(2, 0),
 });
 
-const users = Array.from({ length: 1000 }, () => generateUsers());
+const users = Array.from({ length: 100 }, () => generateUsers());
 
 fs.writeFile(
   "users.js",
