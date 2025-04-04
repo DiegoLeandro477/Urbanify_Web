@@ -64,19 +64,25 @@ export const fixedsXnotFixedes = async ({ reports, resolvedReports }) => {
   return [difference, bairrosAttendeds.length];
 };
 
-export const severeXmoderate = async ({ reports, monthTarget }) => {
+export const severeXmoderate = async ({ reports, intervalTarget }) => {
   let counterSevereReports = 0;
   let counterModerateReports = 0;
 
+  // Convertendo intervalTarget para objetos Date completos
+  const startTarget = new Date(intervalTarget.start);
+  const endTarget = new Date(intervalTarget.end);
+
   reports.forEach((report) => {
     report.childrens.forEach((children) => {
-      const monthIndex = new Date(children.created_at).getMonth();
+      const childrenDate = new Date(children.created_at); // Converte para Date
 
-      if (monthIndex !== monthTarget) return;
-
-      children.severity == 0
-        ? counterSevereReports++
-        : counterModerateReports++;
+      // Verifica se a data está dentro do intervalo
+      if (childrenDate >= startTarget && childrenDate <= endTarget) {
+        // Incrementa o contador com base na gravidade
+        children.severity === 0
+          ? counterSevereReports++
+          : counterModerateReports++;
+      }
     });
   });
 
