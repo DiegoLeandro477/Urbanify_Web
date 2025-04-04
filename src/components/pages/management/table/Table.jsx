@@ -19,7 +19,7 @@ const Table = ({ reports = [], onSelected }) => {
   // Função para lidar com o hover
   const handleCellHover = (cellId, contentWidth, containerWidth) => {
     if (contentWidth > containerWidth) {
-      setHoveredCell({ cellId, shouldScrolll: true });
+      setHoveredCell({ cellId, shouldScroll: true });
     }
   };
 
@@ -117,15 +117,16 @@ const Table = ({ reports = [], onSelected }) => {
                   <td
                     className="font-s c4"
                     onMouseEnter={(e) => {
-                      const content = e.currentTarget.querySelector(
+                      const container = e.currentTarget;
+                      const content = container.querySelector(
                         `.${style.marquee_content}`
                       );
-                      if (content.scrollWidth > e.currentTarget.offsetWidth) {
+                      if (content.scrollWidth > container.offsetWidth) {
                         hoverTimeoutRef.current = setTimeout(() => {
                           handleCellHover(
                             `district-${index}`,
                             content.scrollWidth,
-                            e.currentTarget.offsetWidth
+                            container.offsetWidth
                           );
                         }, 1000);
                       }

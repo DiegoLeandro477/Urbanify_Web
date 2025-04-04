@@ -1,35 +1,21 @@
-/* Adicione estas regras ao seu arquivo CSS module */
-
 /* Container para o texto que vai animar */
-.marquee-container {
+.marquee_container {
   position: relative;
   overflow: hidden;
   width: 100%;
 }
 
-.marquee-content {
+.marquee_content {
   white-space: nowrap;
   display: inline-block;
   transition: transform 0.3s ease;
-}
-
-Aplica
-  apenas
-  nas
-  colunas
-  desejadas
-  .body__list
-  td:nth-child(1)
-  .marquee-content,
-.body__list td:nth-child(2) .marquee-content,
-.body__list td:nth-child(7) .marquee-content {
   padding-right: 20px; /* Espaço para não cortar abruptamente */
 }
 
-/* Adicione ao seu CSS module */
-
+/* Animação do letreiro */
 .marquee_animate {
-  animation: marquee 5s linear infinite alternate;
+  animation: marquee 5s linear infinite;
+  animation-direction: alternate;
 }
 
 @keyframes marquee {
@@ -37,8 +23,15 @@ Aplica
     transform: translateX(0);
   }
   100% {
-    transform: translateX(calc(-100% + var(--container-width)));
+    transform: translateX(calc(-100% + 100%));
   }
+}
+
+/* Aplica apenas nas colunas desejadas */
+.body__list td:nth-child(1) .marquee_content,
+.body__list td:nth-child(2) .marquee_content,
+.body__list td:nth-child(7) .marquee_content {
+  padding-right: 20px;
 }
 
 .tableContainer {

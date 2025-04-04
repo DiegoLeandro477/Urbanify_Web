@@ -17,7 +17,8 @@ const Card = ({ urls, close, on }) => {
   };
 
   return (
-    <div className={style.background} onClick={() => close(false)}>
+    <div className={style.bg}>
+      <div onClick={() => close(false)} className={style.bg__close}></div>
       <div className={style.card}>
         <div className={style.card__frame}>
           <GrFormPrevious className={style.prev} onClick={handlePrev} />
