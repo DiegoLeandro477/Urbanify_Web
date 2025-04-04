@@ -1,17 +1,34 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import style from "./style.module.css";
 
 import Pagination from "../../../pagination/Pagination";
 import { getReportStatusName } from "../../../../utils/environment";
 import { countSeveritiesReport } from "../../../../utils/countSeveritiesReport";
 import { sortData } from "../../../../utils/sortData";
-import { getUrlsReport } from "../../../../services/getUrlsReport";
 
 const Table = ({ reports = [], onSelected }) => {
   const [data, setData] = useState([]);
   const [order, setOrder] = useState({ column: null, direction: "asc" });
   const [currentPage, setCurrentPage] = useState(1);
   const [reportIndex, setReportIndex] = useState(0);
+
+  // Letreiro
+  const [hoveredCell, setHoveredCell] = useState(null);
+  const hoverTimeoutRef = useRef(null);
+
+  // Função para lidar com o hover
+  const handleCellHover = (cellId, contentWidth, containerWidth) => {
+    if (contentWidth > containerWidth) {
+      setHoveredCell({ cellId, shouldScrolll: true });
+    }
+  };
+
+  const handleCellLeave = () => {
+    setHoveredCell(null);
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+    }
+  };
 
   const headerColumns = [
     { title: "Bairro", column: "district" },
@@ -85,6 +102,9 @@ const Table = ({ reports = [], onSelected }) => {
           <tbody className={style.table__body}>
             {paginatedReports.map((item, index) => {
               const date = new Date(item.created_at);
+              // Letreiro
+              const dateStr = `${String(date.getDate()).padStart(2, "0")}/${String(date.getMonth() + 1).padStart(2, "0")}/${date.getFullYear()}`;
+
               return (
                 <tr
                   key={index}
@@ -93,16 +113,105 @@ const Table = ({ reports = [], onSelected }) => {
                     changeReportIndex({ report: item, index });
                   }}
                 >
-                  <td className="font-s c4">{item.district}</td>
-                  <td className="font-s c4">{item.street}</td>
+                  {/* Bairro */}
+                  <td
+                    className="font-s c4"
+                    onMouseEnter={(e) => {
+                      const content = e.currentTarget.querySelector(
+                        `.${style.marquee_content}`
+                      );
+                      if (content.scrollWidth > e.currentTarget.offsetWidth) {
+                        hoverTimeoutRef.current = setTimeout(() => {
+                          handleCellHover(
+                            `district-${index}`,
+                            content.scrollWidth,
+                            e.currentTarget.offsetWidth
+                          );
+                        }, 1000);
+                      }
+                    }}
+                    onMouseLeave={handleCellLeave}
+                  >
+                    <div className={style.marquee_container}>
+                      <div
+                        className={`${style.marquee_content} ${
+                          hoveredCell?.cellId === `district-${index}` &&
+                          hoveredCell?.shouldScroll
+                            ? style.marquee_animate
+                            : ""
+                        }`}
+                      >
+                        {item.district}
+                      </div>
+                    </div>
+                  </td>
+                  {/* Rua */}
+                  <td
+                    className="font-s c4"
+                    onMouseEnter={(e) => {
+                      const content = e.currentTarget.querySelector(
+                        `.${style.marquee_content}`
+                      );
+                      if (content.scrollWidth > e.currentTarget.offsetWidth) {
+                        hoverTimeoutRef.current = setTimeout(() => {
+                          handleCellHover(
+                            `street-${index}`,
+                            content.scrollWidth,
+                            e.currentTarget.offsetWidth
+                          );
+                        }, 1000);
+                      }
+                    }}
+                    onMouseLeave={handleCellLeave}
+                  >
+                    <div className={style.marquee_container}>
+                      <div
+                        className={`${style.marquee_content} ${
+                          hoveredCell?.cellId === `street-${index}` &&
+                          hoveredCell?.shouldScroll
+                            ? style.marquee_animate
+                            : ""
+                        }`}
+                      >
+                        {item.street}
+                      </div>
+                    </div>
+                  </td>
                   <td className="font-s c4">{item.status}</td>
                   <td className="font-s c4">{item.reports}</td>
                   <td className="font-s c4">{item.severeReports}</td>
                   <td className="font-s c4">{item.moderateReports}</td>
-                  <td className="font-s c4">
-                    {`${String(date.getDate()).padStart(2, "0")}/${String(
-                      date.getMonth() + 1
-                    ).padStart(2, "0")}/${date.getFullYear()}`}
+                  {/* Data */}
+                  <td
+                    className="font-s c4"
+                    onMouseEnter={(e) => {
+                      const content = e.currentTarget.querySelector(
+                        `.${style.marquee_content}`
+                      );
+                      if (content.scrollWidth > e.currentTarget.offsetWidth) {
+                        hoverTimeoutRef.current = setTimeout(() => {
+                          handleCellHover(
+                            `date-${index}`,
+                            content.scrollWidth,
+                            e.currentTarget.offsetWidth
+                          );
+                        }, 1000);
+                      }
+                    }}
+                    onMouseLeave={handleCellLeave}
+                  >
+                    <div className={style.marquee_container}>
+                      <div
+                        className={`${style.marquee_content} ${
+                          hoveredCell?.cellId === `date-${index}` &&
+                          hoveredCell?.shouldScroll
+                            ? style.marquee_animate
+                            : ""
+                        }`}
+                      >
+                        {dateStr}
+                      </div>
+                    </div>
                   </td>
                 </tr>
               );

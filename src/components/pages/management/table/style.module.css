@@ -1,3 +1,46 @@
+/* Adicione estas regras ao seu arquivo CSS module */
+
+/* Container para o texto que vai animar */
+.marquee-container {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+.marquee-content {
+  white-space: nowrap;
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+Aplica
+  apenas
+  nas
+  colunas
+  desejadas
+  .body__list
+  td:nth-child(1)
+  .marquee-content,
+.body__list td:nth-child(2) .marquee-content,
+.body__list td:nth-child(7) .marquee-content {
+  padding-right: 20px; /* Espaço para não cortar abruptamente */
+}
+
+/* Adicione ao seu CSS module */
+
+.marquee_animate {
+  animation: marquee 5s linear infinite alternate;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-100% + var(--container-width)));
+  }
+}
+
 .tableContainer {
   width: 100%;
   overflow: hidden;
@@ -41,7 +84,7 @@
 /* Bairro - Coluna 1 */
 .header__list th:nth-child(1),
 .body__list td:nth-child(1) {
-  min-width: 200px; /* Largura maior */
+  min-width: 100px; /* Largura maior */
   width: 25%;
 }
 
