@@ -1,6 +1,7 @@
 import React from "react";
 import style from "./style.module.css";
 import { FilterTypeEnum, ChartCardEnum } from "../../../../utils/environment";
+import DateRanger from "../../../filter/dateRanger/DateRanger";
 
 import ChartReportsXYear from "../reportsXyear/ChartReportsXYear";
 import ChartReportsXMonth from "../reportsXmonth/ChartReportsXMonth";
@@ -17,6 +18,10 @@ import ChartUsersXMonth from "../usersXYear/ChartUsersXMonth";
 
 const Card = ({ data: { title, subtitle, type, filterType } }) => {
   const [monthTarget, setMonthTarget] = React.useState(0); // Estado para armazenar o mês selecionado
+  const [selectDate, setSelectDate] = React.useState({
+    start: null,
+    end: null,
+  }); // Estado para armazenar a data selecionada]
 
   const handleMonthTarget = (event) => {
     setMonthTarget(Number(event.target.value)); // Atualiza o estado com o índice do mês selecionado
@@ -56,47 +61,7 @@ const Card = ({ data: { title, subtitle, type, filterType } }) => {
         );
       case FilterTypeEnum.INTERVAL:
         return (
-          <div>
-            <select
-              className={`font-xs c4 form__select`}
-              name="month"
-              id="month"
-              onChange={handleMonthTarget} // Chamado quando o mês é alterado
-            >
-              <option value="0">Janeiro</option>
-              <option value="1">Fevereiro</option>
-              <option value="2">Março</option>
-              <option value="3">Abril</option>
-              <option value="4">Maio</option>
-              <option value="5">Junho</option>
-              <option value="6">Julho</option>
-              <option value="7">Agosto</option>
-              <option value="8">Setembro</option>
-              <option value="9">Outubro</option>
-              <option value="10">Novembro</option>
-              <option value="11">Dezembro</option>
-            </select>
-
-            <select
-              className={`font-xs c4 form__select`}
-              name="month"
-              id="month"
-              onChange={handleMonthTarget} // Chamado quando o mês é alterado
-            >
-              <option value="0">Janeiro</option>
-              <option value="1">Fevereiro</option>
-              <option value="2">Março</option>
-              <option value="3">Abril</option>
-              <option value="4">Maio</option>
-              <option value="5">Junho</option>
-              <option value="6">Julho</option>
-              <option value="7">Agosto</option>
-              <option value="8">Setembro</option>
-              <option value="9">Outubro</option>
-              <option value="10">Novembro</option>
-              <option value="11">Dezembro</option>
-            </select>
-          </div>
+          <DateRanger selectDate={selectDate} setSelectDate={setSelectDate} />
         );
 
       default:
@@ -130,7 +95,7 @@ const Card = ({ data: { title, subtitle, type, filterType } }) => {
       )}
 
       {ChartCardEnum.SEVERE__MODERATE == type && (
-        <ChartSevereXModerate monthTarget={monthTarget} />
+        <ChartSevereXModerate intervalTarget={selectDate} />
       )}
 
       {ChartCardEnum.ATTENDEDS__MONTH == type && <ChartAttendedsXMonth />}
