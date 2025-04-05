@@ -1,48 +1,17 @@
 import React from "react";
 import style from "./style.module.css";
-import FilterSeverity from "./filterServerity/FilterSeverity";
+import Status from "./status/Status";
+import FilterSeverity from "./severity/Severity";
 import DateRanger from "./dateRanger/DateRanger";
-import { ReportStatusEnum } from "../../utils/environment";
 
-const Filter = ({
-  filterStatus,
-  onFilterStatus,
-  filterSeverity,
-  onFilterSeverity,
-}) => {
+const Filter = ({ filter, setFilter }) => {
   return (
     <div className={`${style.filter}`}>
-      <div className={`font-m c4 ${style.filter__PR}`}>
-        <span
-          className={` ${
-            !filterStatus.includes(ReportStatusEnum.CONCLUIDO)
-              ? style.selected
-              : ""
-          }`}
-          onClick={() =>
-            onFilterStatus([
-              ReportStatusEnum.PENDENTE,
-              ReportStatusEnum.AVALIADO,
-            ])
-          }
-        >
-          Pendentes
-        </span>
-        <span
-          className={` ${
-            filterStatus.includes(ReportStatusEnum.CONCLUIDO)
-              ? style.selected
-              : ""
-          }`}
-          onClick={() => onFilterStatus([ReportStatusEnum.CONCLUIDO])}
-        >
-          Resolvidos
-        </span>
-      </div>
+      <Status filter={filter} setFilter={setFilter} />
 
-      <FilterSeverity filter={filterSeverity} onFilter={onFilterSeverity} />
+      <FilterSeverity filter={filter} setFilter={setFilter} />
 
-      <DateRanger />
+      <DateRanger filter={filter} setFilter={setFilter} />
     </div>
   );
 };

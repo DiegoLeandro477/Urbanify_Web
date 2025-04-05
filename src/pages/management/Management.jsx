@@ -5,38 +5,37 @@ import Filter from "../../components/filter/Filter";
 import Table from "../../components/pages/management/table/Table";
 import { filterSeverityEnum, ReportStatusEnum } from "../../utils/environment";
 import useReports from "../../hooks/useReports";
+import useResolvedReports from "../../hooks/useResolvedReports";
 import { useParams } from "react-router-dom";
 import Card from "../../components/pages/management/card/Card";
 import { getUrlsReport } from "../../services/getUrlsReport";
+import { filterReports } from "../../services/dashboard";
 
 function Management() {
-  const [urls, setUrls] = useState([]);
-  const { rep } = useParams(); // Pega o parâmetro da URL
-  const [modalOpen, setModalOpen] = useState(false);
-
   const { reports } = useReports();
-  const [filterStatus, setFilterStatus] = useState([ReportStatusEnum.PENDENTE]);
-  const [filterSeverity, setFilterSeverity] = useState(filterSeverityEnum.ALL);
+  const { resolvedReports } = useResolvedReports();
 
-  const reports_filtered = filterStatus
-    ? reports.filter((report) => filterStatus.includes(report.status))
-    : reports;
+  const [filter, setFilter] = React.useState({
+    status: ReportStatusEnum.PENDING,
+    severity: null,
+    date: {
+      start: null,
+      end: null,
+    },
+  });
+  const [filteredReports, setFilteredReports] = React.useState([]);
 
-  const filter_Severity_Reports =
-    filterSeverity != filterSeverityEnum.ALL
-      ? reports_filtered.filter((report) => {
-          let cont_severity = [0, 0];
-          report.childrens.forEach((element) => {
-            cont_severity[element.severity] += 1;
-          });
-          if (cont_severity[0] >= cont_severity[1])
-            return filterSeverity === filterSeverityEnum.GRAVE;
-          return filterSeverity === filterSeverityEnum.MODERADO;
-        })
-      : reports_filtered;
+  React.useEffect(() => {
+    const result = filterReports({ reports, resolvedReports, filter });
+
+    setFilteredReports(result);
+  }, [filter, reports]);
+  const [urls, setUrls] = React.useState([]);
+  const [modalOpen, setModalOpen] = React.useState(false);
+  const { rep } = useParams(); // Pega o parâmetro da URL
 
   useEffect(() => {
-    if (!!rep) {
+    if (rep) {
       changeSeletectDistrict(JSON.parse(rep));
     }
   }, [rep]);
@@ -44,7 +43,7 @@ function Management() {
   const changeSeletectDistrict = async (rep) => {
     const data = await getUrlsReport(rep);
     setUrls(data);
-    if (!!rep) setModalOpen(true);
+    if (rep) setModalOpen(true);
   };
 
   return (
@@ -55,16 +54,11 @@ function Management() {
       />
 
       <main className={`bg-12 m-1-5 ${style.main}`}>
-        <Filter
-          filterStatus={filterStatus}
-          onFilterStatus={setFilterStatus}
-          filterSeverity={filterSeverity}
-          onFilterSeverity={setFilterSeverity}
-        />
+        <Filter filter={filter} setFilter={setFilter} />
 
         <div className={style.content}>
           <Table
-            reports={filter_Severity_Reports}
+            reports={filteredReports}
             onSelected={changeSeletectDistrict}
             setUrls={setUrls}
           />

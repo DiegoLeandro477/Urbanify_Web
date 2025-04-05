@@ -1,3 +1,38 @@
+import { ReportStatusEnum } from "../utils/environment";
+import { verifySeverityReport } from "../utils/verifySeverityReport";
+
+export const filterReports = ({ reports, resolvedReports, filter }) => {
+  if (reports.length === 0) return [];
+  const startTarget = filter.date.start ? new Date(filter.date.start) : null;
+  const endTarget = filter.date.start ? new Date(filter.date.end) : null;
+  let reportsByStatus = [];
+
+  // FILTER BY STATUS
+  filter.status == ReportStatusEnum.COMPLETED
+    ? (reportsByStatus = [...resolvedReports])
+    : (reportsByStatus = [...reports]);
+
+  // FILTER BY DATE
+  const filteredReportsByDate = reportsByStatus.filter((report) => {
+    const reportDate = new Date(report.created_at); // Converte para Date
+
+    if (
+      (reportDate >= startTarget && reportDate <= endTarget) ||
+      (!startTarget && !endTarget)
+    )
+      return true;
+  });
+
+  const filteredReportsBySeverity = filteredReportsByDate.filter((report) => {
+    if (filter.severity == null) return true;
+    const reportSeverity = verifySeverityReport(report);
+
+    return reportSeverity == filter.severity;
+  });
+
+  return filteredReportsBySeverity;
+};
+
 export const totalReports = (reports) => {
   if (reports.length === 0) return 0;
 
@@ -159,8 +194,6 @@ export const incrementUsersNotServed = (users) => {
       lastMonthCount += 1; // Incrementa o contador do mês passado
     }
   });
-
-  console.log({ currentMonthCount, lastMonthCount });
 
   // Verifica se houve crescimento ou redução e calcula a porcentagem
   const result =

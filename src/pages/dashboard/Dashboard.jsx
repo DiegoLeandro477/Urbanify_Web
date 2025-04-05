@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import style from "./style.module.css";
 
@@ -9,7 +9,10 @@ import Ranking from "../../components/pages/dashboard/ranking/Ranking";
 
 import useUsers from "../../hooks/useUsers";
 import useReports from "../../hooks/useReports";
+import useResolvedReports from "../../hooks/useResolvedReports";
 import {
+  filterReports,
+  //
   totalReports,
   incrementReports,
   //
@@ -21,34 +24,31 @@ import {
   //
   getUsersNotServed,
   incrementUsersNotServed,
-} from "../../services/statistics";
+} from "../../services/dashboard";
 
-import { filterSeverityEnum, ReportStatusEnum } from "../../utils/environment";
+import { ReportStatusEnum } from "../../utils/environment";
 
 const Dashboard = () => {
   const { users } = useUsers();
   const { reports } = useReports();
-  const [filterStatus, setFilterStatus] = useState([ReportStatusEnum.PENDENTE]);
-  const [filterSeverity, setFilterSeverity] = useState(filterSeverityEnum.ALL);
+  const { resolvedReports } = useResolvedReports();
 
-  // Primeiro filtra os reports com base no status
-  const reports_filtered = filterStatus
-    ? reports.filter((report) => filterStatus.includes(report.status))
-    : reports;
+  const [filter, setFilter] = React.useState({
+    status: ReportStatusEnum.PENDING,
+    severity: null,
+    date: {
+      start: null,
+      end: null,
+    },
+  });
 
-  // Segundo filtro dos reports com base no severity
-  const filter_Severity_Reports =
-    filterSeverity != filterSeverityEnum.ALL
-      ? reports_filtered.filter((report) => {
-          let cont_severity = [0, 0];
-          report.childrens.forEach((element) => {
-            cont_severity[element.severity] += 1;
-          });
-          if (cont_severity[0] >= cont_severity[1])
-            return filterSeverity === filterSeverityEnum.GRAVE;
-          return filterSeverity === filterSeverityEnum.MODERADO;
-        })
-      : reports_filtered;
+  const [filteredReports, setFilteredReports] = React.useState([]);
+
+  React.useEffect(() => {
+    const result = filterReports({ reports, resolvedReports, filter });
+
+    setFilteredReports(result);
+  }, [filter, reports, resolvedReports]);
 
   return (
     <div className={`${style.dashboard}`}>
@@ -92,19 +92,14 @@ const Dashboard = () => {
       </ul>
 
       <main className={`${style.dash__mapper}`}>
-        <Filter
-          filterStatus={filterStatus}
-          onFilterStatus={setFilterStatus}
-          filterSeverity={filterSeverity}
-          onFilterSeverity={setFilterSeverity}
-        />
+        <Filter filter={filter} setFilter={setFilter} />
 
         <div className={`${style.map__bg}`}>
           <div className={`${style.map__container}`}>
             <h1 className="font-s c4">
               Mapa De Ocorrências que não foram resolvidas
             </h1>
-            <MapReports reports={filter_Severity_Reports} />
+            <MapReports reports={filteredReports} />
           </div>
 
           <Ranking rank={getDistricts(reports).rank} />

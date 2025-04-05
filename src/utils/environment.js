@@ -1,13 +1,12 @@
 export const ReportStatusEnum = Object.freeze({
-  PENDENTE: 0,
-  AVALIADO: 1,
-  CONCLUIDO: 2,
+  PENDING: 0,
+  RATED: 1,
+  COMPLETED: 2,
 });
 
 export const filterSeverityEnum = Object.freeze({
-  GRAVE: 0,
-  MODERADO: 1,
-  ALL: 2,
+  SEVERE: 0,
+  MODERATE: 1,
 });
 
 // Função para buscar a chave correspondente ao valor
