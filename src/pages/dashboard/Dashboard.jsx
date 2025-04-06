@@ -66,8 +66,8 @@ const Dashboard = () => {
           <Link to="/ranking">
             <CardInfo
               title={"Bairros Catalogados"}
-              value={getDistricts(reports).bairros.length}
-              incrementValue={incrementDistrict(reports)}
+              value={getDistricts({ reports, resolvedReports }).bairros.length}
+              incrementValue={incrementDistrict({ reports, resolvedReports })}
             />
           </Link>
         </li>

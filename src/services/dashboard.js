@@ -74,13 +74,22 @@ export const incrementReports = (reports) => {
   return Math.round(result); // Retorna positivo para crescimento, negativo para redução
 };
 
-export const getDistricts = (reports) => {
-  if (reports.length === 0) return { bairros: 0, rank: [] };
+export const getDistricts = ({ reports, resolvedReports }) => {
+  // [...new Set([...reports, ...resolvedReports])]
 
+  if (
+    !reports ||
+    reports.length === 0 ||
+    !resolvedReports ||
+    resolvedReports.length === 0
+  )
+    return { bairros: 0, rank: [] };
+
+  const allReports = [...new Set([...reports, ...resolvedReports])];
   let bairrosSet = new Set();
   let cont_bairros = {};
 
-  reports.forEach((report) => {
+  allReports.forEach((report) => {
     bairrosSet.add(report.district);
     cont_bairros[report.district] = (cont_bairros[report.district] || 0) + 1;
   });
@@ -97,13 +106,14 @@ export const getDistricts = (reports) => {
   return { bairros, rank };
 };
 
-export const incrementDistrict = (reports) => {
-  if (reports.length === 0) return 0;
+export const incrementDistrict = ({ reports, resolvedReports }) => {
+  if (reports.length === 0 || resolvedReports.length === 0) return 0;
 
-  const districtFixeds = getDistricts(reports).bairros.length;
+  const districts = getDistricts({ reports, resolvedReports }).bairros.length;
+
   const totalDistricts = 60; // Total de bairros possíveis (ajuste conforme necessário)
 
-  const indice = ((totalDistricts - districtFixeds) / totalDistricts) * 100;
+  const indice = ((totalDistricts - districts) / totalDistricts) * 100;
 
   return 100 - Math.round(indice);
 };
