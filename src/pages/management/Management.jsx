@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import style from "./style.module.css";
 import Header from "../../components/header/Header";
 import Filter from "../../components/filter/Filter";
@@ -34,7 +34,7 @@ function Management() {
   const [modalOpen, setModalOpen] = React.useState(false);
   const { rep } = useParams(); // Pega o parâmetro da URL
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (rep) {
       changeSeletectDistrict(JSON.parse(rep));
     }

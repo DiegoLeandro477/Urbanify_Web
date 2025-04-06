@@ -5,6 +5,18 @@ import { IoIosSearch } from "react-icons/io";
 function Search({ setCoordinates }) {
   const [query, setQuery] = React.useState("");
   const [suggestions, setSuggestions] = React.useState([]);
+  const [active, setActive] = React.useState(false);
+
+  React.useEffect(() => {
+    if (!active) return;
+
+    const timeout = setTimeout(() => {
+      getSuggestions();
+      console.log("Usuário parou de digitar:", query);
+    }, 800); // espera 800ms
+
+    return () => clearTimeout(timeout); // limpa se digitar de novo
+  }, [query]);
 
   // Função chamada a cada alteração no input para buscar sugestões
   const getSuggestions = async () => {
@@ -16,7 +28,6 @@ function Search({ setCoordinates }) {
     try {
       const response = await fetch(url);
       const results = await response.json();
-      console.log(results);
 
       // Mapeia os resultados para exibição no autocomplete
       const suggestionsData = results.map((item) => ({
@@ -34,9 +45,14 @@ function Search({ setCoordinates }) {
 
   // Quando o usuário clica em uma sugestão
   const handleSuggestionClick = (suggestion) => {
+    setActive(false);
     setQuery(suggestion.label); // Atualiza o input com a sugestão selecionada
     setSuggestions([]); // Remove as sugestões exibidas
     setCoordinates({ lat: suggestion.lat, lon: suggestion.lon }); // Atualiza as coordenadas
+
+    setTimeout(() => {
+      setCoordinates({ lat: null, lon: null });
+    }, 500);
   };
 
   return (
@@ -49,9 +65,9 @@ function Search({ setCoordinates }) {
           type="text"
           placeholder="Pesquisar por bairro ou rua"
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          onKeyDown={(event) => {
-            if (event.key === "Enter") getSuggestions();
+          onChange={(e) => {
+            setQuery(e.target.value);
+            setActive(true);
           }}
         />
 

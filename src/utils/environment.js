@@ -1,7 +1,7 @@
 export const ReportStatusEnum = Object.freeze({
-  PENDING: 0,
-  RATED: 1,
-  COMPLETED: 2,
+  PENDENTE: 0,
+  AVALIADO: 1,
+  CONCLUIDO: 2,
 });
 
 export const filterSeverityEnum = Object.freeze({
