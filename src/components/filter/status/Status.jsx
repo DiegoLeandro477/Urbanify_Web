@@ -7,17 +7,17 @@ function Status({ filter, setFilter }) {
   return (
     <div className={`font-m c4 ${style.filter__PR}`}>
       <span
-        className={`${filter.status == ReportStatusEnum.PENDING && style.selected}`}
+        className={`${filter.status == ReportStatusEnum.PENDENTE && style.selected}`}
         onClick={() =>
-          setFilter({ ...filter, status: ReportStatusEnum.PENDING })
+          setFilter({ ...filter, status: ReportStatusEnum.PENDENTE })
         }
       >
         Pendentes
       </span>
       <span
-        className={`${filter.status == ReportStatusEnum.COMPLETED && style.selected}`}
+        className={`${filter.status == ReportStatusEnum.CONCLUIDO && style.selected}`}
         onClick={() =>
-          setFilter({ ...filter, status: ReportStatusEnum.COMPLETED })
+          setFilter({ ...filter, status: ReportStatusEnum.CONCLUIDO })
         }
       >
         Resolvidos

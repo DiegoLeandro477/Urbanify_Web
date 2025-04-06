@@ -8,7 +8,7 @@ export const filterReports = ({ reports, resolvedReports, filter }) => {
   let reportsByStatus = [];
 
   // FILTER BY STATUS
-  filter.status == ReportStatusEnum.COMPLETED
+  filter.status == ReportStatusEnum.CONCLUIDO
     ? (reportsByStatus = [...resolvedReports])
     : (reportsByStatus = [...reports]);
 

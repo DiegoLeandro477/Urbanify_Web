@@ -16,7 +16,7 @@ function Management() {
   const { resolvedReports } = useResolvedReports();
 
   const [filter, setFilter] = React.useState({
-    status: ReportStatusEnum.PENDING,
+    status: ReportStatusEnum.PENDENTE,
     severity: null,
     date: {
       start: null,
