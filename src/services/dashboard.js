@@ -74,42 +74,43 @@ export const incrementReports = (reports) => {
   return Math.round(result); // Retorna positivo para crescimento, negativo para redução
 };
 
-export const getDistricts = ({ reports, resolvedReports }) => {
-  // [...new Set([...reports, ...resolvedReports])]
-
+export const getUniqueDistricts = ({ reports, resolvedReports }) => {
   if (
     !reports ||
     reports.length === 0 ||
     !resolvedReports ||
     resolvedReports.length === 0
   )
-    return { bairros: 0, rank: [] };
+    return [];
 
   const allReports = [...new Set([...reports, ...resolvedReports])];
-  let bairrosSet = new Set();
-  let cont_bairros = {};
+  const bairrosSet = new Set();
+
+  allReports.forEach((report) => bairrosSet.add(report.district));
+
+  return Array.from(bairrosSet); // Converte o Set em um array
+};
+
+export const getDistrictsRanking = ({ reports }) => {
+  if (!reports || reports.length === 0) return [];
+
+  const allReports = [...new Set([...reports])];
+  const cont_bairros = {};
 
   allReports.forEach((report) => {
-    bairrosSet.add(report.district);
     cont_bairros[report.district] = (cont_bairros[report.district] || 0) + 1;
   });
 
-  // Convertendo Set para array
-  let bairros = Array.from(bairrosSet);
-
-  // Convertendo cont_bairros para um array de objetos
-  const rank = Object.entries(cont_bairros).map(([bairro, quant]) => ({
+  return Object.entries(cont_bairros).map(([bairro, quant]) => ({
     nome_bairro: bairro,
     quanti_registrada: quant,
   }));
-
-  return { bairros, rank };
 };
 
 export const incrementDistrict = ({ reports, resolvedReports }) => {
   if (reports.length === 0 || resolvedReports.length === 0) return 0;
 
-  const districts = getDistricts({ reports, resolvedReports }).bairros.length;
+  const districts = getUniqueDistricts({ reports, resolvedReports }).length;
 
   const totalDistricts = 60; // Total de bairros possíveis (ajuste conforme necessário)
 

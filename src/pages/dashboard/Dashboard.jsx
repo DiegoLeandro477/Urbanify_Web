@@ -16,7 +16,8 @@ import {
   totalReports,
   incrementReports,
   //
-  getDistricts,
+  getUniqueDistricts,
+  getDistrictsRanking,
   incrementDistrict,
   //
   getUsersServed,
@@ -66,7 +67,7 @@ const Dashboard = () => {
           <Link to="/ranking">
             <CardInfo
               title={"Bairros Catalogados"}
-              value={getDistricts({ reports, resolvedReports }).bairros.length}
+              value={getUniqueDistricts({ reports, resolvedReports }).length}
               incrementValue={incrementDistrict({ reports, resolvedReports })}
             />
           </Link>
@@ -102,7 +103,11 @@ const Dashboard = () => {
             <MapReports reports={filteredReports} />
           </div>
 
-          <Ranking rank={getDistricts({ reports, resolvedReports }).rank} />
+          <Ranking
+            rank={getDistrictsRanking({
+              reports: filteredReports,
+            })}
+          />
         </div>
       </main>
     </div>

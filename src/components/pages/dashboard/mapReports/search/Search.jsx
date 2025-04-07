@@ -13,7 +13,7 @@ function Search({ setCoordinates }) {
     const timeout = setTimeout(() => {
       getSuggestions();
       console.log("Usuário parou de digitar:", query);
-    }, 300); // espera 800ms
+    }, 200); // espera 800ms
 
     return () => clearTimeout(timeout); // limpa se digitar de novo
   }, [query]);
