@@ -27,7 +27,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(45deg, #f3f3f3, #eaeaea);
+  background: var(--c4);
 }
 
 .prev,
@@ -40,6 +40,7 @@
   background: var(--c2);
   border-radius: 50%;
   transition: all 0.3s;
+  z-index: 500;
 }
 
 .prev:hover,

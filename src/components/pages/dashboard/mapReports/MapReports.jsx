@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 import Search from "./search/Search";
 
 const MapReports = ({ reports }) => {
-  const { modalData, setModalData } = React.useContext(ReportContext);
+  const { setModalData } = React.useContext(ReportContext);
   const [coordinates, setCoordinates] = React.useState({});
   const [position] = React.useState([-2.5387, -44.2825]);
   const [bounds] = React.useState([

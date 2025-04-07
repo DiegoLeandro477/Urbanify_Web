@@ -3,6 +3,8 @@ import style from "./style.module.css";
 
 import { ReportContext } from "../../../../context/reportContext";
 
+import LazyImage from "../../../loadings/LazyImage";
+
 import { GrFormPrevious } from "react-icons/gr";
 import { GrFormNext } from "react-icons/gr";
 
@@ -52,11 +54,8 @@ const Card = ({ setModalOpen, urls, setUrls }) => {
             className={`font-xl c12 ${style.next}`}
             onClick={handleNext}
           />
-          <img
-            className={`img ${style.card__image}`}
-            src={urls[currentIndex]}
-            alt="Imagem"
-          />
+
+          <LazyImage src={urls[currentIndex]} alt="Exemplo" />
         </div>
 
         <div className={`${style.card__content}`}>
