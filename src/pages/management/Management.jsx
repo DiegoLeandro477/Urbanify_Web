@@ -3,7 +3,7 @@ import style from "./style.module.css";
 import Header from "../../components/header/Header";
 import Filter from "../../components/filter/Filter";
 import Table from "../../components/pages/management/table/Table";
-import { filterSeverityEnum, ReportStatusEnum } from "../../utils/environment";
+import { ReportStatusEnum } from "../../utils/environment";
 import useReports from "../../hooks/useReports";
 import useResolvedReports from "../../hooks/useResolvedReports";
 import { useParams } from "react-router-dom";
@@ -30,7 +30,16 @@ function Management() {
 
     setFilteredReports(result);
   }, [filter, reports]);
-  const [urls, setUrls] = React.useState([]);
+  const [modalData, setModalData] = React.useState({
+    urls: [
+      "https://cpv.ifsp.edu.br/images/phocagallery/galeria2/thumbs/phoca_thumb_l_image03_grd.png",
+    ],
+    subregion: "São Luís",
+    district: "Liberdade",
+    street: "Rua Machado De Assis",
+    reports: 15,
+    created_at: "2025-07-17T19:41:09.622Z",
+  });
   const [modalOpen, setModalOpen] = React.useState(false);
   const { rep } = useParams(); // Pega o parâmetro da URL
 
@@ -41,8 +50,12 @@ function Management() {
   }, [rep]);
 
   const changeSeletectDistrict = async (rep) => {
+    console.log(rep);
     const data = await getUrlsReport(rep);
-    setUrls(data);
+    setModalData({ ...modalData, urls: data });
+
+    setFilteredReports((filteredReports) => [rep, ...filteredReports]);
+
     if (rep) setModalOpen(true);
   };
 
@@ -60,21 +73,15 @@ function Management() {
           <Table
             reports={filteredReports}
             onSelected={changeSeletectDistrict}
-            setUrls={setUrls}
+            setModalData={setModalData}
           />
         </div>
 
         {modalOpen && (
           <Modal
-            urls={urls}
-            close={setModalOpen}
-            on={() => alert("reparando...")}
-            reportData={{
-              district: "Liberdade",
-              street: "Rua Machado De Assis",
-              reports: 15,
-              created_at: "2025-07-17T19:41:09.622Z",
-            }}
+            modalData={modalData}
+            setModalData={setModalData}
+            setModalOpen={setModalOpen}
           />
         )}
       </main>

@@ -3,25 +3,24 @@ import style from "./style.module.css";
 import { GrFormPrevious } from "react-icons/gr";
 import { GrFormNext } from "react-icons/gr";
 
-const Card = ({ urls, close, on, reportData }) => {
+const Card = ({ modalData, setModalData, setModalOpen }) => {
   const [currentIndex, setCurrentIndex] = React.useState(0);
 
   const handleNext = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % urls.length);
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % modalData.urls.length);
   };
 
   const handlePrev = () => {
     setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? urls.length - 1 : prevIndex - 1
+      prevIndex === 0 ? modalData.urls.length - 1 : prevIndex - 1
     );
   };
 
   const reportDate = () => {
-    const created_at = new Date(reportData.created_at);
+    const created_at = new Date(modalData.created_at);
 
     return (
-      <span className="font-m-b">
-        {" "}
+      <span className="font-m">
         {String(created_at.getDate()).padStart(2, "0")}/
         {String(created_at.getMonth() + 1).padStart(2, "0")}/
         {String(created_at.getFullYear())}
@@ -29,8 +28,14 @@ const Card = ({ urls, close, on, reportData }) => {
     );
   };
 
+  const handleOverlayClick = (e) => {
+    if (e.target === e.currentTarget) {
+      setModalOpen(false);
+    }
+  };
+
   return (
-    <div className={style.overlay} onClick={() => close(false)}>
+    <div className={style.overlay} onClick={handleOverlayClick}>
       <div className={style.card}>
         <div className={style.card__frame}>
           <GrFormPrevious
@@ -43,7 +48,7 @@ const Card = ({ urls, close, on, reportData }) => {
           />
           <img
             className={`img ${style.card__image}`}
-            src={urls[currentIndex]}
+            src={modalData.urls[currentIndex]}
             alt="Imagem"
           />
         </div>
@@ -53,14 +58,21 @@ const Card = ({ urls, close, on, reportData }) => {
             Confirmação de Reparo
           </h3>
 
-          <p className={`font-m-b c4 mb-05`}>
-            Local: {reportData.street}, {reportData.district}.
+          <p className={`font-m-b c2 mb-05`}>
+            LOCAL:{" "}
+            <span className={`font-m c4`}>
+              {modalData.street}, {modalData.district} - {modalData.subregion}
+            </span>
+            .
           </p>
-          <p className={`font-m-b c4 mb-1`}>
-            Total de relatos: {reportData.reports} desde {reportDate()}.
+          <p className={`font-m-b c2 mb-1`}>
+            TOTAL DE RELATOS:{" "}
+            <span className={`font-m c4`}>
+              {modalData.reports} desde {reportDate()}.{" "}
+            </span>
           </p>
 
-          <p className={`font-m c4 mb-2`}>
+          <p className={`font-s c4 mb-2`}>
             Ao confirmar o reparo, todos os cidadãos que reportaram serão
             notificados de que a ocorrência será incluída no plano de reparos.
           </p>
@@ -68,14 +80,14 @@ const Card = ({ urls, close, on, reportData }) => {
           <div className={`font-m c4  ${style.card__buttons}`}>
             <button
               className={`font-s btn-outline ${style.card__button}`}
-              onClick={() => close(false)}
+              onClick={() => setModalOpen(false)}
             >
               Cancelar
             </button>
 
             <button
               className={`font-s btn-primary ${style.card__button}`}
-              onClick={() => on()}
+              onClick={() => setModalOpen(false)}
             >
               Confirmar reparo
             </button>
