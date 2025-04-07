@@ -5,9 +5,8 @@ export const ReportStatusEnum = Object.freeze({
 });
 
 export const filterSeverityEnum = Object.freeze({
-  GRAVE: 0,
-  MODERADO: 1,
-  ALL: 2,
+  SEVERE: 0,
+  MODERATE: 1,
 });
 
 // Função para buscar a chave correspondente ao valor

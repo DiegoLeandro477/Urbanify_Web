@@ -7,7 +7,7 @@ import "flatpickr/dist/plugins/monthSelect/style.css";
 import { Portuguese } from "flatpickr/dist/l10n/pt.js";
 import { FaRegCalendar } from "react-icons/fa";
 
-const DatePicker = ({ selectDate, setSelectDate }) => {
+const DatePicker = ({ filter, setFilter }) => {
   const inputRef = React.useRef(null);
 
   React.useEffect(() => {
@@ -20,7 +20,7 @@ const DatePicker = ({ selectDate, setSelectDate }) => {
           dateFormat: "M Y",
         }),
       ],
-      defaultDate: !selectDate && null, // Define a data padrão
+      defaultDate: !filter.date && null, // Define a data padrão
       onChange: (changeDate) => {
         if (changeDate.length !== 2) return;
 
@@ -30,12 +30,12 @@ const DatePicker = ({ selectDate, setSelectDate }) => {
         end.setMonth(end.getMonth() + 1, 0); // Ajusta para o último dia do mês
         end.setHours(23, 59, 59, 999);
 
-        setSelectDate({ start, end });
+        setFilter({ ...filter, date: { start, end } });
       },
     });
 
     return () => fp.destroy(); // Limpa o flatpickr ao desmontar o componente
-  }, [selectDate, setSelectDate]); // Atualiza sempre que as props mudarem
+  }, [filter, setFilter]); // Atualiza sempre que as props mudarem
 
   return (
     <div className={`font-xs ${style.picker__box}`}>

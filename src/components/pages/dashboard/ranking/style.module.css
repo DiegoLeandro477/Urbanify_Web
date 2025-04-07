@@ -1,12 +1,19 @@
 .ranking {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
 }
 
 .rankink__item {
   display: flex;
   justify-content: space-between;
+  padding: 0.5rem 0.25rem;
+  border-radius: 2px;
+  border-bottom: 1px solid var(--c10);
+  background-color: var(--c11);
+}
+
+.rankink__item:nth-child(odd) {
+  background-color: var(--c10);
 }
 
 .rankin__left {
