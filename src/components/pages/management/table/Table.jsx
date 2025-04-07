@@ -113,7 +113,6 @@ const Table = ({ reports = [], onSelected }) => {
                     changeReportIndex({ report: item, index });
                   }}
                 >
-                  {/* Bairro */}
                   <td
                     className="font-s c4"
                     onMouseEnter={(e) => {
@@ -131,7 +130,6 @@ const Table = ({ reports = [], onSelected }) => {
                         }, 1000);
                       }
                     }}
-                    onMouseLeave={handleCellLeave}
                   >
                     <div className={style.marquee_container}>
                       <div

@@ -50,6 +50,8 @@ const Dashboard = () => {
     setFilteredReports(result);
   }, [filter, reports, resolvedReports]);
 
+  console.log(getDistricts(reports));
+
   return (
     <div className={`${style.dashboard}`}>
       <ul>
@@ -102,7 +104,7 @@ const Dashboard = () => {
             <MapReports reports={filteredReports} />
           </div>
 
-          <Ranking rank={getDistricts(reports).rank} />
+          <Ranking rank={getDistricts({ reports, resolvedReports }).rank} />
         </div>
       </main>
     </div>

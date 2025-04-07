@@ -14,7 +14,7 @@ export const data = [
     },
     childrens: [
       { severity: 0, created_at: "2025-01-15T19:41:09.622Z" },
-      { severity: 0, created_at: "2025-02-04T19:41:09.622Z" },
+      { severity: 1, created_at: "2025-02-04T19:41:09.622Z" },
     ],
   },
   {

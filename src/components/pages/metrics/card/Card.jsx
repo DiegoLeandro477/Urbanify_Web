@@ -18,10 +18,14 @@ import ChartUsersXMonth from "../usersXYear/ChartUsersXMonth";
 
 const Card = ({ data: { title, subtitle, type, filterType } }) => {
   const [monthTarget, setMonthTarget] = React.useState(0); // Estado para armazenar o mês selecionado
-  const [selectDate, setSelectDate] = React.useState({
-    start: null,
-    end: null,
-  }); // Estado para armazenar a data selecionada]
+  const [filter, setFilter] = React.useState({
+    status: null,
+    severity: null,
+    date: {
+      start: null,
+      end: null,
+    },
+  });
 
   const handleMonthTarget = (event) => {
     setMonthTarget(Number(event.target.value)); // Atualiza o estado com o índice do mês selecionado
@@ -60,9 +64,7 @@ const Card = ({ data: { title, subtitle, type, filterType } }) => {
           </select>
         );
       case FilterTypeEnum.INTERVAL:
-        return (
-          <DateRanger selectDate={selectDate} setSelectDate={setSelectDate} />
-        );
+        return <DateRanger filter={filter} setFilter={setFilter} />;
 
       default:
         return null;
@@ -95,7 +97,7 @@ const Card = ({ data: { title, subtitle, type, filterType } }) => {
       )}
 
       {ChartCardEnum.SEVERE__MODERATE == type && (
-        <ChartSevereXModerate intervalTarget={selectDate} />
+        <ChartSevereXModerate intervalTarget={filter.date} />
       )}
 
       {ChartCardEnum.ATTENDEDS__MONTH == type && <ChartAttendedsXMonth />}
