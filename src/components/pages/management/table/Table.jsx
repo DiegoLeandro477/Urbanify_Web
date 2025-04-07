@@ -1,16 +1,19 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import style from "./style.module.css";
+
+import { ReportContext } from "../../../../context/reportContext";
 
 import Pagination from "../../../pagination/Pagination";
 import { getReportStatusName } from "../../../../utils/environment";
 import { countSeveritiesReport } from "../../../../utils/countSeveritiesReport";
 import { sortData } from "../../../../utils/sortData";
 
-const Table = ({ reports = [], onSelected }) => {
+const Table = ({ reports = [] }) => {
   const [data, setData] = useState([]);
   const [order, setOrder] = useState({ column: null, direction: "asc" });
   const [currentPage, setCurrentPage] = useState(1);
   const [reportIndex, setReportIndex] = useState(0);
+  const { setModalData } = React.useContext(ReportContext);
 
   const headerColumns = [
     { title: "Bairro", column: "district" },
@@ -52,7 +55,7 @@ const Table = ({ reports = [], onSelected }) => {
 
   const changeReportIndex = async ({ report, index }) => {
     setReportIndex(index);
-    onSelected(report);
+    setModalData(report);
   };
 
   return (

@@ -1,17 +1,25 @@
 import React from "react";
 import style from "./style.module.css";
+
+import { ReportContext } from "../../context/reportContext";
+
+import useReports from "../../hooks/useReports";
+import useResolvedReports from "../../hooks/useResolvedReports";
+
 import Header from "../../components/header/Header";
 import Filter from "../../components/filter/Filter";
 import Table from "../../components/pages/management/table/Table";
-import { ReportStatusEnum } from "../../utils/environment";
-import useReports from "../../hooks/useReports";
-import useResolvedReports from "../../hooks/useResolvedReports";
-import { useParams } from "react-router-dom";
 import Modal from "../../components/pages/management/modal/Modal";
+
 import { getUrlsReport } from "../../services/getUrlsReport";
 import { filterReports } from "../../services/dashboard";
 
+import { ReportStatusEnum } from "../../utils/environment";
+
 function Management() {
+  const { modalData, setModalData } = React.useContext(ReportContext);
+  const [urls, setUrls] = React.useState([]);
+  const [modalOpen, setModalOpen] = React.useState(false);
   const { reports } = useReports();
   const { resolvedReports } = useResolvedReports();
 
@@ -30,34 +38,19 @@ function Management() {
 
     setFilteredReports(result);
   }, [filter, reports]);
-  const [modalData, setModalData] = React.useState({
-    urls: [
-      "https://cpv.ifsp.edu.br/images/phocagallery/galeria2/thumbs/phoca_thumb_l_image03_grd.png",
-    ],
-    subregion: "São Luís",
-    district: "Liberdade",
-    street: "Rua Machado De Assis",
-    reports: 15,
-    created_at: "2025-07-17T19:41:09.622Z",
-  });
-  const [modalOpen, setModalOpen] = React.useState(false);
-  const { rep } = useParams(); // Pega o parâmetro da URL
 
   React.useEffect(() => {
-    if (rep) {
-      changeSeletectDistrict(JSON.parse(rep));
-    }
-  }, [rep]);
+    if (!modalData) return;
 
-  const changeSeletectDistrict = async (rep) => {
-    console.log(rep);
-    const data = await getUrlsReport(rep);
-    setModalData({ ...modalData, urls: data });
+    const getUrls = async () => {
+      const data = await getUrlsReport(modalData);
 
-    setFilteredReports((filteredReports) => [rep, ...filteredReports]);
+      setUrls(data);
+    };
+    getUrls();
 
-    if (rep) setModalOpen(true);
-  };
+    setModalOpen(true);
+  }, [modalData]);
 
   return (
     <>
@@ -70,17 +63,15 @@ function Management() {
         <Filter filter={filter} setFilter={setFilter} />
 
         <div className={style.content}>
-          <Table
-            reports={filteredReports}
-            onSelected={changeSeletectDistrict}
-            setModalData={setModalData}
-          />
+          <Table reports={filteredReports} setModalData={setModalData} />
         </div>
 
         {modalOpen && (
           <Modal
             modalData={modalData}
             setModalData={setModalData}
+            urls={urls}
+            setUrls={setUrls}
             setModalOpen={setModalOpen}
           />
         )}

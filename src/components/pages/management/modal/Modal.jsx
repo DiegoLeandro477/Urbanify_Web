@@ -1,18 +1,22 @@
 import React from "react";
 import style from "./style.module.css";
+
+import { ReportContext } from "../../../../context/reportContext";
+
 import { GrFormPrevious } from "react-icons/gr";
 import { GrFormNext } from "react-icons/gr";
 
-const Card = ({ modalData, setModalData, setModalOpen }) => {
+const Card = ({ setModalOpen, urls, setUrls }) => {
+  const { modalData, setModalData } = React.useContext(ReportContext);
   const [currentIndex, setCurrentIndex] = React.useState(0);
 
   const handleNext = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % modalData.urls.length);
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % urls.length);
   };
 
   const handlePrev = () => {
     setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? modalData.urls.length - 1 : prevIndex - 1
+      prevIndex === 0 ? urls.length - 1 : prevIndex - 1
     );
   };
 
@@ -31,6 +35,8 @@ const Card = ({ modalData, setModalData, setModalOpen }) => {
   const handleOverlayClick = (e) => {
     if (e.target === e.currentTarget) {
       setModalOpen(false);
+      setModalData(undefined);
+      setUrls([]);
     }
   };
 
@@ -48,7 +54,7 @@ const Card = ({ modalData, setModalData, setModalOpen }) => {
           />
           <img
             className={`img ${style.card__image}`}
-            src={modalData.urls[currentIndex]}
+            src={urls[currentIndex]}
             alt="Imagem"
           />
         </div>
@@ -68,7 +74,7 @@ const Card = ({ modalData, setModalData, setModalOpen }) => {
           <p className={`font-m-b c2 mb-1`}>
             TOTAL DE RELATOS:{" "}
             <span className={`font-m c4`}>
-              {modalData.reports} desde {reportDate()}.{" "}
+              {modalData.childrens.length} desde {reportDate()}.{" "}
             </span>
           </p>
 
@@ -80,14 +86,14 @@ const Card = ({ modalData, setModalData, setModalOpen }) => {
           <div className={`font-m c4  ${style.card__buttons}`}>
             <button
               className={`font-s btn-outline ${style.card__button}`}
-              onClick={() => setModalOpen(false)}
+              onClick={handleOverlayClick}
             >
               Cancelar
             </button>
 
             <button
               className={`font-s btn-primary ${style.card__button}`}
-              onClick={() => setModalOpen(false)}
+              onClick={() => handleOverlayClick()}
             >
               Confirmar reparo
             </button>

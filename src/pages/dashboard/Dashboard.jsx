@@ -50,8 +50,6 @@ const Dashboard = () => {
     setFilteredReports(result);
   }, [filter, reports, resolvedReports]);
 
-  console.log(getDistricts(reports));
-
   return (
     <div className={`${style.dashboard}`}>
       <ul>

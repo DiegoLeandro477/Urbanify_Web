@@ -1,4 +1,7 @@
 import React from "react";
+
+import { ReportContext } from "../../../../context/reportContext";
+
 import { MapContainer, TileLayer, useMap } from "react-leaflet";
 import style from "./style.module.css";
 import "leaflet/dist/leaflet.css";
@@ -11,17 +14,17 @@ import { useNavigate } from "react-router-dom";
 import Search from "./search/Search";
 
 const MapReports = ({ reports }) => {
+  const { modalData, setModalData } = React.useContext(ReportContext);
   const [coordinates, setCoordinates] = React.useState({});
   const [position] = React.useState([-2.5387, -44.2825]);
   const [bounds] = React.useState([
     [0, -42], // Sudoeste
     [-4, -46], // Nordeste
   ]);
+  const navigate = useNavigate();
 
   const ClusterMarkers = ({ reports }) => {
     const map = useMap();
-
-    const navigate = useNavigate(); // Use useNavigate para redirecionar
 
     React.useEffect(() => {
       const markers = L.markerClusterGroup();
@@ -46,11 +49,10 @@ const MapReports = ({ reports }) => {
           fillOpacity: 0.7,
         });
 
-        // Adiciona um evento de clique para redirecionar ao report
         marker.on("click", () => {
-          navigate(
-            `/management/${JSON.stringify({ address: report.address, geohash: report.geohash })}`
-          );
+          setModalData(report);
+
+          navigate(`/management`);
         });
 
         markers.addLayer(marker);
@@ -73,7 +75,6 @@ const MapReports = ({ reports }) => {
     React.useEffect(() => {
       if (!coordinates.lat || !coordinates.lon) return;
       const { lat, lon } = coordinates;
-      console.log(lat, lon);
 
       map.setView([lat, lon], 16, { animate: true, duration: 1.5 });
     }, [coordinates]);
