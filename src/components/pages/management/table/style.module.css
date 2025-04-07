@@ -1,39 +1,3 @@
-/* Container para o texto que vai animar */
-.marquee_container {
-  position: relative;
-  overflow: hidden;
-  width: 100%;
-}
-
-.marquee_content {
-  white-space: nowrap;
-  display: inline-block;
-  transition: transform 0.3s ease;
-  padding-right: 20px; /* Espaço para não cortar abruptamente */
-}
-
-/* Animação do letreiro */
-.marquee_animate {
-  animation: marquee 5s linear infinite;
-  animation-direction: alternate;
-}
-
-@keyframes marquee {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(calc(-100% + 100%));
-  }
-}
-
-/* Aplica apenas nas colunas desejadas */
-.body__list td:nth-child(1) .marquee_content,
-.body__list td:nth-child(2) .marquee_content,
-.body__list td:nth-child(7) .marquee_content {
-  padding-right: 20px;
-}
-
 .tableContainer {
   width: 100%;
   overflow: hidden;
@@ -44,60 +8,46 @@
   overflow-x: auto;
 }
 
-/* Tabela com larguras controladas */
 .table {
   width: 100%;
-  table-layout: fixed; /* 🔥 Mudança crítica */
+  table-layout: auto;
   border-collapse: collapse;
   min-width: 800px;
 }
 
-/* Cabeçalho e corpo alinhados */
 .header__list,
 .body__list {
   display: flex;
   width: 100%;
 }
 
-/* Estilos base das células */
 .header__list th,
 .body__list td {
   flex: none;
   text-align: center;
   vertical-align: middle;
-  padding: 0.5rem 0.75rem;
+  padding: 0.5rem 1rem;
   border: 1px solid var(--c10);
   cursor: pointer;
+}
+
+.header__list th:nth-child(-n + 2),
+.body__list td:nth-child(-n + 2) {
+  width: calc(100% / 4);
+}
+
+.header__list th:nth-child(n + 3),
+.body__list td:nth-child(n + 3) {
+  min-width: 12ch;
+  max-width: 15ch;
+  width: calc(100% / 8);
+}
+
+.body__list td {
+  max-width: 100%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-/* 🔥 LARGURAS PERSONALIZADAS (sua principal solicitação) */
-/* Bairro - Coluna 1 */
-.header__list th:nth-child(1),
-.body__list td:nth-child(1) {
-  min-width: 100px; /* Largura maior */
-  width: 25%;
-}
-
-/* Rua - Coluna 2 */
-.header__list th:nth-child(2),
-.body__list td:nth-child(2) {
-  min-width: 180px;
-  width: 25%;
-}
-
-/* Colunas compactas (Status, Relatos, etc.) - Colunas 3 a 7 */
-.header__list th:nth-child(n + 3),
-.body__list td:nth-child(n + 3) {
-  min-width: 100px;
-  width: 10%;
-}
-
-/* Estilos visuais */
-.body__list td {
-  max-width: 100%;
 }
 
 .body__list_select td {
@@ -106,21 +56,61 @@
 
 .header__list th {
   border: 1px solid var(--c6);
+}
+
+.header__list th {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  border-bottom: 2px solid var(--c8);
+
   background: var(--p1);
   color: var(--c10);
-  font-weight: bold;
 }
 
-/* Efeitos de hover */
-.body__list:hover td {
-  background: rgba(0, 123, 255, 0.05);
+.header__list th span,
+.header__list th div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-/* Paginação (mantido do original) */
 .pagination {
   display: flex;
   gap: 5px;
   margin-top: 2rem;
   justify-content: center;
   align-items: center;
+}
+
+.box {
+  font: 1rem;
+  padding: 0.25rem;
+  border: 1px solid var(--c8);
+  color: var(--c2);
+  background: var(--c12);
+  cursor: pointer;
+  border-radius: 2px;
+  transition: background-color 0.3s ease;
+  width: 2rem;
+  height: 2rem;
+}
+
+.prev,
+.next {
+  width: 1.4rem;
+  height: 1.4rem;
+  color: var(--c4);
+}
+
+.select {
+  background-color: var(--p1);
+  color: var(--c12);
+}
+
+.disabled {
+  border: none;
+  color: var(--c8);
 }

@@ -7,7 +7,7 @@ import { filterSeverityEnum, ReportStatusEnum } from "../../utils/environment";
 import useReports from "../../hooks/useReports";
 import useResolvedReports from "../../hooks/useResolvedReports";
 import { useParams } from "react-router-dom";
-import Card from "../../components/pages/management/card/Card";
+import Modal from "../../components/pages/management/modal/Modal";
 import { getUrlsReport } from "../../services/getUrlsReport";
 import { filterReports } from "../../services/dashboard";
 
@@ -65,10 +65,16 @@ function Management() {
         </div>
 
         {modalOpen && (
-          <Card
+          <Modal
             urls={urls}
             close={setModalOpen}
             on={() => alert("reparando...")}
+            reportData={{
+              district: "Liberdade",
+              street: "Rua Machado De Assis",
+              reports: 15,
+              created_at: "2025-07-17T19:41:09.622Z",
+            }}
           />
         )}
       </main>
