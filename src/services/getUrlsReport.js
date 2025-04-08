@@ -8,3 +8,12 @@ export const getUrlsReport = async (arg) => {
 
   return response.data.data.urls;
 };
+
+export const getUrlsResolvedReport = async (arg) => {
+  if (!arg) return;
+  const response = await GET(
+    `/registration/id/${arg.id}/created_at/${arg.created_at}`
+  );
+
+  return response.data.data.urls;
+};

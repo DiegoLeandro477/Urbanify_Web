@@ -11,7 +11,10 @@ import Filter from "../../components/filter/Filter";
 import Table from "../../components/pages/management/table/Table";
 import Modal from "../../components/pages/management/modal/Modal";
 
-import { getUrlsReport } from "../../services/getUrlsReport";
+import {
+  getUrlsReport,
+  getUrlsResolvedReport,
+} from "../../services/getUrlsReport";
 import { filterReports } from "../../services/dashboard";
 
 import { ReportStatusEnum } from "../../utils/environment";
@@ -43,7 +46,10 @@ function Management() {
     if (!modalData) return;
 
     const getUrls = async () => {
-      const data = await getUrlsReport(modalData);
+      const data =
+        filter.status == ReportStatusEnum.PENDENTE
+          ? await getUrlsReport(modalData)
+          : await getUrlsResolvedReport(modalData);
 
       setUrls(data);
     };

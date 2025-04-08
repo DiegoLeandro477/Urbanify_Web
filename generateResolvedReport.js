@@ -11,7 +11,7 @@ const baseReports = [
 
 const generateReport = (base) => ({
   ...base,
-  status: rand(1, 0),
+  status: 2,
   subregion: "São Luís",
   id: rand(999999, 111111),
   address: "São Luís_" + base.district,
@@ -28,7 +28,7 @@ const generateReport = (base) => ({
 });
 
 const reports = baseReports.flatMap((r) =>
-  Array.from({ length: 1000 }, () => generateReport(r))
+  Array.from({ length: 1 }, () => generateReport(r))
 );
 
 fs.writeFile(
