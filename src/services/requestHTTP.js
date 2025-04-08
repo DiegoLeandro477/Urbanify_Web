@@ -18,11 +18,13 @@ export const login = async (obj) => {
 
 export const authLogin = async (obj) => {
   try {
-    const response = await axios.post(`${url_api}/user/auth/google`, obj, {
+    console.log(`${url_api}/user/auth/google`, obj, {
       headers: { "Content-Type": "application/json" },
     });
 
-    console.log(response);
+    const response = await axios.post(`${url_api}/user/auth/google`, obj, {
+      headers: { "Content-Type": "application/json" },
+    });
 
     return response;
   } catch (err) {
