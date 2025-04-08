@@ -16,6 +16,21 @@ export const login = async (obj) => {
   }
 };
 
+export const authLogin = async (obj) => {
+  try {
+    const response = await axios.post(`${url_api}/user/auth/google`, obj, {
+      headers: { "Content-Type": "application/json" },
+    });
+
+    console.log(response);
+
+    return response;
+  } catch (err) {
+    console.error("[LOGIN]: ", err);
+    return null;
+  }
+};
+
 // FUNÇÕES PARA AS REQUISIÇÕES NECESSÁRIAS
 
 export const GET = async (extend__url) => {

@@ -1,6 +1,7 @@
 import React from "react";
 import style from "./style.module.css";
 import useAuth from "../../hooks/useAuth";
+import OAuth from "./oauth/OAuth";
 
 function Login() {
   const {
@@ -93,6 +94,8 @@ function Login() {
               <button className={`font-m-b btn-primary`} onClick={signIn}>
                 ENTRAR
               </button>
+
+              <OAuth />
             </div>
           </div>
         </main>
