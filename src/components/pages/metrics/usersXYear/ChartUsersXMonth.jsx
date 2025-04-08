@@ -9,7 +9,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import useUsers from "../../../../hooks/useUsers";
+
 import { attendedsUsersByMonth } from "../../../../services/metrics";
 
 // Registrar componentes necessários
@@ -22,7 +22,7 @@ ChartJS.register(
   Legend
 );
 
-const MinimalistLineChart = () => {
+const MinimalistLineChart = ({ useUsers }) => {
   const { users } = useUsers();
   const [dataUsers, setDataUsers] = React.useState([]);
 

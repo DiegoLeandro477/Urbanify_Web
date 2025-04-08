@@ -1,13 +1,13 @@
 import React from "react";
 import { Pie } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import useReports from "../../../../hooks/useReports";
+
 import { severeXmoderate } from "../../../../services/metrics";
 
 // Registrar componentes necessários
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const StylishPieChart = ({ intervalTarget }) => {
+const StylishPieChart = ({ intervalTarget, useReports }) => {
   const { reports } = useReports();
   const [dataReports, setDataReports] = React.useState([]);
 

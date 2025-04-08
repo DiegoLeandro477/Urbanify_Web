@@ -95,7 +95,7 @@ const Table = () => {
                   <td className="font-s c4">{item.notAttendeds}</td>
                   <td className="font-s c4">{item.severeReports}</td>
                   <td className="font-s c4">{item.moderateReports}</td>
-                  <td className="font-s c4">{item.severesIndex}</td>
+                  <td className="font-s c4">{item.severeIndex}</td>
                   <td className="font-s c4">{item.repairs}</td>
                   <td className="font-s c4">{item.notRepaireds}</td>
                   <td className="font-s c4">{item.repairedsIndex}</td>

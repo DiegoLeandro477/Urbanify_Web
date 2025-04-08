@@ -1,13 +1,13 @@
 import React from "react";
 import { Pie } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import useUsers from "../../../../hooks/useUsers";
+
 import { attendedsUsersXnotAttendeds } from "../../../../services/metrics";
 
 // Registrar componentes necessários
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const StylishPieChart = () => {
+const StylishPieChart = ({ useUsers }) => {
   const { users } = useUsers();
   const [dataUsers, setDataUsers] = React.useState([]);
 

@@ -1,14 +1,12 @@
 import React from "react";
 import { Pie } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import useReports from "../../../../hooks/useReports";
-import useResolvedReports from "../../../../hooks/useResolvedReports";
 import { fixedsXnotFixedes } from "../../../../services/metrics";
 
 // Registrar componentes necessários
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const StylishPieChart = () => {
+const StylishPieChart = ({ useReports, useResolvedReports }) => {
   const { reports } = useReports();
   const { resolvedReports } = useResolvedReports();
   const [dataReports, setDataReports] = React.useState([]);

@@ -1,6 +1,5 @@
 import React from "react";
 import { reportsByYear } from "../../../../services/metrics";
-import useReports from "../../../../hooks/useReports";
 
 import { Bar } from "react-chartjs-2";
 import {
@@ -13,7 +12,7 @@ import {
 } from "chart.js";
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
-const MinimalistBarChart = () => {
+const MinimalistBarChart = ({ useReports }) => {
   const { reports } = useReports();
   const [dataReports, setDataReports] = React.useState([]);
 

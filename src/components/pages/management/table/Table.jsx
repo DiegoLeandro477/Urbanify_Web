@@ -6,6 +6,7 @@ import { ReportContext } from "../../../../context/reportContext";
 import Pagination from "../../../pagination/Pagination";
 import { getReportStatusName } from "../../../../utils/environment";
 import { countSeveritiesReport } from "../../../../utils/countSeveritiesReport";
+import { gravityIndex } from "../../../../utils/gravityIndex";
 import { sortData } from "../../../../utils/sortData";
 
 const Table = ({ reports = [] }) => {
@@ -22,6 +23,7 @@ const Table = ({ reports = [] }) => {
     { title: "Relatos", column: "reports" },
     { title: "Relatos Graves", column: "severeReports" },
     { title: "Relatos Moderados", column: "moderateReports" },
+    { title: "Índice De Gravidade", column: "gravityIndex" },
     { title: "Data", column: "date" },
   ];
 
@@ -39,6 +41,7 @@ const Table = ({ reports = [] }) => {
         reports: report.childrens.length,
         severeReports: countSeveritiesReport(report).severe,
         moderateReports: countSeveritiesReport(report).moderate,
+        gravityIndex: gravityIndex(report),
         date: new Date(report.created_at).getTime(),
       }));
 
@@ -101,6 +104,7 @@ const Table = ({ reports = [] }) => {
                   <td className="font-s c4">{item.reports}</td>
                   <td className="font-s c4">{item.severeReports}</td>
                   <td className="font-s c4">{item.moderateReports}</td>
+                  <td className="font-s c4">{item.gravityIndex}%</td>
                   <td className="font-s c4">
                     {`${String(date.getDate()).padStart(2, "0")}/${String(
                       date.getMonth() + 1

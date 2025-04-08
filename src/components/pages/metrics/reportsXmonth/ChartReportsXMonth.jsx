@@ -9,7 +9,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import useReports from "../../../../hooks/useReports";
+
 import { reportsByMonth } from "../../../../services/metrics";
 
 // Registrar componentes necessários
@@ -22,7 +22,7 @@ ChartJS.register(
   Legend
 );
 
-const MinimalistLineChart = ({ monthTarget }) => {
+const MinimalistLineChart = ({ monthTarget, useReports }) => {
   const { reports } = useReports();
   const [dataReports, setDataReports] = React.useState([]);
 

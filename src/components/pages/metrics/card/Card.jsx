@@ -3,6 +3,10 @@ import style from "./style.module.css";
 import { FilterTypeEnum, ChartCardEnum } from "../../../../utils/environment";
 import DateRanger from "../../../filter/dateRanger/DateRanger";
 
+import useUsers from "../../../../hooks/useUsers";
+import useReports from "../../../../hooks/useReports";
+import useResolvedReports from "../../../../hooks/useResolvedReports";
+
 import ChartReportsXYear from "../reportsXyear/ChartReportsXYear";
 import ChartReportsXMonth from "../reportsXmonth/ChartReportsXMonth";
 
@@ -82,27 +86,40 @@ const Card = ({ data: { title, subtitle, type, filterType } }) => {
         {renderSelect()}
       </div>
 
-      {ChartCardEnum.REPORTS__YEAR == type && <ChartReportsXYear />}
+      {ChartCardEnum.REPORTS__YEAR == type && (
+        <ChartReportsXYear useReports={useReports} />
+      )}
 
       {ChartCardEnum.REPORTS__MONTH == type && (
-        <ChartReportsXMonth monthTarget={monthTarget} />
+        <ChartReportsXMonth monthTarget={monthTarget} useReports={useReports} />
       )}
 
       {ChartCardEnum.ATTENDED__NOT_ATTENDED == type && (
-        <ChartAttendedXNotAttended />
+        <ChartAttendedXNotAttended useUsers={useUsers} />
       )}
 
       {ChartCardEnum.FIX__FIXED == type && (
-        <ChartFixXFixed monthTarget={monthTarget} />
+        <ChartFixXFixed
+          monthTarget={monthTarget}
+          useReports={useReports}
+          useResolvedReports={useResolvedReports}
+        />
       )}
 
       {ChartCardEnum.SEVERE__MODERATE == type && (
-        <ChartSevereXModerate intervalTarget={filter.date} />
+        <ChartSevereXModerate
+          intervalTarget={filter.date}
+          useReports={useReports}
+        />
       )}
 
-      {ChartCardEnum.ATTENDEDS__MONTH == type && <ChartAttendedsXMonth />}
+      {ChartCardEnum.ATTENDEDS__MONTH == type && (
+        <ChartAttendedsXMonth useUsers={useUsers} />
+      )}
 
-      {ChartCardEnum.USERS__YEAR == type && <ChartUsersXMonth />}
+      {ChartCardEnum.USERS__YEAR == type && (
+        <ChartUsersXMonth useUsers={useUsers} />
+      )}
     </div>
   );
 };

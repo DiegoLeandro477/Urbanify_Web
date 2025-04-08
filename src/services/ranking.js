@@ -93,7 +93,7 @@ export const formatDistricts = ({ reports, resolvedReports }) => {
       notAttendeds: attendeds.notAttendeds,
       severeReports: gravityReports.severes,
       moderateReports: gravityReports.moderates,
-      severesIndex: gravityReports.gravityIndex + "%",
+      severeIndex: gravityReports.gravityIndex + "%",
       repairs: repairs,
       notRepaireds: attendeds.reports,
       repairedsIndex: Math.round(repairedsIndex) + "%",

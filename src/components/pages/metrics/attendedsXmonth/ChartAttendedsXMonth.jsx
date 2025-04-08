@@ -1,5 +1,4 @@
 import React from "react";
-import useUsers from "../../../../hooks/useUsers";
 import { attendedsUsersByYear } from "../../../../services/metrics";
 
 import { Bar } from "react-chartjs-2";
@@ -13,7 +12,7 @@ import {
 } from "chart.js";
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
-const MinimalistBarChart = () => {
+const MinimalistBarChart = ({ useUsers }) => {
   const { users } = useUsers();
   const [dataUsers, setDataUsers] = React.useState([]);
 
