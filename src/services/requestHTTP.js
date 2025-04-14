@@ -18,10 +18,6 @@ export const login = async (obj) => {
 
 export const authLogin = async (obj) => {
   try {
-    console.log(`${url_api}/user/auth/google`, obj, {
-      headers: { "Content-Type": "application/json" },
-    });
-
     const response = await axios.post(`${url_api}/user/auth/google`, obj, {
       headers: { "Content-Type": "application/json" },
     });

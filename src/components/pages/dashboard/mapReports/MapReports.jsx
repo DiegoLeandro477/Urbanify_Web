@@ -39,14 +39,30 @@ const MapReports = ({ reports }) => {
 
         const childrenLength = report.childrens.length;
         const childrenMedia = mediaOfChildrensForReports(reports);
-        let colorMarker = "green";
-        if (childrenLength > childrenMedia / 2) colorMarker = "green";
-        if (childrenLength > childrenMedia / 1.5) colorMarker = "orange";
-        if (childrenLength > childrenMedia / 0.6) colorMarker = "red";
+        let colorMarker = ["#1e88e5", "#bbdefb"];
+        if (childrenLength > childrenMedia / 2)
+          colorMarker = ["#43a047", "#c8e6c9"];
+        if (childrenLength > childrenMedia / 1.5)
+          colorMarker = ["#fb8c00", "#ffe0b2"];
+        if (childrenLength > childrenMedia / 0.6)
+          colorMarker = ["#e53935", "##F5C2C3"];
 
-        const marker = L.circleMarker([latitude, longitude], {
-          color: colorMarker,
-          fillOpacity: 0.7,
+        const marker = L.marker([latitude, longitude], {
+          icon: L.divIcon({
+            className: "font-xs c12 custom-marker",
+            html: `<div class="marker-content" style="
+              border: 3px solid ${colorMarker[1]};
+              background-color: ${colorMarker[0]};
+              border-radius: 50%;
+              width: 30px;
+              height: 30px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            ">${childrenLength}</div>`,
+            iconSize: [30, 30],
+            iconAnchor: [15, 15],
+          }),
         });
 
         marker.on("click", () => {
