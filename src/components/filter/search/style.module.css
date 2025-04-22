@@ -1,32 +1,24 @@
-.search {
-  padding: 0 1.5rem;
-}
-
 .search__box {
   position: relative;
   background: white;
-  width: 15rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.5rem;
-
   color: var(--c4);
   border: 1px solid var(--c8);
   border-radius: 2px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
 }
 
 .search__input {
   border: none;
   outline: none;
   box-shadow: none;
-  width: min-content;
-  width: 90%;
+  padding: 0.5rem;
 }
 
 .search__icon {
   cursor: pointer;
+  padding-right: 0.5rem;
 }
 
 /* Estilos para o autocomplete */
