@@ -46,6 +46,32 @@ const getRepairs = ({ resolvedReports, districtTarget }) => {
   }, 0);
 };
 
+export const filterReports = ({ data, filter }) => {
+  if (data.length === 0) return [];
+  const startTarget = filter.date.start ? new Date(filter.date.start) : null;
+  const endTarget = filter.date.start ? new Date(filter.date.end) : null;
+
+  // FILTER BY DATE
+  const filteredReportsByDate = data.filter((report) => {
+    const reportDate = new Date(report.created_at); // Converte para Date
+
+    if (
+      (reportDate >= startTarget && reportDate <= endTarget) ||
+      (!startTarget && !endTarget)
+    )
+      return true;
+  });
+
+  // FILTER BY DISTRICT
+  const filteredReportsByDistrict = filteredReportsByDate.filter((report) => {
+    if (filter.districtTarget == "") return true;
+    const reportDistrict = report.district;
+    return reportDistrict == filter.districtTarget;
+  });
+
+  return filteredReportsByDistrict;
+};
+
 export const formatDistricts = ({ reports, resolvedReports }) => {
   const districtsMap = new Map(); // Usa um Map para garantir unicidade
 

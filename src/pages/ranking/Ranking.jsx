@@ -4,7 +4,15 @@ import Header from "../../components/header/Header";
 import Control from "../../components/pages/ranking/control/Control";
 import Table from "../../components/pages/ranking/table/Table";
 
+import useReports from "../../hooks/useReports";
+import useResolvedReports from "../../hooks/useResolvedReports.js";
+import { filterReports } from "../../services/ranking.js";
+
 function Metrics() {
+  const { reports } = useReports();
+  const { resolvedReports } = useResolvedReports();
+  const [reportsFiltered, setReportsFiltered] = React.useState([]);
+  const [resolvedFiltered, setResolvedFiltered] = React.useState([]);
   const [filter, setFilter] = React.useState({
     date: {
       start: null,
@@ -12,6 +20,14 @@ function Metrics() {
     },
     districtTarget: "",
   });
+
+  React.useEffect(() => {
+    const resultReports = filterReports({ data: reports, filter });
+    const resultResolveds = filterReports({ data: resolvedReports, filter });
+
+    setReportsFiltered(resultReports);
+    setResolvedFiltered(resultResolveds);
+  }, [reports, resolvedReports, filter]);
 
   return (
     <>
@@ -23,7 +39,7 @@ function Metrics() {
       <main className={`m-1-5 container ${style.main}`}>
         <Control filter={filter} setFilter={setFilter} />
 
-        <Table />
+        <Table reports={reportsFiltered} resolvedReports={resolvedFiltered} />
       </main>
     </>
   );

@@ -3,14 +3,11 @@ import style from "./style.module.css";
 
 import Pagination from "../../../pagination/Pagination";
 import { sortData } from "../../../../utils/sortData";
-import useReports from "../../../../hooks/useReports";
-import useResolvedReports from "../../../../hooks/useResolvedReports.js";
+
 import useUsers from "../../../../hooks/useUsers.js";
 import { formatDistricts } from "../../../../services/ranking.js";
 
-const Table = () => {
-  const { reports } = useReports();
-  const { resolvedReports } = useResolvedReports();
+const Table = ({ reports, resolvedReports }) => {
   const { users } = useUsers();
   const [data, setData] = useState([]);
   const [order, setOrder] = useState({ column: null, direction: "asc" });
