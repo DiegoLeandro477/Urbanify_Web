@@ -1,11 +1,16 @@
 import React from "react";
 import style from "./style.module.css";
 import { IoIosSearch } from "react-icons/io";
+import useReports from "../../../hooks/useReports";
+import useResolvedReports from "../../../hooks/useResolvedReports";
+import { getUniqueDistricts } from "../../../services/dashboard";
 
-function Search({ setCoordinates }) {
+function Search({ filter, setFilter }) {
   const [query, setQuery] = React.useState("");
   const [suggestions, setSuggestions] = React.useState([]);
   const [active, setActive] = React.useState(false);
+  const { reports } = useReports();
+  const { resolvedReports } = useResolvedReports();
 
   React.useEffect(() => {
     if (!active) return;
@@ -18,40 +23,33 @@ function Search({ setCoordinates }) {
     return () => clearTimeout(timeout); // limpa se digitar de novo
   }, [query]);
 
-  // Função chamada a cada alteração no input para buscar sugestões
-  const getSuggestions = async () => {
-    const viewbox = "-47.4,-1.0,-40.0,-7.5"; // Limita a busca ao Maranhão
-    const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(
-      query,
-    )}&format=json&viewbox=${viewbox}&bounded=1&addressdetails=1`;
-
+  const getSuggestions = () => {
     try {
-      const response = await fetch(url);
-      const results = await response.json();
+      const results = getDistricts();
 
-      // Mapeia os resultados para exibição no autocomplete
-      const suggestionsData = results.map((item) => ({
-        label: `${item.address.road ? item.address.road + ", " : ""}${item.address.suburb ? item.address.suburb + " - " : ""}${item.address.city || item.address.municipality || ""}`,
-
-        lat: item.lat,
-        lon: item.lon,
-      }));
-
-      setSuggestions(suggestionsData);
+      setSuggestions(results);
     } catch (error) {
       console.error("Erro na busca autocomplete:", error);
     }
   };
 
-  // Quando o usuário clica em uma sugestão
+  const getDistricts = () => {
+    const districts = getUniqueDistricts({ reports, resolvedReports });
+
+    const filtered = districts.filter((item) =>
+      item.toLowerCase().includes(query.toLowerCase()),
+    );
+
+    return filtered;
+  };
+
   const handleSuggestionClick = (suggestion) => {
     setActive(false);
-    setQuery(suggestion.label); // Atualiza o input com a sugestão selecionada
+    setQuery(suggestion); // Atualiza o input com a sugestão selecionada
     setSuggestions([]); // Remove as sugestões exibidas
-    setCoordinates({ lat: suggestion.lat, lon: suggestion.lon }); // Atualiza as coordenadas
 
     setTimeout(() => {
-      setCoordinates({ lat: null, lon: null });
+      setFilter({ ...filter, districtTarget: suggestion });
     }, 500);
   };
 
@@ -61,7 +59,7 @@ function Search({ setCoordinates }) {
     >
       <div className={style.search__box}>
         <input
-          className={`font-m c4 ${style.search__input}`}
+          className={`font-xs c4 ${style.search__input}`}
           type="text"
           placeholder="Pesquisar por bairro ou rua"
           value={query}
@@ -69,22 +67,24 @@ function Search({ setCoordinates }) {
             setQuery(e.target.value);
             setActive(true);
           }}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              handleSuggestionClick(""); // Seleciona a primeira sugestão
+            }
+          }}
         />
 
-        <IoIosSearch
-          className={`c4 ${style.search__icon}`}
-          onClick={getSuggestions}
-        />
+        <IoIosSearch className={`c4 ${style.search__icon}`} />
       </div>
       {suggestions.length > 0 && (
         <ul className={style.autocompleteSuggestions}>
           {suggestions.map((suggestion, index) => (
             <li
               key={index}
-              className={style.autocompleteSuggestion}
+              className={`font-xs c4 ${style.autocompleteSuggestion}`}
               onClick={() => handleSuggestionClick(suggestion)}
             >
-              {suggestion.label}
+              {suggestion}
             </li>
           ))}
         </ul>

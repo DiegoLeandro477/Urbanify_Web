@@ -1,7 +1,6 @@
 export const gravityIndex = (report) => {
   if (!report) return;
 
-  console.log(report);
   let severes = 0;
   let moderates = 0;
 

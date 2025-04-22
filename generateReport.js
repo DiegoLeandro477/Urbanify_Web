@@ -20,8 +20,9 @@ const generateReport = (base) => ({
   geohash: `7p8986c`,
   created_at: `2025-${String(rand(12, 1)).padStart(2, "0")}-${String(rand(28, 1)).padStart(2, "0")}T19:41:09.622Z`,
   coordinates: {
-    latitude: `-2.${randStr(8, "0123456789")}`,
-    longitude: `-44.${randStr(8, "0123456789")}`,
+    // -2.5456366509934414, -44.06466183831144
+    latitude: `-2.5${randStr(8, "0123456789")}`,
+    longitude: `-44.0${randStr(8, "0123456789")}`,
   },
   childrens: Array.from({ length: rand(10, 1) }, () => ({
     severity: rand(1, 0),
@@ -30,7 +31,7 @@ const generateReport = (base) => ({
 });
 
 const reports = baseReports.flatMap((r) =>
-  Array.from({ length: 1 }, () => generateReport(r))
+  Array.from({ length: 1000 }, () => generateReport(r)),
 );
 
 fs.writeFile(
@@ -40,5 +41,5 @@ fs.writeFile(
   (err) => {
     if (err) console.error("Erro ao escrever o arquivo:", err);
     else console.log("Arquivo criado com sucesso!");
-  }
+  },
 );

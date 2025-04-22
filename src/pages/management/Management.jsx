@@ -33,6 +33,7 @@ function Management() {
       start: null,
       end: null,
     },
+    districtTarget: "",
   });
   const [filteredReports, setFilteredReports] = React.useState([]);
 

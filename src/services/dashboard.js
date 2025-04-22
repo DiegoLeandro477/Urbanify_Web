@@ -23,6 +23,7 @@ export const filterReports = ({ reports, resolvedReports, filter }) => {
       return true;
   });
 
+  // FILTER BY SEVERITY
   const filteredReportsBySeverity = filteredReportsByDate.filter((report) => {
     if (filter.severity == null) return true;
     const reportSeverity = verifySeverityReport(report);
@@ -30,7 +31,16 @@ export const filterReports = ({ reports, resolvedReports, filter }) => {
     return reportSeverity == filter.severity;
   });
 
-  return filteredReportsBySeverity;
+  // FILTER BY DISTRICT
+  const filteredReportsByDistrict = filteredReportsBySeverity.filter(
+    (report) => {
+      if (filter.districtTarget == "") return true;
+      const reportDistrict = report.district;
+      return reportDistrict == filter.districtTarget;
+    },
+  );
+
+  return filteredReportsByDistrict;
 };
 
 export const totalReports = (reports) => {

@@ -9,7 +9,7 @@ const FilterServerity = ({ filter, setFilter }) => {
         className={`font-xs  ${style.list__item}  ${filter.severity == null && style.select}`}
         onClick={() => setFilter({ ...filter, severity: null })}
       >
-        Todas ocorrências
+        Todos
       </li>
       <li
         className={`font-xs  ${style.list__item} ${filter.severity === filterSeverityEnum.SEVERE && style.select}`}
@@ -17,7 +17,7 @@ const FilterServerity = ({ filter, setFilter }) => {
           setFilter({ ...filter, severity: filterSeverityEnum.SEVERE })
         }
       >
-        Somente graves
+        Graves
       </li>
       <li
         className={`font-xs  ${style.list__item} ${filter.severity === filterSeverityEnum.MODERATE && style.select}`}
@@ -25,7 +25,7 @@ const FilterServerity = ({ filter, setFilter }) => {
           setFilter({ ...filter, severity: filterSeverityEnum.MODERATE })
         }
       >
-        Somente moderados
+        Moderados
       </li>
     </ul>
   );

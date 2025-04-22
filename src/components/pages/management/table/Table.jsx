@@ -107,7 +107,7 @@ const Table = ({ reports = [] }) => {
                   <td className="font-s c4">{item.gravityIndex}%</td>
                   <td className="font-s c4">
                     {`${String(date.getDate()).padStart(2, "0")}/${String(
-                      date.getMonth() + 1
+                      date.getMonth() + 1,
                     ).padStart(2, "0")}/${date.getFullYear()}`}
                   </td>
                 </tr>
