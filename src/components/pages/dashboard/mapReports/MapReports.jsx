@@ -31,10 +31,10 @@ const MapReports = ({ reports }) => {
 
       reports.forEach((report) => {
         const latitude = parseFloat(
-          report.coordinates.latitude.replace(/['"]/g, "")
+          report.coordinates.latitude.replace(/['"]/g, ""),
         );
         const longitude = parseFloat(
-          report.coordinates.longitude.replace(/['"]/g, "")
+          report.coordinates.longitude.replace(/['"]/g, ""),
         );
 
         const childrenLength = report.childrens.length;

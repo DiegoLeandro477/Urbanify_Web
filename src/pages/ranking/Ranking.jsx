@@ -46,7 +46,7 @@ function Metrics() {
       />
 
       <main className={`m-1-5 container ${style.main}`}>
-        <Control filter={filter} setFilter={setFilter} />
+        <Control filter={filter} setFilter={setFilter} data={data} />
 
         <Table data={data} setData={setData} />
       </main>

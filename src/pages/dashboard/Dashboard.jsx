@@ -47,6 +47,7 @@ const Dashboard = () => {
 
   React.useEffect(() => {
     const result = filterReports({ reports, resolvedReports, filter });
+    console.log(reports);
 
     setFilteredReports(result);
   }, [filter, reports, resolvedReports]);

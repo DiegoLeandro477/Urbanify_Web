@@ -5,9 +5,9 @@ import Search from "../../../filter/search/Search";
 
 import { generateExcel } from "../../../../utils/generateExcel";
 
-const Control = ({ filter, setFilter }) => {
+const Control = ({ filter, setFilter, data }) => {
   const handleDownload = () => {
-    generateExcel();
+    generateExcel(data);
   };
 
   return (

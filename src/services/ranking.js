@@ -76,8 +76,6 @@ export const filterReports = ({ data, filter }) => {
 export const formatDistricts = ({ reports, resolvedReports }) => {
   const districtsMap = new Map(); // Usa um Map para garantir unicidade
 
-  console.log(reports, resolvedReports);
-
   reports.forEach((report) => {
     // Verifica se o distrito já existe no Map
     if (!districtsMap.has(report.district)) {

@@ -1,17 +1,35 @@
 import ExcelJS from "exceljs";
 
-export async function generateExcel() {
+export async function generateExcel(data) {
+  console.log(data);
   const workbook = new ExcelJS.Workbook();
   const worksheet = workbook.addWorksheet("Relatório");
 
   worksheet.columns = [
-    { header: "ID", key: "id", width: 10 },
-    { header: "Nome", key: "name", width: 30 },
-    { header: "Email", key: "email", width: 30 },
+    { header: "Bairro", key: "district", width: 20 },
+    { header: "Moradores Atendidos", key: "attendeds", width: 20 },
+    { header: "Moradores A Serem Atendidos", key: "notAttendeds", width: 20 },
+    { header: "N° Relatos Graves", key: "severeReports", width: 20 },
+    { header: "N° Relatos Moderados", key: "moderateReports", width: 20 },
+    { header: "Índice De Gravidade", key: "severesIndex", width: 20 },
+    { header: "Reparos Realizados", key: "repairs", width: 20 },
+    { header: "Reparos Pendentes", key: "notRepaireds", width: 20 },
+    { header: "Índice De Reparos", key: "repairedsIndex", width: 20 },
   ];
 
-  worksheet.addRow({ id: 1, name: "João", email: "joao@email.com" });
-  worksheet.addRow({ id: 2, name: "Maria", email: "maria@email.com" });
+  data.forEach((item) => {
+    worksheet.addRow({
+      district: item.district,
+      attendeds: item.attendeds,
+      notAttendeds: item.notAttendeds,
+      severeReports: item.severeReports,
+      moderateReports: item.moderateReports,
+      severesIndex: item.severeIndex,
+      repairs: item.repairs,
+      notRepaireds: item.notRepaireds,
+      repairedsIndex: item.repairedsIndex,
+    });
+  });
 
   const buffer = await workbook.xlsx.writeBuffer();
 
