@@ -1,17 +1,12 @@
-import { useEffect, useState } from "react";
+import React from "react";
 import style from "./style.module.css";
 
 import Pagination from "../../../pagination/Pagination";
 import { sortData } from "../../../../utils/sortData";
 
-import useUsers from "../../../../hooks/useUsers.js";
-import { formatDistricts } from "../../../../services/ranking.js";
-
-const Table = ({ reports, resolvedReports }) => {
-  const { users } = useUsers();
-  const [data, setData] = useState([]);
-  const [order, setOrder] = useState({ column: null, direction: "asc" });
-  const [currentPage, setCurrentPage] = useState(1);
+const Table = ({ data, setData }) => {
+  const [order, setOrder] = React.useState({ column: null, direction: "asc" });
+  const [currentPage, setCurrentPage] = React.useState(1);
 
   const reportsPerPage = 7; // Número de itens por página
   const totalPages = Math.ceil(data.length / reportsPerPage);
@@ -32,23 +27,6 @@ const Table = ({ reports, resolvedReports }) => {
   const start = (currentPage - 1) * reportsPerPage;
   const end = start + reportsPerPage;
   const paginatedReports = data.slice(start, end);
-
-  // Atualiza os dados do estado quando `reports` muda
-  useEffect(() => {
-    if (
-      !reports &&
-      reports.length === 0 &&
-      !resolvedReports &&
-      resolvedReports.length === 0 &&
-      !users &&
-      users.length === 0
-    )
-      return;
-
-    const response = formatDistricts({ reports, resolvedReports, users });
-
-    setData(response);
-  }, [reports, resolvedReports, users]);
 
   const getIconeOrdenacao = (column) => {
     if (order.column === column) {

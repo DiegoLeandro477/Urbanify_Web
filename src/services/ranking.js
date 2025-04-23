@@ -47,7 +47,8 @@ const getRepairs = ({ resolvedReports, districtTarget }) => {
 };
 
 export const filterReports = ({ data, filter }) => {
-  if (data.length === 0) return [];
+  if (data?.length === 0) return [];
+
   const startTarget = filter.date.start ? new Date(filter.date.start) : null;
   const endTarget = filter.date.start ? new Date(filter.date.end) : null;
 
@@ -74,6 +75,8 @@ export const filterReports = ({ data, filter }) => {
 
 export const formatDistricts = ({ reports, resolvedReports }) => {
   const districtsMap = new Map(); // Usa um Map para garantir unicidade
+
+  console.log(reports, resolvedReports);
 
   reports.forEach((report) => {
     // Verifica se o distrito já existe no Map

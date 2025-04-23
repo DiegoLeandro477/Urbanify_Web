@@ -6,9 +6,10 @@ import Table from "../../components/pages/ranking/table/Table";
 
 import useReports from "../../hooks/useReports";
 import useResolvedReports from "../../hooks/useResolvedReports.js";
-import { filterReports } from "../../services/ranking.js";
+import { filterReports, formatDistricts } from "../../services/ranking.js";
 
 function Metrics() {
+  const [data, setData] = React.useState([]);
   const { reports } = useReports();
   const { resolvedReports } = useResolvedReports();
   const [reportsFiltered, setReportsFiltered] = React.useState([]);
@@ -22,11 +23,19 @@ function Metrics() {
   });
 
   React.useEffect(() => {
-    const resultReports = filterReports({ data: reports, filter });
-    const resultResolveds = filterReports({ data: resolvedReports, filter });
+    if (reports?.length === 0 && resolvedReports?.length === 0) return;
 
-    setReportsFiltered(resultReports);
-    setResolvedFiltered(resultResolveds);
+    const filteredReports = filterReports({ data: reports, filter });
+    const filteredResolved = filterReports({ data: resolvedReports, filter });
+
+    const formatted = formatDistricts({
+      reports: filteredReports,
+      resolvedReports: filteredResolved,
+    });
+
+    setReportsFiltered(filteredReports);
+    setResolvedFiltered(filteredResolved);
+    setData(formatted);
   }, [reports, resolvedReports, filter]);
 
   return (
@@ -39,7 +48,7 @@ function Metrics() {
       <main className={`m-1-5 container ${style.main}`}>
         <Control filter={filter} setFilter={setFilter} />
 
-        <Table reports={reportsFiltered} resolvedReports={resolvedFiltered} />
+        <Table data={data} setData={setData} />
       </main>
     </>
   );
