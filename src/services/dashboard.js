@@ -34,7 +34,8 @@ export const filterReports = ({ reports, resolvedReports, filter }) => {
   // FILTER BY DISTRICT
   const filteredReportsByDistrict = filteredReportsBySeverity.filter(
     (report) => {
-      if (!("districtTarget" in filter)) return true;
+      if (!("districtTarget" in filter) || filter.districtTarget == "")
+        return true;
 
       const reportDistrict = report.district;
       return reportDistrict == filter.districtTarget;

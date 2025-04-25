@@ -3,7 +3,7 @@ import React from "react";
 import { ReportContext } from "../../../../context/reportContext";
 
 import { MapContainer, TileLayer, useMap, useMapEvents } from "react-leaflet";
-import leafletImage from "leaflet-image";
+
 import style from "./style.module.css";
 import "leaflet/dist/leaflet.css";
 import "leaflet.markercluster/dist/MarkerCluster.css";
@@ -14,8 +14,12 @@ import mediaOfChildrensForReports from "../../../../utils/mediaOfChildrensForRep
 import { useNavigate } from "react-router-dom";
 import Search from "./search/Search";
 import { reverseGeocode } from "../../../../utils/reverseGeocode";
+import { takeScreenshot } from "../../../../services/takeScreenshot";
+
+import ModalCreateReport from "./modal/ModalCreateReport";
 
 const MapReports = ({ reports }) => {
+  const [modalOpen, setModalOpen] = React.useState(false);
   const { setModalData } = React.useContext(ReportContext);
   const [coordinates, setCoordinates] = React.useState({});
   const [position] = React.useState([-2.5387, -44.2825]);
@@ -102,26 +106,6 @@ const MapReports = ({ reports }) => {
     return null;
   };
 
-  const takeScreenshot = async (map) => {
-    return new Promise((resolve, reject) => {
-      leafletImage(map, (err, canvas) => {
-        if (err) return reject(err);
-
-        canvas.toBlob(
-          (blob) => {
-            if (blob) {
-              resolve(blob); // Retorna o blob no formato JPEG
-            } else {
-              reject(new Error("Erro ao gerar o blob do canvas"));
-            }
-          },
-          "image/jpeg", // Define o formato como JPEG
-          0.95, // Qualidade da imagem (0 a 1)
-        );
-      });
-    });
-  };
-
   const ClickHandler = () => {
     const map = useMap(); // <-- pega a instância real do mapa Leaflet
 
@@ -130,6 +114,7 @@ const MapReports = ({ reports }) => {
         const { lat, lng } = e.latlng;
 
         try {
+          setModalOpen(true);
           const data = await reverseGeocode(lat, lng);
           const screenshot = await takeScreenshot(map);
 
@@ -170,6 +155,8 @@ const MapReports = ({ reports }) => {
         <ClusterMarkers reports={reports} />
         <ClickHandler />
       </MapContainer>
+
+      {modalOpen && <ModalCreateReport setModalOpen={setModalOpen} />}
     </div>
   );
 };

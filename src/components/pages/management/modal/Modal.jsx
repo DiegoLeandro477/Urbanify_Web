@@ -18,7 +18,7 @@ const Card = ({ setModalOpen, urls, setUrls }) => {
 
   const handlePrev = () => {
     setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? urls.length - 1 : prevIndex - 1
+      prevIndex === 0 ? urls.length - 1 : prevIndex - 1,
     );
   };
 
