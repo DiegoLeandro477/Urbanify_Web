@@ -16,10 +16,11 @@ import Search from "./search/Search";
 import { reverseGeocode } from "../../../../utils/reverseGeocode";
 import { takeScreenshot } from "../../../../services/takeScreenshot";
 
-import ModalCreateReport from "./modal/ModalCreateReport";
+import ModalCreateReport from "../modal/ModalCreateReport";
 
 const MapReports = ({ reports }) => {
   const [modalOpen, setModalOpen] = React.useState(false);
+  const [createReportData, setCreateReportData] = React.useState({});
   const { setModalData } = React.useContext(ReportContext);
   const [coordinates, setCoordinates] = React.useState({});
   const [position] = React.useState([-2.5387, -44.2825]);
@@ -117,14 +118,11 @@ const MapReports = ({ reports }) => {
           setModalOpen(true);
           const data = await reverseGeocode(lat, lng);
           const screenshot = await takeScreenshot(map);
+          const file = new File([screenshot], "imagem.jpg", {
+            type: "image/jpeg",
+          });
 
-          console.log("📍 Dados do local:", data);
-          console.log("🖼️ Screenshot base64:", screenshot);
-
-          // Aqui você pode:
-          // - salvar screenshot
-          // - mostrar <img src={screenshot} />
-          // - enviar pra backend
+          setCreateReportData({ ...data, file });
         } catch (error) {
           console.error("Erro ao gerar o screenshot:", error);
         }
@@ -156,7 +154,12 @@ const MapReports = ({ reports }) => {
         <ClickHandler />
       </MapContainer>
 
-      {modalOpen && <ModalCreateReport setModalOpen={setModalOpen} />}
+      {modalOpen && (
+        <ModalCreateReport
+          setModalOpen={setModalOpen}
+          createReportData={createReportData}
+        />
+      )}
     </div>
   );
 };

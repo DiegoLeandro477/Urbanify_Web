@@ -68,3 +68,7 @@
 .bg-12 {
   background: var(--c12);
 }
+
+.bg-red {
+  background-color: var(--red);
+}
