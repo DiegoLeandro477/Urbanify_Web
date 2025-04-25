@@ -1,7 +1,6 @@
 import ExcelJS from "exceljs";
 
 export async function generateExcel(data) {
-  console.log(data);
   const workbook = new ExcelJS.Workbook();
   const worksheet = workbook.addWorksheet("Relatório");
 

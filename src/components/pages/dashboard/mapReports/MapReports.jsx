@@ -2,7 +2,8 @@ import React from "react";
 
 import { ReportContext } from "../../../../context/reportContext";
 
-import { MapContainer, TileLayer, useMap } from "react-leaflet";
+import { MapContainer, TileLayer, useMap, useMapEvents } from "react-leaflet";
+import leafletImage from "leaflet-image";
 import style from "./style.module.css";
 import "leaflet/dist/leaflet.css";
 import "leaflet.markercluster/dist/MarkerCluster.css";
@@ -12,6 +13,7 @@ import L from "leaflet";
 import mediaOfChildrensForReports from "../../../../utils/mediaOfChildrensForReports";
 import { useNavigate } from "react-router-dom";
 import Search from "./search/Search";
+import { reverseGeocode } from "../../../../utils/reverseGeocode";
 
 const MapReports = ({ reports }) => {
   const { setModalData } = React.useContext(ReportContext);
@@ -21,6 +23,8 @@ const MapReports = ({ reports }) => {
     [0, -42], // Sudoeste
     [-4, -46], // Nordeste
   ]);
+  const mapRef = React.useRef(null);
+
   const navigate = useNavigate();
 
   const ClusterMarkers = ({ reports }) => {
@@ -98,8 +102,55 @@ const MapReports = ({ reports }) => {
     return null;
   };
 
+  const takeScreenshot = async (map) => {
+    return new Promise((resolve, reject) => {
+      leafletImage(map, (err, canvas) => {
+        if (err) return reject(err);
+
+        canvas.toBlob(
+          (blob) => {
+            if (blob) {
+              resolve(blob); // Retorna o blob no formato JPEG
+            } else {
+              reject(new Error("Erro ao gerar o blob do canvas"));
+            }
+          },
+          "image/jpeg", // Define o formato como JPEG
+          0.95, // Qualidade da imagem (0 a 1)
+        );
+      });
+    });
+  };
+
+  const ClickHandler = () => {
+    const map = useMap(); // <-- pega a instância real do mapa Leaflet
+
+    useMapEvents({
+      contextmenu: async (e) => {
+        const { lat, lng } = e.latlng;
+
+        try {
+          const data = await reverseGeocode(lat, lng);
+          const screenshot = await takeScreenshot(map);
+
+          console.log("📍 Dados do local:", data);
+          console.log("🖼️ Screenshot base64:", screenshot);
+
+          // Aqui você pode:
+          // - salvar screenshot
+          // - mostrar <img src={screenshot} />
+          // - enviar pra backend
+        } catch (error) {
+          console.error("Erro ao gerar o screenshot:", error);
+        }
+      },
+    });
+
+    return null;
+  };
+
   return (
-    <div className={`${style.map__container}`}>
+    <div className={`${style.map__container}`} ref={mapRef}>
       <Search setCoordinates={setCoordinates} />
 
       <MapContainer
@@ -112,10 +163,12 @@ const MapReports = ({ reports }) => {
         zoomControl={false}
       >
         <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://tiles.stadiamaps.com/tiles/alidade_satellite/{z}/{x}/{y}{r}.jpg"
+          attribution='&copy; CNES, Distribution Airbus DS, © Airbus DS, © PlanetObserver (Contains Copernicus Data) | &copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          crossOrigin="anonymous"
         />
         <ClusterMarkers reports={reports} />
+        <ClickHandler />
       </MapContainer>
     </div>
   );
