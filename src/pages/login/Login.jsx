@@ -1,7 +1,7 @@
 import React from "react";
 import style from "./style.module.css";
 import useAuth from "../../hooks/useAuth";
-import OAuth from "./oauth/OAuth";
+// OAuth removido - usando apenas login por email
 
 function Login() {
   const {
@@ -83,9 +83,8 @@ function Login() {
                   </button>
                 </div>
                 <span
-                  className={`${
-                    loginError ? "font-xs input__legend" : "hidden"
-                  }`}
+                  className={`${loginError ? "font-xs input__legend" : "hidden"
+                    }`}
                 >
                   Verifique se seu email ou senha foram corretamente digitado
                 </span>
@@ -95,7 +94,7 @@ function Login() {
                 ENTRAR
               </button>
 
-              <OAuth />
+              {/* Login apenas por email - Google OAuth removido */}
             </div>
           </div>
         </main>

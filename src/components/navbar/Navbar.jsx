@@ -6,7 +6,7 @@ const Navbar = () => {
     <nav className={`${style.navbar}`}>
       <div className={`${style.navbar__content}`}>
         <div className={`${style.logo__frame}`}>
-          <h1 className={`font-logo c12`}>YOURBANI</h1>
+          <h1 className={`font-logo c12`}>URBANIFY</h1>
           {/* <img
             src="/src/assets/images/logo-white.svg "
             className={`img ${style.logo__img}`}

@@ -55,7 +55,10 @@ const Card = ({ setModalOpen, urls, setUrls }) => {
             onClick={handleNext}
           />
 
-          <LazyImage src={urls[currentIndex]} alt="Exemplo" />
+          <LazyImage
+            src="https://photos.wikimapia.org/p/00/02/25/32/83_big.jpg"
+            alt="Exemplo"
+          />
         </div>
 
         <div className={`${style.card__content}`}>
